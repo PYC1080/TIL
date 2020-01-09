@@ -162,7 +162,7 @@ CMD ["./setup.sh"]
 
 
 
-####  4
+####  4 : mongodb 띄우기
 
 ```powershell
 0. 기존 image, container 삭제
