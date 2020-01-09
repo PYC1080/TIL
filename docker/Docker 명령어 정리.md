@@ -269,11 +269,15 @@ Run a command in a running container
   -w, --workdir string       Working directory inside the container
 ```
 
-## 8. system prune
+## 8. prune
 
 ```powershell
 1. 용례
-docker system prune [OPTIONS]
+docker 대상 prune [OPTIONS]
+	1)대상의 종류
+system : 전체
+image : 이미지
+container : 컨테이너
 2. 기능
 Remove unused data
 3. 참고
