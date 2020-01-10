@@ -1,6 +1,6 @@
-# 도커 / 쿠버네티스 4일차 -
+# 도커 / 쿠버네티스 4일차 - docker stack
 
->p.
+>p. -127
 >
 >_____
 >
@@ -286,9 +286,11 @@ zg
 
 ```
 
-2. yaml 파일 생성p118-119 : C:\Users\HPE\docker\day04\swarm\stack  
+
 
 ```yaml
+2. yaml 파일 생성 p118-119 : C:\Users\HPE\docker\day04\swarm\stack\my-webapi.yml
+
 version: "3"
 
 services:
@@ -340,3 +342,151 @@ NAME                SERVICES            ORCHESTRATOR
 echo                2                   Swarm
 ```
 
+
+
+```yaml
+4. visualizer를 사용해 컨테이너 배치 시각화하기
+
+	1) C:\Users\HPE\docker\day04\swarm\stack\visualapp.yml 작성
+    
+version: "3"
+services:
+    app:
+        image: dockersamples/visualizer
+        ports:
+            -"9000:8080"
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+        deploy:
+            mode: global
+            placement:
+                constraints: [node.role == manager]
+```
+
+
+
+```powershell
+	2) Manager에서 해당 visualizer 작동
+	
+PS C:\Users\HPE\docker\day04\swarm> docker exec -it manager sh
+/ # docker stack deploy -c /stack/visualapp.yml visualizer
+Creating network visualizer_default
+Creating service visualizer_app
+
+
+```
+
+ 아래는 visualizer 가동이 된 모습을 확인한 것이다. 컨테이너의 위치를 지정해주지 않았기에 아래 모습과 다르게 나타날 수 있다.
+
+![visualizer 시각화모습](https://user-images.githubusercontent.com/55272324/72126823-f4a5f900-33b0-11ea-87f6-53fb62fcfe22.PNG)
+
+
+
+
+
+### 3. 스웜 클러스터 외부에서 서비스 사용하기
+
+> p.123 -
+
+
+
+```yaml
+1. echo_nginx 서비스는 여러 컨테이너가 여러 노드에 흩어져 배치되어 있기 때문에 서비스 클러스터 외부에서 오는 트래픽을 목적하는 서비스에 접근하기 프록시 서버가 있어야 한다. 따라서 haproxy 서버를 사용해 해당 서비스에 접근할 수 있도록 해보자.
+
+version: "3"
+services:
+    api:
+        image: registry:5000/example/ehco:latest
+        deploy:
+            replicas: 3
+            placement:
+                constraints: [node.role != manager]
+        networks:
+            - ch03
+    nginx:
+        image: gihyodocker/nginx-proxy:latest
+        deploy:
+            replicas: 3
+            placement: 
+                constraints: [node.role != manager]
+        environment:
+            SERVICE_PORTS: 80
+            BACKEND_HOST: echo_api:8080
+        depends_on:
+            - api
+        networks:
+            - ch03
+
+networks:
+    ch03:
+        external: true
+```
+
+현 단계에서 포트포워딩 관계도
+
+```powershell
+windows port : 8000
+Manager port : 80
+HAProxy port : 80
+api port : 8080
+
+windows - manager - HAProxy - api
+8000        80        80      8080
+```
+
+
+
+```yaml
+2. ch03-ingress.yaml 파일 생성
+
+version: "3"
+
+services:
+    haproxy:
+        image: dockercloud/haproxy
+        networks:
+            - ch03
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+        deploy:
+            mode: global
+            placement:
+                constraints:
+                    - node.role == manager
+        ports:
+            - 80:80
+            - 1936:1936
+networks:
+    ch03:
+        external: true
+```
+
+
+
+```powershell
+3. deploy
+
+/ # docker stack deploy -c /stack/my-webapi.yml echo
+Creating service echo_api
+Creating service echo_nginx
+
+/ # docker stack deploy -c /stack/ch03-ingress.yml ingress
+Creating service ingress_haproxy
+
+4. 해당 deploy 확인
+
+/ # docker stack services echo
+ID                  NAME                MODE                REPLICAS            IMAGE                               PORTS
+96bfb02mer3m        echo_nginx          replicated          3/3                 gihyodocker/nginx-proxy:latest
+wy31nyw1tkhm        echo_api            replicated          3/3                 registry:5000/example/ehco:latest
+
+/ # docker stack services ingress
+ID                  NAME                MODE                REPLICAS            IMAGE                        PORTS
+bhihu30p7d93        ingress_haproxy     global              1/1                 dockercloud/haproxy:latest   *:80->80/tcp, *:1936->1936/tcp
+```
+
+5. 결과 확인
+
+<img src="https://user-images.githubusercontent.com/55272324/72130189-10fb6300-33bc-11ea-9c90-0589f1a35ef3.PNG" alt="스웜 클러스터 외부에서 서비스 사용하기 결과" style="zoom:80%;" />
+
+<img src="https://user-images.githubusercontent.com/55272324/72130190-1193f980-33bc-11ea-9b17-da28fe0b3323.PNG" alt="스웜 클러스터 외부에서 서비스 사용하기 결과2" style="zoom:80%;" />
