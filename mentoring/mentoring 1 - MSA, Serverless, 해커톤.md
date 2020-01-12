@@ -1,14 +1,14 @@
-# Mentoring 1 
+# Mentoring 1
 
-> #microservice architecture #serverless #해커톤
+> #microservice architecture #serverless architecture #해커톤
 
 
 
 ## 1.  MICROSERVICE ARCHITECTURE(MSA)
 
-### 1.1 microservice가 등장한 배경
+### 1.1 MSA가 등장한 배경
 
-* 
+
 
 #### 1) Monolithic architecture 의미
 
@@ -38,6 +38,8 @@ MA 구조에서는 기능 일부를 수정하거나 확장하려는 경우 전�
 
 MSA는 서비스 사용량이 폭발적으로 늘어난 상황에서 어떻게 하면 최적의 시스템을 제공할 수 있을지 고민하다가 등장했다.
 
+
+
 ### 1.2 시스템 확장 방안
 
 #### 1) scale out 
@@ -54,3 +56,51 @@ MSA는 서비스 사용량이 폭발적으로 늘어난 상황에서 어떻게 �
 2) 비용 :  기능을 비교적으로 가격이 저럼한 여러 서버에 나누어 사용하므로 일반적으로 서버 이용의 부담이 적다. 하지만 서버 운영 대수가 늘어날수록 관리 편의성이 떨어지며 이를 보완하기 위한 운영 비용 또한 증가한다.
 
 3) 장애 발생시 영향 : 서비스의 많은 기능을 나누어 여러 서버에 분산하여 처리함으로서 일부 서버에 장애가 발생하더라도 전면 장애로 전환된 가능성이 적다.
+
+
+
+## 2. Severless architecture (SA)
+
+### 2-1. SA의 의미
+
+서버리스를 직역하자면 서버가 없다는 의미이지만 실제로 서버가 없는 것은 아니다. SA의 핵심은 추상화에 있다. BaaS(backend as a service), FaaS(Function as a service)에 의존하여 작업을 처리하게 된다.  이로 인해 서버에 대한 패치를 관리하고 운영체제를 유지 관리하는 인프라 관리 작업을 줄일 수 있게 된다.
+
+### 2-2 . BaaS 와 FaaS
+
+#### 1) BaaS(Backend as a Service)
+
+ 서버 개발을 하다보면 고려해야할 사항들이 많다. 유저가 늘어나게 될 경우 서버의 확장성도 고려해야하며 보안성 또한 문제로 떠오른다. 이를 해결하기 위해 BaaS가 대두 되었다. BaaS는 개발에 있어 필요한 다양한 기능을 API로 제공해 준다. 따라서 개발자들이 개발을 하지 않고서도 필요한 기능을 쉽고 빠르게 구현할 수 있게 해주었고, 필요한 기능만 구매할 수 있기 때문에 비용도 절감할 수 있었다. 즉, 서버의 이용자가 순식간에 늘어나도 해당 사용자 증가분만큼만 비용을 치르면 되게 되었다.
+
+#### 2) FaaS(Function as a Service) 
+
+ FaaS가 PaaS와 유사한 모습을 띄고 있지만 가장 중요한 차이점은 FaaS는 함수 단위로 제공된다는 점이다. FaaS는 프로젝트를 여러개의 함수 단위로 쪼개 매우 거대하고 분산된 컴퓨팅 자원에 준비해둔 함수를 등록하고 이 함수들이 실행되는 횟수, 시간 을 계산해 비용을 계산하게 된다.
+
+
+## 3. 해커톤
+
+### 3-1. 해커톤 꿀팁
+
+#### 1) 신기술을 사용해 사회 문제에 접목시킬 것
+
+#### 2) [Gartner 2020 ](https://www.gartner.com/smarterwithgartner/gartner-top-10-strategic-technology-trends-for-2020/)
+
+​	(1) Hyperautomation
+
+​	(2) Multiexperience
+
+​	(3) Democratization
+
+​	(4) Human augmentation
+
+​	(5) Transparency and traceability
+
+​	(6) The empowered edge
+
+​	(7) The distributed cloud
+
+​	(8) Autonomous things
+
+​	(9) Practical blockchain
+
+​	(10) AI security
+
