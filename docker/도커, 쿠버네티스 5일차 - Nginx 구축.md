@@ -245,76 +245,62 @@ d-----     2020-01-10   오후 5:00                store
 -a----     2020-01-10   오후 4:59            944 package.json
 -a----     2020-01-10   오후 4:59           1152 server.js
 
-1. npm install
+1. docker image build
 
-PS C:\Users\HPE\docker\day04\swarm\todo\todoweb> npm install
+PS C:\Users\HPE\docker\day04\swarm\todo\todoweb> docker image build -t ch04/todoweb:latest .
+Sending build context to Docker daemon  149.6MB
+Step 1/9 : FROM node:9.2.0
+9.2.0: Pulling from library/node
+85b1f47fba49: Pull complete
+ba6bd283713a: Pull complete
+817c8cd48a09: Pull complete
+47cc0ed96dc3: Pull complete
+8888adcbd08b: Pull complete
+6f2de60646b9: Pull complete
+9dd205971dc0: Pull complete
+5859715a4691: Pull complete
+Digest: sha256:7c9099e0f68242387d7755eaa54c287e16cedd3cca423444ca773794f5f1e423
+Status: Downloaded newer image for node:9.2.0
+ ---> c1d02ac1d9b4
+Step 2/9 : WORKDIR /todoweb
+ ---> Running in 4f7f78ccbb30
+Removing intermediate container 4f7f78ccbb30
+ ---> b1865e047fdc
+Step 3/9 : COPY . /todoweb
+ ---> f91996b1cb19
+Step 4/9 : RUN npm install -g vue-cli@2.9.3
+ ---> Running in 2641cb91575a
+npm WARN deprecated vue-cli@2.9.3: This package has been deprecated in favour of @vue/cli
+npm WARN deprecated coffee-script@1.12.7: CoffeeScript on NPM has moved to "coffeescript" (no hyphen)
+/usr/local/bin/vue -> /usr/local/lib/node_modules/vue-cli/bin/vue
+/usr/local/bin/vue-init -> /usr/local/lib/node_modules/vue-cli/bin/vue-init
+/usr/local/bin/vue-list -> /usr/local/lib/node_modules/vue-cli/bin/vue-list
++ vue-cli@2.9.3
+added 239 packages in 10.983s
+Removing intermediate container 2641cb91575a
+ ---> 9f1a23a9ef23
+Step 5/9 : RUN npm install
+ ---> Running in 0cdb67729f92
+npm WARN ajv-keywords@3.2.0 requires a peer of ajv@^6.0.0 but none is installed. You must install peer dependencies yourself.
+npm WARN optional SKIPPING OPTIONAL DEPENDENCY: fsevents@1.2.3 (node_modules/fsevents):
+npm WARN notsup SKIPPING OPTIONAL DEPENDENCY: Unsupported platform for fsevents@1.2.3: wanted {"os":"darwin","arch":"any"} (current: {"os":"linux","arch":"x64"})
 
-> uglifyjs-webpack-plugin@0.4.6 postinstall C:\Users\HPE\docker\day04\swarm\todo\todoweb\node_modules\webpack\node_modules\uglifyjs-webpack-plugin
-> node lib/post_install.js
+added 98 packages in 15.817s
+Removing intermediate container 0cdb67729f92
+ ---> d54fb0f5ddac
+Step 6/9 : RUN npm run build
+ ---> Running in bc27a8e8b76a
 
-
-> nuxt@1.0.0 postinstall C:\Users\HPE\docker\day04\swarm\todo\todoweb\node_modules\nuxt
-> opencollective postinstall || exit 0
-
-
-     *** Thank you for using nuxt! ***
-
-Please consider donating to our open collective
-     to help us maintain this package.
-
-  https://opencollective.com/nuxtjs/donate
-
-                    ***
-
-npm WARN optional SKIPPING OPTIONAL DEPENDENCY: fsevents@1.2.3 (node_modules\fsevents):
-npm WARN notsup SKIPPING OPTIONAL DEPENDENCY: Unsupported platform for fsevents@1.2.3: wanted {"os":"darwin","arch":"any"} (current: {"os":"win32","arch":"x64"})
-
-added 1249 packages from 696 contributors and audited 8206 packages in 133.232s
-found 391 vulnerabilities (1 low, 13 moderate, 376 high, 1 critical)
-  run `npm audit fix` to fix them, or `npm audit` for details
-  
-PS C:\Users\HPE\docker\day04\swarm\todo\todoweb> ls
-
-
-    디렉터리: C:\Users\HPE\docker\day04\swarm\todo\todoweb
-
-
-Mode                LastWriteTime         Length Name
-----                -------------         ------ ----
-d-----     2020-01-10   오후 5:00                assets
-d-----     2020-01-10   오후 5:00                layouts
-d-----     2020-01-10   오후 5:00                middleware
-d-----     2020-01-14   오후 2:30                node_modules
-d-----     2020-01-10   오후 5:00                pages
-d-----     2020-01-10   오후 5:00                plugins
-d-----     2020-01-10   오후 5:00                static
-d-----     2020-01-10   오후 5:00                store
--a----     2020-01-10   오후 4:59            192 Dockerfile
--a----     2020-01-10   오후 4:59           1206 nuxt.config.js
--a----     2020-01-14   오후 2:30         393251 package-lock.json
--a----     2020-01-10   오후 4:59            944 package.json
--a----     2020-01-10   오후 4:59           1152 server.js
-
-2. npm run build
-
-PS C:\Users\HPE\docker\day04\swarm\todo\todoweb> npm run build
-
-> todoweb@1.0.0 build C:\Users\HPE\docker\day04\swarm\todo\todoweb
+> todoweb@1.0.0 build /todoweb
 > nuxt build
 
-  nuxt:build Building... +0ms
-  nuxt:build App root: C:\Users\HPE\docker\day04\swarm\todo\todoweb +0ms
-  nuxt:build Generating C:\Users\HPE\docker\day04\swarm\todo\todoweb\.nuxt files... +0ms
-  nuxt:build Generating files... +7ms
-  nuxt:build Generating routes... +12ms
-  nuxt:build Building files... +36ms
-  ████████████████████ 100%
-
-Build completed in 34.197s
-
-
-
- WARNING  Compiled with 1 warnings                                                                       오후 3:01:17
+2020-01-14T06:23:36.381Z nuxt:build Building...
+2020-01-14T06:23:36.424Z nuxt:build App root: /todoweb
+2020-01-14T06:23:36.424Z nuxt:build Generating /todoweb/.nuxt files...
+2020-01-14T06:23:36.480Z nuxt:build Generating files...
+2020-01-14T06:23:36.490Z nuxt:build Generating routes...
+2020-01-14T06:23:36.526Z nuxt:build Building files...
+ WARNING  Compiled with 1 warnings06:24:18
 
  warning
 
@@ -323,15 +309,15 @@ This can impact web performance.
 Assets:
   vendor.02f6d802134b07f9fff1.js (401 kB)
 
-Hash: 3e78329d204906da13b0
+Hash: 7f93824e9afbe66ed83e
 Version: webpack 3.12.0
-Time: 34200ms
+Time: 39880ms
                                    Asset       Size  Chunks                    Chunk Names
-     pages_index.5754ae5cf96ae9082fb3.js    3.31 kB       0  [emitted]         pages_index
- layouts_default.0755df0a9ed4efdb8b2d.js  762 bytes       1  [emitted]         layouts_default
+     pages/index.d9fe7c574f87e4eb7eb2.js    3.31 kB       0  [emitted]         pages/index
+ layouts/default.c081fa86b701cbc3129a.js  761 bytes       1  [emitted]         layouts/default
           vendor.02f6d802134b07f9fff1.js     401 kB       2  [emitted]  [big]  vendor
-             app.3f4a02ac9e9268800d99.js    27.9 kB       3  [emitted]         app
-        manifest.3e78329d204906da13b0.js    1.47 kB       4  [emitted]         manifest
+             app.55deb11cf84b47834e99.js    27.9 kB       3  [emitted]         app
+        manifest.7f93824e9afbe66ed83e.js    1.47 kB       4  [emitted]         manifest
 app.679dda00106c09b9e741e66ee7e4dd3b.css     281 kB       3  [emitted]         app
                                 LICENSES  766 bytes          [emitted]
  + 3 hidden assets
@@ -340,17 +326,30 @@ WARNING in asset size limit: The following asset(s) exceed the recommended size 
 This can impact web performance.
 Assets:
   vendor.02f6d802134b07f9fff1.js (401 kB)
-Hash: 44da3e64b9c3254304a3
+Hash: 5181ff1d464b1601012c
 Version: webpack 3.12.0
-Time: 15597ms
+Time: 17229ms
              Asset    Size  Chunks             Chunk Names
-server-bundle.json  128 kB          [emitted]
-  nuxt:build Building done +52s
-  
-3. npm run start
-  
-  
-
+server-bundle.json  126 kB          [emitted]
+2020-01-14T06:24:37.623Z nuxt:build Building done
+Removing intermediate container bc27a8e8b76a
+ ---> 790e8930e830
+Step 7/9 : ENV HOST 0.0.0.0
+ ---> Running in e747f3f511c4
+Removing intermediate container e747f3f511c4
+ ---> 849ee1d4177d
+Step 8/9 : CMD ["npm", "run", "start"]
+ ---> Running in 11ab14ec9ae4
+Removing intermediate container 11ab14ec9ae4
+ ---> 223b627941ca
+Step 9/9 : EXPOSE 3000
+ ---> Running in c98ea4ce69ac
+Removing intermediate container c98ea4ce69ac
+ ---> d868b689c301
+Successfully built d868b689c301
+Successfully tagged ch04/todoweb:latest
+SECURITY WARNING: You are building a Docker image from Windows against a non-Windows Docker host. All files and directories added to build context will have '-rwxr-xr-x' permissions. It is recommended to double check and reset permissions for sensitive files and directories.
+PS C:\Users\HPE\docker\day04\swarm\todo\todoweb>
 ```
 
 TODO의 진행 상황을 보여주는 웹 애플리케이션
