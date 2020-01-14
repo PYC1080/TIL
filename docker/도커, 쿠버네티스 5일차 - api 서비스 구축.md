@@ -251,6 +251,21 @@ root@c018f94152df:/# curl -XGET http://localhost:8080/todo?status=TODO
 root@c018f94152df:/# curl -XPOST -d '{"title":"Test1", "content":"Test contest1"}' http://localhost:8080/todo
 root@c018f94152df:/# curl -s -XGET http://localhost:8080/todo?status=TODO
 [{"id":9,"title":"Test1","content":"Test contest1","status":"TODO","created":"2020-01-14T02:46:56Z","updated":"2020-01-14T02:46:56Z"},{"id":8,"title":"인그레스 구축하기","content":"외부에서 스웜 클러스터에 접근하게 해주는 인그레스 구 축","status":"TODO","created":"2020-01-14T02:07:04Z","updated":"2020-01-14T02:07:04Z"}]root@c018f94152df:/#
+
+3. manager 에서 위 명령어 내용 확인
+
+PS C:\Users\HPE\docker\day04\swarm\todo\todoapi> docker exec -it manager sh
+/ # docker service logs -f todo_app_api
+todo_app_api.1.8e62trp4e3jw@e50acc725436    | 2020/01/14 02:26:54 Listen HTTP Server
+todo_app_api.2.ypa35bl9i1qc@20ac576cdaaf    | 2020/01/14 02:26:54 Listen HTTP Server
+todo_app_api.2.ypa35bl9i1qc@20ac576cdaaf    | 2020/01/14 02:40:34 [GET] RemoteAddr=127.0.0.1:50936      UserAgent=curl/7.52.1
+todo_app_api.2.ypa35bl9i1qc@20ac576cdaaf    | 2020/01/14 02:41:28 [GET] RemoteAddr=127.0.0.1:50996      UserAgent=curl/7.52.1
+todo_app_api.2.ypa35bl9i1qc@20ac576cdaaf    | 2020/01/14 02:45:58 [GET] RemoteAddr=127.0.0.1:51264      UserAgent=curl/7.52.1
+todo_app_api.2.ypa35bl9i1qc@20ac576cdaaf    | 2020/01/14 02:46:56 [POST] RemoteAddr=127.0.0.1:51314     UserAgent=curl/7.52.1
+todo_app_api.2.ypa35bl9i1qc@20ac576cdaaf    | 2020/01/14 02:47:11 [GET] RemoteAddr=127.0.0.1:51330      UserAgent=curl/7.52.1
+todo_app_api.2.ypa35bl9i1qc@20ac576cdaaf    | 2020/01/14 02:49:59 [PUT] RemoteAddr=127.0.0.1:51498      UserAgent=curl/7.52.1
+todo_app_api.2.ypa35bl9i1qc@20ac576cdaaf    | 2020/01/14 02:50:16 [GET] RemoteAddr=127.0.0.1:51514      UserAgent=curl/7.52.1
+
 ```
 
 ## 4. master/slave 정보 확인
