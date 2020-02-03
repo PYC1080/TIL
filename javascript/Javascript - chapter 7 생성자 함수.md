@@ -194,13 +194,196 @@ var 객체or인스턴스 = new 생성자함수()
 
 ```
 
+* getter & setter
+
+```html
+1. getter : get○○() 형태의 메서드
+2. setter : set○○() 형태의 메서드
+```
+
 
 
 ## 7.5 상속
 
+* 상속 : 기존의 생성자 함수나 객체를 기반으로 새로운 생성자 함수나 객체를 쉽게 만드는 것을 상속이라 한다. 상속으로 새로 만들어지는 객체는 기존의 객체를 기반으로 생성하므로 새로 만들어지는 객체에는 기존 객체의 특성이 모두 들어가 있다.
 
+#### 코드 7-16,18 : 상속 및 상속 활용
+
+```html
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script type="text/javascript">
+      function Rectangle(w,h){
+        var width = w;
+        var height = h;
+      
+      this.getWidth = function () { return width;};
+      this.getHeight = function () { return height;};
+      this.setWidth =function (w) {
+        if (w < 0) {
+          throw '폭의 길이는 음수일 수 없습니다.';
+        } else{
+            width = w;
+        }
+        this.setHeight =function (h){
+          if (h < 0) {
+            throw '높이의 길이는 음수일 수 없습니다.';
+          } else{
+              height = h;
+          }
+        }
+      };  
+
+      Rectangle.prototype.getArea = function () {
+        return this.getWidth() * this.getHeight();
+      };
+    };
+    </script>
+    <script>
+    function Square(length){
+      this.base = Rectangle;
+      this.base(length, length);
+    }
+
+    Square.prototype = Rectangle.prototype;
+    Square.prototype.constructor = Square;
+
+    let rectangle = new Rectangle(5,7);
+    let square = new Square(5);
+    console.log(rectangle.getArea()+ ' : ' + square.getArea());
+    </script>
+  </head>
+  <body>
+
+  </body>
+</html>
+
+```
+
+#### 결과 - 코드 7-16,17
+
+```html
+35 : 25									code 7-16 상속.html:44 35 : 25
+```
 
 ## 7.6 조금 더 나아가기
 
+### (1) 클래스 - ECMAScript 6
 
+* 객체지향의 종류
+
+```html
+1. 클래스 기반 객체지향 언어 : 어디서나 활용된다고 이름을 들어본 프로그래밍 언어는 대부분 클래스 기반의 객체지향 언어이다.
+2. 프로토타입 기반 객체지향 언어 : 
+```
+
+
+
+**클래스 선언과 속성 **
+
+
+
+**메서드 선언**
+
+
+
+**getter & setter**
+
+
+
+**상속**
+
+
+
+## 연습문제
+
+### 01. 다음과 같은 객체를 생성할 수 있는 생성자 함수를 예로 들어보라 (생성자 함수 이름은 Product, 키 이름과 자료형은 적절하다고 생각하는 것을 사용하라)
+
+| 속성 | 값         |
+| ---- | ---------- |
+| 이름 | 돼지삼겹살 |
+| 무게 | 100g       |
+| 가격 | 1690원     |
+
+| 메서드          | 설명                            |
+| --------------- | ------------------------------- |
+| calculate(무게) | 무게를 기반으로 가격을 계산한다 |
+
+예로 product.calculate(200) 이라고 입력하면, 100g * 2 = 200g 이므로 '3380원'을 출력하면 된다
+
+#### 결과 - 01 코드
+
+```html
+<!DOCTYPE html>
+<html>
+    <head>
+        <script>
+            let number = 273;
+            number.print = function(){
+                console.log(this);
+            };
+
+            number.print();
+            number.print();
+            number.print();
+        </script>
+    </head>
+    <body>
+    
+    </body>
+</html>
+
+```
+
+
+
+### 02. 다음 코드의 실행 결과를 예측해보라
+
+```html
+<!DOCTYPE html>
+<html>
+    <head>
+        <script>
+            let number = 273;
+            number.print = function(){
+                console.log(this);
+            };
+
+            number.print();
+            number.print();
+            number.print();
+        </script>
+    </head>
+    <body>
+    
+    </body>
+</html>
+
+```
+
+#### 결과 - 02 코드
+
+```html
+연습문제 02.html:10
+
+Uncaught TypeError: Cannot read property 'print' of undefined
+at 연습문제 02.html:10
+```
+
+### 03. 다음 중 생성자 함수로 생성하는 객체 모두에 메서드를 추가할 때 사용하는 속성은 무엇인가?
+
+```
+1. class 2. object 3. prototype 4. global
+```
+
+
+
+### 04. 다음 중 특정 생성자 함수에서 생성한 객체인지 확인할 때 사용하는 키워드는 무엇인가?
+
+```
+1. is 2. instanceof  3. instanceOf   4. objectOf
+```
 
