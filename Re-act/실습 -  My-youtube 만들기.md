@@ -406,6 +406,8 @@ ReactDOM.render(<App/>, document.querySelector('.container'));
 
 ### 3) 구글 API를 활용하여 youtube data api 받아오기
 
+> [YouTube -DataAPI 관련 Search 정보 주소](https://developers.google.com/youtube/v3/docs/search/list?hl=ko)
+
 * [주소](https://console.developers.google.com/apis/library?supportedpurview=project&q=youtube) 접속 - YouTube Data API v3 - 사용설정 - 사용자 인증 정보 - `+`사용자 인증 정보 만들기 - API 키 생성
 
 * API key
@@ -442,6 +444,8 @@ ReactDOM.render(<App/>, document.querySelector('.container'));
 PS C:\Users\pyc\desktop\work\study\til\Re-act\0206My-youtube> npm install --save youtube-api-search              + youtube-api-search@0.0.5
 added 2 packages from 2 contributors in 3.277s
 ```
+
+`--save` : package.json 파일에 해당 내용을 추가해주는 명령어
 
 다운로드가 완료되었다면 서버를 재가동한다
 
@@ -488,7 +492,7 @@ class App extends Component{
 ReactDOM.render(<App/>, document.querySelector('.container'));
 ```
 
-
+`GET https://www.googleapis.com/youtube/v3/search` 대신에 `YTsearch`를 이용해 해당 정보를 불러왔다.
 
 
 
@@ -1070,7 +1074,7 @@ export default VideoListItem;
 
 ### 11) 검색기능 디자인 개선
 
-* ...style\search_bar.css
+* ...style\style.css
 
 ```css
 .search-bar {
@@ -1104,4 +1108,175 @@ export default VideoListItem;
 
 ```
 
+* search_bar.js
+
+```js
+import React, { Component } from 'react';
+
+class SearchBar extends Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            term: ''
+        }
+    }
+
+    onInputChange = (event) => {
+        this.setState({
+            term: event.target.value
+        });
+    }
+
+    render(){
+        return (
+            <div className="search-bar">
+                <input onChange={this.onInputChange}/>
+            </div>
+        )
+    }
+}
+
+export default SearchBar;
+```
+
 * 결과 
+
+<img width="866" alt="1-11 검색창 디자인 개선 결과" src="https://user-images.githubusercontent.com/55272324/73990511-b2121500-498c-11ea-99a4-9f9c157c4070.PNG">
+
+### 12) 검색어 찾기 기능 추가
+
+* index.js
+
+```js
+import React,{ Component } from 'react';
+import ReactDOM from'react-dom';
+import YTSearch from 'youtube-api-search';
+import VideoDetail from './components/video_detail';
+import SearchBar from '../src/components/search_bar';
+import VideoList from './components/video_list';
+
+
+const API_KEY = 'AIzaSyAGYD4qZLoLrL2BEjIWWq-_a_2busuy0ys';
+class App extends Component{
+  
+  constructor(props){
+    super(props);
+
+    this.state= {
+      videos: [],
+      selectedVideo:null,
+      search_term:''
+    };
+    
+    YTSearch(
+      {key:API_KEY, term: this.state.search_term}, 
+      (data) => {
+        this.setState({
+          videos: data,
+          selectedVideo: data[0]
+        })
+      }
+    );
+  }
+  handleSelect = (selectedVideo) => {
+    this.setState({
+      selectedVideo : selectedVideo
+    })
+  }
+  handleSearchTerm = (searchterm)=>{
+    this.setState({
+      search_term:searchterm,
+      selectedVideo:null,
+      videos:[]
+    })
+
+    YTSearch(
+      {key:API_KEY, term: this.state.search_term}, 
+      (data) => {
+        this.setState({
+          videos: data,
+          selectedVideo: data[0]
+        })
+      }
+    );
+  }
+
+
+  render(){
+    return (
+      <div>
+          <SearchBar handleSearchTerm={this.handleSearchTerm}/>
+          <VideoDetail 
+            video={this.state.selectedVideo} />
+          <VideoList 
+            onVideoSelect={this.handleSelect}
+            videos={this.state.videos}/>
+      </div>
+      );
+    }
+}
+ReactDOM.render(<App/>, document.querySelector('.container'));
+
+```
+
+* search_bar.js
+
+```js
+import React, { Component } from 'react';
+
+class SearchBar extends Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            term: ''
+        }
+    }
+
+    onInputChange = (event) => {
+        this.setState({
+            term: event.target.value
+        });
+    }
+    onSubmit=(e) => {
+        e.preventDefault();
+        this.props.handleSearchTerm(this.state.term);
+    }
+
+    render(){
+        return (
+            <div>
+                <form className="search-bar" onSubmit={this.onSubmit}>
+                    <input onChange={this.onInputChange}/>
+                    <button type="submit">검색</button>
+                </form>
+            </div>
+        )
+    }
+}
+
+export default SearchBar;
+```
+
+* 결과
+
+<img width="880" alt="1-12 검색기능 추가 결과" src="https://user-images.githubusercontent.com/55272324/73992878-d9201500-4993-11ea-83ee-80c956529bf0.PNG">
+
+### 13) 검색 시간을 조절
+
+가동시키던 서버를 중지시킨 후 아래 라이브러리를 설치한다
+
+* `lodash`검색 시간을  조절하는 라이브러리 설치 
+
+```js
+PS C:\Users\pyc\desktop\work\study\til\re-act\0206My-youtube> npm install --save lodash                                                     + lodash@3.10.1
+updated 1 package in 4.025s
+```
+
+라이브러리 설치 후 아래 코드 수정
+
+* index.js
+
+```js
+
+```
+
