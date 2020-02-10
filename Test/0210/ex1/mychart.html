@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head> 
+  <meta charset="UTF-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <meta http-equiv="X-UA-Compatible" content="ie=edge"> 
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> 
+  <style>
+    .item {
+      display: inline-block;
+      overflow: hidden;
+      width: 120px; 
+    }
+    .red {
+      color: red;
+    }
+    .blue {
+      color: blue;
+    }
+  </style>
+  <!-- 차트 링크 --> 
+  <script src="./mydate.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script> 
+  <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>  -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js" ></script> 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script> 
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> 
+  <script src="./mydate.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script src="./jquery-ui/jquery-ui.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      const getDataFromPoloniex = (from, to)=>{
+        // retrieve 'bitcoin data' from poloniex.com
+        let dateArray = [];
+        let highArray = [];
+        let lowArray = [];
+        $.ajax({
+          url: "https://poloniex.com/public",
+          type: "GET",
+          data: {
+            command: 'returnChartData',
+            currencyPair: 'USDT_BTC',
+            // start: '1577836800',
+            // end: '9999999999',
+            start: new Date(from) /1000,
+            end: new Date(to)/ 1000,
+            period: '86400'
+          }, 
+          success: function(data) {
+            $.each(data, function(index, item) {
+              let date = convertDate(item.date);
+              let high = item.high;
+              let low = item.low;
+              let volume = item.volume;
+  
+              dateArray.push(date);
+              highArray.push(high);
+              lowArray.push(low);
+  
+              let div = document.createElement("div");
+              let html = "";
+              html += "<span class='item'>" + date + "</span>";
+              html += "<span class='item red'>" + high + "</span>";
+              html += "<span class='item blue'>" + low + "</span>";
+              html += "<span class='item'>" + volume + "</span>";
+              div.innerHTML = html;
+  
+              $("#contents").append(div);
+            });
+            
+            let ctx = document.getElementById('myChart').getContext('2d'); 
+            let chart = new Chart(ctx, { 
+              type: 'line', 
+              data: { 
+                labels: dateArray, 
+                datasets: [{ 
+                  label: 'High price', 
+                  backgroundColor: 'transparent', 
+                  borderColor: 'red', 
+                  data: highArray
+                },
+                { 
+                  label: 'Low price', 
+                  backgroundColor: 'transparent', 
+                  borderColor: 'blue', 
+                  data: lowArray
+                }] 
+              }, 
+              options: {
+                legend: { 
+                  display: false 
+                }
+              } 
+            }); 
+          },
+          error: function(err) {
+            alert(err);
+          }
+        });
+      }
+
+      $.datepicker.setDefaults($.datepicker.regional['ko']); 
+      $( "#startDate" ).datepicker({
+        changeMonth: true, 
+        changeYear: true,
+        nextText: '다음 달',
+        prevText: '이전 달', 
+        dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
+        dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'], 
+        monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+        monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+        dateFormat: "yy-mm-dd",
+        maxDate: 0,
+        onClose: function( selectedDate ) {
+            $("#endDate").datepicker( "option", "minDate", selectedDate );
+        }
+
+      });
+      $( "#endDate" ).datepicker({
+        changeMonth: true, 
+        changeYear: true,
+        nextText: '다음 달',
+        prevText: '이전 달', 
+        dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
+        dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'], 
+        monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+        monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+        dateFormat: "yy-mm-dd",
+        maxDate: 0,                  
+        onClose: function( selectedDate ) {    
+            $("#startDate").datepicker( "option", "maxDate", selectedDate );
+        }    
+      });
+    
+    $("#search").on("click", () => {
+      getDataFromPoloniex($("#startDate").val(), $("#endDate").val())
+      $("#contents").empty();
+    })
+  })
+</script>
+
+</head> 
+  <body> 
+    <div class="container" > 
+      <canvas id="myChart"></canvas>
+      <p>조회기간:
+        <input type="text" id="startDate"> ~
+        <input type="text" id="endDate">
+        <button id="search">조회</button>
+      </p>
+    </div> 
+
+    <div id="contents">
+    </div>
+  </body>
+</html>
