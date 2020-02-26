@@ -350,15 +350,37 @@ docker container exec [options] 컨테이너ID or 컨테이너명 컨테이너�
 docker container cp [options] 컨테이너 ID or 컨테이너명: 원본파일 대상파일
 ```
 
-
-
 ## 4. 운영과 관리를 위한 명령
 
+### 1) 컨테이너 및 이미지 파기
 
+* `docker container prune` : 실행 중이 아닌 모든 컨테이너를 삭제하는 명령
+
+```powershell
+docker container prune [options]
+```
+
+* `docker image prune` : 태그가 붙지 않은 모든 이미지를 삭제
+
+```powershell
+docker image prune [options]
+```
+
+* `docker system prune` : 사용하지 않는 도커 이미지, 컨테이너, 볼륨, 네트워크 등 모든 도커 리소스를 일괄적으로 삭제
+
+### 2) 사용 현황 확인하기
+
+* `docker container stats` : 시스템 리소스 사용 현황을 컨테이너 단위로 확인
+
+```powershell
+docker container stats [options] [대상_컨테이너ID]
+```
 
 ## 5. 도커 컴포즈로 여러 컨테이너 실행하기
 
+### 1) 여러 컨테이너의 실행 관리
 
+* `docker-compose` : `yaml` 포맷으로 기술된 설정 파일로, 여러 컨테이너의 실행을 한 번에 관리할 수 있다.
 
 ## 6. 컴포즈로 여러 컨테이너 실행하기
 
