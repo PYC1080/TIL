@@ -130,3 +130,88 @@
 5xx : 서버 오류
 ```
 
+### 3) 데이터 요청과 조작
+
+* JSON 요청과 조작 
+
+```
+1. eval() 함수를 이용해 자바스크립트 객체로 변환
+2. JSON.parse() 메서드를 사용해 JSON 문자열을 분해시킬 수 있다.
+```
+
+* XML 요청과 조작
+
+## 3. jQuery Ajax
+
+### 1) jQuery Ajax 메서드
+
+* `$.ajax()`메서드
+
+```
+1. 메서드 기능 : Ajax가 성공했을 때 자동으로 success 이벤트를 실행한다
+2. 메서드 형태
+	1) $.ajax(options)
+	2) $.ajax(url, options)
+3. 메서드 옵션
+	1) async : Boolean형. 동기 및 비동기를 지정
+	2) complete(xhr,status) : Function형. Ajax 완료 이벤트 리스너를 지정
+	3) data : Object, String형. 요청 매개변수를 지정
+	4) error(xhr, status, error) : Function형. Ajax 실패 이벤트 리스너를 지정
+	5) jsonp : String형, JSONP 매개변수 이름을 지정
+	6) jsonpCallback : String, Function 형. JSONP 콜백 함수 이름을 지정
+	7) success(data,status,xhr) : Function, Array 형. Ajax 성공 이벤트 리스너를 지정
+	8) timeout : Number형. 만료 시간을 지정
+	9) type : String형. 'GET' 또는 'POST'등을 지정
+	10) url : String형. 대상 URL을 지정
+```
+
+* `$.get()`메서드
+
+```
+1. 메서드 기능 : get방식으로 Ajax를 수행한다
+2. 메서드 형태 : $.get(url, (data,) function(data, textStatus, jqXHR){})
+```
+
+* `$.post()`메서드
+
+```
+1. 메서드 기능 : post방식으로 Ajax를 수행한다 
+2. 메서드 형태 : $.post(url, (data,) function(data, textStatus, jqXHR){})
+```
+
+* `$.getJSON()`메서드
+
+```
+1. 메서드 기능 : get방식으로  Ajax를 수행해 JSON데이터를 가지고 온다
+```
+
+* `$.getScript()`메서드
+
+```
+1. 메서드 기능 : get방식으로 Ajax를 수행해 Script 데이터를 가지고 온다
+```
+
+* `$(selector).load()`메서드
+
+```
+1. 메서드 기능 : Ajax를 수행하고 선택자로 선택한 문서 객체 안에 집어 넣는다
+```
+
+* `$(selector).serialize()`메서드
+
+```
+1. 메서드 기능 : 입력 양식의 내용을 요청 매개변수 문자열로 만든다
+```
+
+* `$(selector).serializeArray()`메서드
+
+```
+1. 메서드 기능 : 입력 양식의 내용을 객체로 만든다
+```
+
+* `$.param()`메서드
+
+```
+1. 메서드 기능 : 객체의 내용을 요청 매개변수 문자열로 만든다
+```
+
