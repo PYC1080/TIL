@@ -161,3 +161,96 @@ npm install jquery
 
 ## 4. 이벤트
 
+```
+1. on()
+	1) 기능 : 이벤트를 연결하는 메서드
+	2) 형태
+		(1) $(selector).on(eventName, function(event){})
+		(2) $(selector).on(object)
+	3) on()메서드의 매개변수 : $(seletor).on(types,selector,data,fn,one)
+		(1) types
+		(2) selctor : 이벤트 범위를 한정
+		(3) data
+		(4) fn
+		(5) one
+2. hover()
+	1) 기능 : mouseenter 이벤트와 mouseleave 이벤트를 동시에 연결한다
+	2) 형태 : $(selector).hover(function(event){mouseenter 이벤트리스너}, function(event){mouseleave 이벤트 리스너});.
+3. off()
+	1) 기능 : 이벤트를 제거하는 메서드
+	2) 형태
+		(1) $(selector).off()
+		(2) $(selector).off(eventName)
+		(3) $(selector).off(eventName, function)
+4. one()
+	1) 기능 : 이벤트를 한 번만 연결한다
+5. 매개변수 context
+	1) 기능 : selector가 적용하는 범위를 한정한다
+	2) 형태 : $(selector, context)
+6. 이벤트 객체
+	1) 자바스크립트와 jQuery의 이벤트 객체차이
+		(1) 자바스크립트의 이벤트 객체 : 웹 블라우저마다 사용 방법은 물론 이벤트 객체에 있는 속성이 다르다
+		(2) jQuery의 이벤트 객체 : jQuery가 스스로 이벤트 객체를 정형화하므로 jQuery의 이벤트 객체는 모든 웹 블라우저에서 같은 방법으로 사용할 수 있으며 같은 속성을 같는다.
+	2) 이벤트 객체의 속성
+		(1) event.pageX : 브라우저 화면을 기준으로 한 마우스의 x 좌표 위치
+		(2) event.pageY : 브라우저 화면을 기준으로 한 마우스의 y 좌표 위치
+		(3) event.preventDefault() : 기본 이벤트를 제거한다
+		(4) event.stopPropagation() : 이벤트 전달을 제거한다
+7. trigger()
+	1) 기능 : 이벤트를 강제로 발생시킨다
+	2) 형태
+		(1) $(selector).trigger(eventName)
+		(2) $(selector).trigger(eventName,data)
+8. preventDefault()
+	1) 기능 : 기본 이벤트를 제거한다
+9. stopPropagation()
+	1) 기능 : 이벤트 전달을 제거한다
+10. 마우스 이벤트
+	1) click : 마우스를 클릭할 때 발생한다
+	2) dbclick : 마우스를 더블클릭 할 때 발생한다
+	3) mousedown : 마우스 버튼을 누를 때 발생한다
+	4) mouseup : 마우스 버튼을 땔 때 발생한다
+	5) mouseenter : 마우스가 요소의 경계 외부에서 내부로 이동할 대 발생한다
+	6) mouseleave : 마우스가 겨예 내부에서 외부로 이동할 때 발생한다
+	7) mousemove : 마우스가 움직일 때 발생한다
+	8) mouseout : 마우스가 요소를 벗어날 때 발생한다
+	9) mouseover : 마우스를 요소 안에 들어올 때 발생한다
+11. 키보드 이벤트
+	1) keydown : 키보드를 누를 때 발생한다 
+	2) keypress : 글자가 입력될 때 발생한다. 해당 이벤트로 한글을 사용할 수 없다.
+	3) keyup : 키보드를 땔 때 발생한다
+12. 윈도우 이벤트
+	1) ready : 문서 객체가 준비완료되면 발생한다
+	2) load : 문서 객체를 불러들일 때 발생한다
+	3) unload : 문서 객체를 닫을 때 발생한다
+	4) resize : 문서 객체의 크기를 변화시킬 때 발생한다
+	5) scroll : 문서 객체를 스크롤할 때 발생한다
+	6) error : 에러가 있을 때 발생한다
+13. 입력 양식 이벤트
+	1) change : 입력 양식의 내용을 변경할 때 발생한다
+	2) focus : 입력 양식에 초점을 맞추면 발생한다
+	3) focusin : 입력 양식에 초점이 맞추어지기 바로 전에 발생한다
+	4) focusout : 입력 양식에 초점이 사라지기 바로 전에 발생한다
+	5) blur : 입력 양식에 초점이 사라지면 발생한다
+	6) select : 입력 양식을 선택할 때 발생한다 (input[type="text"]태그 및 textarea 태그 제외)
+	7) submit : submit 버튼을 누르면 발생한다
+	8) reset : reset 버튼을 누르면 발생한다
+```
+
+## 5. 효과
+
+```
+
+```
+
+## 6. 이미지 슬라이더
+
+```
+
+```
+
+## 7. jQuery 플러그인 제작
+
+```
+
+```
