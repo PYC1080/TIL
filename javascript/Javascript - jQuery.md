@@ -348,7 +348,11 @@ npm install jquery
 ## 6. 이미지 슬라이더
 
 ```
-
+1. 자바스크립트로 플래시 또는 실버라이트의 시각적 효과를 구현하기 위해 지정해야 하는 사항
+	1) 캔버스의 width와 height 스타일 속성은 필수로 지정해야한다 : 캔버스의 width와 height 스타일을 지정하지 않은채 구성요소의 position 스타일 속성을 absolute로 지정하면 캔버스의 height 속성이 무시되는 효과가 발생한다
+	2) 캔버스의 position 스타일 속성은 relative로 지정해야한다 : 부모의 position 스타일 속성이 absolute 또는 relative 일 때만 자식 구성 요소가 부모의 위치를 기준으로 위치를 잡으므로 캔버스에도 position 스타일을 부여해야 한다
+	3) 캔버스의 overflow 스타일 속성은 hidden으로 지정해야한다 : overflow 스타일을 정하지 않으면 자식 구성요소가 부모 구성요소를 넘어갈 경우 그대로 표현되므로 자식이 부모에 종속되기 위해서는 overflow 속성을 hidden으로 표현해주어야 한다.
+	4) 구성요소의 position 스타일 속성은 absolute로 지정해야한다
 ```
 
 ## 7. jQuery 플러그인 제작
