@@ -1,6 +1,8 @@
 # Javascript - jQuery
 
-## 0. jQuery download
+## 0. jQuery
+
+### 1) jQuery
 
 * Google CDN(content delivery network)
 
@@ -17,6 +19,12 @@ npm install jquery
 ```html
 <script src="./node_modules/jquery/dist/jquery.js"></script>
 ```
+
+### 2) jQuery UI Effect plug-in
+
+* [jQuery UI Effect plug-in download](https://jqueryui.com/download/)
+
+### 3) jQuery innerfade plug-in
 
 ## 1. jQuery 기본
 
@@ -240,7 +248,101 @@ npm install jquery
 ## 5. 효과
 
 ```
-
+1. 기본 시각 효과
+	1) 기본 시각 효과 메서드
+		(1) show() : 문서 객체를 확대하여 보여준다
+        (2) hide() : 문서 객체를 축소하여 사라지게 한다
+        (3) toggle() : show메서드와 hide 메서드를 번갈아 실행한다
+        (4) slideDown() : 문서 객체를 슬라이드 효과와 함께 보여준다
+        (5) slideUp() : 문서 객체를 슬라이드 효과와 함께 사라지게 한다
+        (6) slideToggle() : slideDown 메서드와 slideUp 메서드를 번갈아 실행한다
+        (7) fadein() : 문서 객체를 선명하게 보여준다
+        (8) fadeout() : 문서 객체를 흐리게 사라지게 한다
+        (9) fadeToggle() : fadein 메서드와 fadeout 메서드를 번갈아 실행한다
+    2) 메서드 형태
+    	(1) $(selector).method();
+    	(2) $(selector).method(speed);
+    	(3) $(selector).method(speed,callback);
+    	($) $(selector).method(speed,easing,callback);
+    3) 메서드 매개변수
+    	(1) speed
+    		a) 효과를 진행할 속도를 지정한다
+    		b) 밀리 초 단위의 숫자 또는 문자열(slow,normal,fast)을 입력한다
+    	(2) callback : 효과를 모두 완료하고 실행할 함수를 지정한다
+    	(3) easing
+    		a) 애니메이션의 easing 형태를 지정한다
+    		b) 별도의 플러그인을 사용하지 않으면 문자열(liner, swing)만 입력 가능하다
+2. 사용자 정의 효과
+	1) 메서드 : animate()
+	2) 메서드 의미 : 사용자 지정 효과를 생성한다
+	3) 메서드 형태
+    	(1) $(selector).animate(object);
+    	(2) $(selector).animate(object, speed);
+    	(3) $(selector).animate(object, speed, easing);
+    	($) $(selector).animate(object, speed ,easing ,callback);
+    4) 메서드 매개변수
+    	(1) object
+    		a) object에 입력할 수 있는 속성
+    			(a) opacity
+    			(b) height
+    			(c) top
+    			(d) width
+    			(e) left
+    			(f) margin
+    			(g) right
+    			(h) padding
+    			(i) bttom
+    	(2) speed
+    	(3) easing
+    	(4) callback
+3. jQuery 효과 메서드 작동 방식
+	1) jQuery 효과 메서드는 적용한 숫자만큼 계속 누적해서 작동한다
+	2) 애니메이션 큐 : 누적된 효과 명령은 큐에 누적된다. 큐는 먼저 들어간 것이 먼저 나오는 공간이다(FIFO)
+	3) clearQueue() : 큐의 내용을 제거하는 메서드. 내용이 제거된 이후 추가적으로 실행되는 효과는 없지만 큐의 내용을 제거하기 이전에 실행되던 애니메이션을 정지하는 기능은 없다.
+	4) stop() 
+		(1) 기능 : 효과 및 애니메이션을 정지한다
+		(2) 형태
+			a) $(selector).stop();
+			b) $(selector).stop(clearQueue);
+			c) $(selector).stop(clearQueue,goToEnd);
+		(3) 매개변수
+			a) clearQueue
+				(a) 불 자료형을 입력한다. 입력하지 않으면 자동으로 false를 입력한 것으로 간주한다
+				(b) true : clearQueue 메서드를 실행하는 것과 같은 효과를 낸다
+			b) goToEnd
+				(a) 불 자료형을 입력한다. 입력하지 않으면 자동으로 false를 입력한 것으로 간주된다
+				(b) true : 제자리에서 멈추는 것이 아니라 지정한 최종 형태에서 멈춘다.
+	5) delay()
+		(1) 기능 : 큐에 있는 명령을 잠시 중단한다
+4. jQuery UI Effect plug-in
+	1) 기능
+		(1) 색상 변환 애니메이션
+		(2) addClass(), removeClass(), switchClass() 메서드에 애니메이션 기능 추가
+		(3) 고수준의 시각적 효과 : 거의 사용하지 않는다
+		(4) 추가적인 easing 형태
+5. jQuery innerfade plug-in
+	1) 기능 : 화면 전환 효과
+	2) 형태 :$('ID or class').innerfade({
+	animationtype,speed,timeout,type,containerheight,runningclass})
+	3) 매개변수
+		(1) animationtype
+			a) 의미 : 내용물의 변경 효과
+			b) 값 : fade or slide (default : fade)
+		(2) speed
+			a) 의미 : 내용물의 변경 속도
+			b) 값 : slow, normal, fast (default : normal)
+		(3) timeout
+			a) 의미 : 변경 효과가 적용되는 속도
+			b) 값 : 밀리세컨드 단위(default : 2000)
+		(4) type
+			a) 의미 : 내용물의 변경 방식
+			b) 값 : sequence, random, random_start (default : sequence)
+		(5) containerheight
+			a) 의미 : 내용물의 높이
+			b) 값 : any css-height-value(default : auto)
+		(6) runningclass
+			a) 의미 : css-class가 컨테이너에 적용되는 방식
+			b) 값 : (default : innerfade)
 ```
 
 ## 6. 이미지 슬라이더
