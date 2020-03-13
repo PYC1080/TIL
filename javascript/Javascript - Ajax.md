@@ -143,75 +143,142 @@
 
 ## 3. jQuery Ajax
 
-### 1) jQuery Ajax 메서드
+```
+1. jQuery Ajax 메서드
+	1) $.ajax()
+		(1) 기능 : Ajax가 성공했을 때 자동으로 success 이벤트를 실행한다
+		(2) 형태
+			a) $.ajax(options)
+			b) $.ajax(url, options)
+		(3) 메서드 옵션
+			a) async : Boolean형. 동기 및 비동기를 지정
+			b) complete(xhr,status) : Function형. Ajax 완료 이벤트 리스너를 지정
+			c) data : Object, String형. 요청 매개변수를 지정
+			d) error(xhr, status, error) : Function형. Ajax 실패 이벤트 리스너를 지정
+			e) jsonp : String형, JSONP 매개변수 이름을 지정
+			f) jsonpCallback : String, Function 형. JSONP 콜백 함수 이름을 지정
+			g) success(data,status,xhr) : Function, Array 형. Ajax 성공 이벤트 리스너를 지정
+			h) timeout : Number형. 만료 시간을 지정
+			i) type : String형. 'GET' 또는 'POST'등을 지정
+			j) url : String형. 대상 URL을 지정
+	2) $.get()
+		(1) 기능 : get방식으로 Ajax를 수행한다
+		(2) 형태 : $.get(url, (data,) function(data, textStatus, jqXHR){})
+	3) $.post()
+		(1) 기능 : post방식으로 Ajax를 수행한다 
+		(2) 형태 : $.post(url, (data,) function(data, textStatus, jqXHR){})
+	4) $.getJSON()
+		(1) 기능 : get방식으로  Ajax를 수행해 JSON데이터를 가지고 온다
+		(2) 형태
+	5) $.getScript()
+    	(1) 기능 : get방식으로 Ajax를 수행해 Script 데이터를 가지고 온다
+    	(2) 형태 :
+	6) $(selector).load()
+		(1) 기능 : Ajax를 수행하고 선택자로 선택한 문서 객체 안에 집어 넣는다
+		(2) 형태 :
+    7) serialize()
+    	(1) 기능 : 입력 양식의 내용을 요청 매개변수 문자열로 만든다
+    	(2) 형태 :
+    8) serializeArray()
+    	(1) 기능 : 입력 양식의 내용을 객체로 만든다
+    	(2) 형태
+    9) $.param()
+    	(1) 기능 : 객체의 내용을 요청 매개변수 문자열로 만든다
+    	(2) 형태 :
+    10) ajaxComplete(function)
+    	(1) 기능 : Ajax 요청이 완료될 때 함수를 실행한다. document 객체에만 사용할 수 있다.
+    	(2) 형태 : 
+    11) ajaxError(function)
+    	(1) 기능 : Ajax 요청이 완료될 때 함수를 실행한다. document 객체에만 사용할 수 있다.
+    	(2) 형태 : 
+    12) ajaxSend(function)
+    	(1) 기능 : Ajax 요청을 보낼 때 함수를 실행한다. document 객체에만 사용할 수 있다.
+    	(2) 형태 : 
+    13) ajaxStart(function)
+    	(1) 기능 : Ajax 요청을 시작할 때 함수를 실행한다. document 객체에만 사용할 수 있다.
+    	(2) 형태 : 
+    14) ajaxStop(function)
+    	(1) 기능 : Ajax 요청 멈출 때 함수를 실행한다. document 객체에만 사용할 수 있다.
+    	(2) 형태 : 
+    15) ajaxSuccess(function)
+    	(1) 기능 : Ajax 요청이 성공할 때 함수를 실행한다. document 객체에만 사용할 수 있다.
+    	(2) 형태 : 
+2. jQuery Ajax로 입력 양식을 전송하는 방법
+	1) 각각의 입력 양식에서 value 속성을 직접 가져온 뒤 URL을 생성한다.
+	2) 각각의 입력 양식에서 value 속성을 가져온다. 그런 다음 value 속성을 이용해 객체를 만들고 param() 메서드를 사용해 쿼리로 만든 후에 ajax와 관련된 메서드의 data 속성을 넣는다.
+	3) 각각의 입력 양식에서 value 속성을 가져온 다. 가져온 속성을 이용해 객체를 만들고 곧바로 ajax 고나련 메서드의 data 속성에 집어넣는다.
+	4) serialize() 메서드를 사용해 입력 양식에 적힌 값을 쿼리 문자열로 바꾼다
+	5) serializeArray() 메서드를 사용해 입력 양식에 적힌 값을 객체로 만든다. 이어서 Ajax관련 메서드의 data 속성에 넣는다
+```
 
-* `$.ajax()`메서드
+## 4. MySQL 데이터베이스
+
+### 1) MySQL
+
+```mysql
+1. 데이터베이스
+	1) 생성 : CREATE DATABASE database_name;
+	2) 사용선언 : USE database_name
+	3) 삭제 : DROP DATABASE database_name; 
+2. 테이블
+	1) 필드와 레코드
+		(1) 필드
+			a) 의미 : 테이블의 세로에 위치한 열
+			b) 속성
+				(a) NOT NULL : 반드시 입력하게 만든다
+				(b) AUTO_INCREMENT : 자동으로 숫자가 증가하게 만든다
+				(c) PRIMARY KEY : 기본 키로 지정한다
+		(2) 레코드
+			a) 의미 : 테이블의 가로에 위치한 행
+	2) 생성 : CREATE TABLE table_name(필드명 자료형 속성, 필드명 자료형 속성, ...); 
+	3) 정보 확인 : DESCRIBE table_name;
+	4) 삭제 : DROP TABLE table_name;
+
+3. 데이터
+	1) 입력 : INSERT INTO 테이블명(필드, 필드, ...) VALUE('데이터', '데이터', ...)
+	2) 조회 : SELECT 필드, 필드, ... FROM 테이블 option; 
+	3) 수정 : UPDATE table_name SET 변경 내용 WHERE 조건 (WHERE 조건 미 입력시 모든 데이터 속성이 변경된다)
+	4) 삭제 : DELETE FROM table_name WHERE 조건 (WHERE 조건 미 입력시 모든 데이터가 삭제된다)
+    2) option
+    	(1) WHERE option : 조건식
+        	a) option
+            	(a) 관계 연산자
+                	ㄱ) = : 좌변과 우변이 같다
+                    ㄴ) != or <> : 좌변과 우변이 다르다
+                    ㄷ) < : 좌변보다 우변이 크다
+                    ㄹ) > : 좌변이 우변보다 크다
+                    ㅁ) <= : 좌변이 우변이랑 같거나 작다
+                    ㅂ) >= : 좌변이 우변이랑 같거나 크다
+                (b) 논리 연산자
+                	ㄱ) OR : 논리합 연산자
+                    ㄴ) AND : 논리곱 연산자
+    	(2) LIKE option : 일부 조건식
+        	a) 옵션
+            	(a) '%' : 추가로 몇 글자 인지 모르는 경우 모든 글자를 선택하는 옵션
+                (b) '_' : 추가로 몇 글자로 제한 할 것인지 선택하는 옵션
+       	(3) ORDER BY field_name option : 정렬
+        	a) option
+            	(a) 오름차순 : (ASC); 
+                (b) 내림차순 : DESC;
+        (4) LIMIT 가져올 갯수, 시작 순번 : 특정 위치에 있는 데이터 선택
+        (5) GROUP BY : 데이터 그룹화
 
 ```
-1. 메서드 기능 : Ajax가 성공했을 때 자동으로 success 이벤트를 실행한다
-2. 메서드 형태
-	1) $.ajax(options)
-	2) $.ajax(url, options)
-3. 메서드 옵션
-	1) async : Boolean형. 동기 및 비동기를 지정
-	2) complete(xhr,status) : Function형. Ajax 완료 이벤트 리스너를 지정
-	3) data : Object, String형. 요청 매개변수를 지정
-	4) error(xhr, status, error) : Function형. Ajax 실패 이벤트 리스너를 지정
-	5) jsonp : String형, JSONP 매개변수 이름을 지정
-	6) jsonpCallback : String, Function 형. JSONP 콜백 함수 이름을 지정
-	7) success(data,status,xhr) : Function, Array 형. Ajax 성공 이벤트 리스너를 지정
-	8) timeout : Number형. 만료 시간을 지정
-	9) type : String형. 'GET' 또는 'POST'등을 지정
-	10) url : String형. 대상 URL을 지정
-```
 
-* `$.get()`메서드
+### 2) MySQL Module
 
 ```
-1. 메서드 기능 : get방식으로 Ajax를 수행한다
-2. 메서드 형태 : $.get(url, (data,) function(data, textStatus, jqXHR){})
-```
-
-* `$.post()`메서드
-
-```
-1. 메서드 기능 : post방식으로 Ajax를 수행한다 
-2. 메서드 형태 : $.post(url, (data,) function(data, textStatus, jqXHR){})
-```
-
-* `$.getJSON()`메서드
-
-```
-1. 메서드 기능 : get방식으로  Ajax를 수행해 JSON데이터를 가지고 온다
-```
-
-* `$.getScript()`메서드
-
-```
-1. 메서드 기능 : get방식으로 Ajax를 수행해 Script 데이터를 가지고 온다
-```
-
-* `$(selector).load()`메서드
-
-```
-1. 메서드 기능 : Ajax를 수행하고 선택자로 선택한 문서 객체 안에 집어 넣는다
-```
-
-* `$(selector).serialize()`메서드
-
-```
-1. 메서드 기능 : 입력 양식의 내용을 요청 매개변수 문자열로 만든다
-```
-
-* `$(selector).serializeArray()`메서드
-
-```
-1. 메서드 기능 : 입력 양식의 내용을 객체로 만든다
-```
-
-* `$.param()`메서드
-
-```
-1. 메서드 기능 : 객체의 내용을 요청 매개변수 문자열로 만든다
+1. createConnection(options)
+	1) 기능 : 데이터베이스에 접속한다
+	2) 옵션
+		(1) host : 연결할 호스트를 나타낸다
+		(2) port : 연결할 포트를 나타낸다
+		(3) user : 사용자 이름을 나타낸다. 필수로 입력할 요소이다
+		(4) password : 사용자 비밀번호를 나타낸다. 필수로 입력할 요소이다
+		(5) database : 연결할 데이터베이스를 나타낸다
+		(6) debug : 디버그 모드를 사용할지를 나타낸다
+2. query(sql[,callback])
+	1) 기능 : 쿼리 문장을 실행한다
+3.
 ```
 
