@@ -57,6 +57,40 @@
 
 ## 2. 변수와 타입
 
+### 1) 변수
+
+```
+1. 변수, variable : 값을 저장할 수 있는 메모리의 특정 번지에 붙이는 이름
+2. 변수 선언
+	1) 의미 : 변수에 어떤 타입의 데이터를 저장할 것인지 그리고 변수의 이름이 무엇인지 결정하는 것
+	2) 용법 : 타입 변수이름;
+	3) 변수이름 특징
+		(1) 첫 번째 글자는 문자이거나 '$','_'으로 시작해야 한다
+		(2) 숫자로 시작할 수 없다
+		(3) 영어의 대소문자를 구분한다
+		(4) 첫 문자는 영어 소문자로 시작하되 다른 단어가 붙을 경우 첫 문자를 대문자로 한다
+		(5) 문자의 길이는 제한이 없다
+		(6) 자바 예약어는 사용할 수 없다
+3. 예약어
+	1) 의미 : 자바에서 의미를 갖고 사용되고 있는 단어
+	2) 종류
+		(1) 기본 타입 : boolean, byte, char, short, int, long, float, double
+		(2) 접근 제한자 : private, protected, public
+		(3) 클래스와 관련된 것 : class, abstract, interface, extends, implements, enum
+		(4) 객체와 관련된 것 : new, instanceof, this, super, null
+		(5) 메소드와 관련된 것 : void, return
+		(6) 제어문과 관련된 것 : if, else, switch, case, default, for, do, while, break, continue
+		(7) 논리값 : true, false
+		(8) 예외 처리와 관련된 것 : try, catch, finally, throw, throws
+		(9) 기타 : package, import, synchronized, final, static
+4. 값 저장
+	1) 용법 : A = B
+	2) 의미 : B 값을 A 변수에 저장한다
+	3) 변수 초기화 : 자바에서는 변수에 값이 저장되지 않으면 변수가 생성되지 않는다. 변수에 최초로 값이 저장될 때 변수가 생성되는 것을 변수 초기화라 한다
+```
+
+
+
 ## 3. 연산자
 
 ## 4. 조건문과 반복문
