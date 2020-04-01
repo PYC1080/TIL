@@ -345,49 +345,91 @@ PS ...> npx create-react-app folder_name
 ### 3) 생명 주기 메서드
 
 ```
-1. 초기화 단계
-	1) 의미 : 최초에 컴포넌트 객체가 생성될 때 한 번 수행된다
-	2) 호출 순서
-		(1) constructor(props)
-			a) props 매개변수는 컴포넌트의 기본 속성값이 적용된 상태로 호출된다
-			b) constructor 메서드 내부에서 반드시 super 함수를 호출해야 한다. super 함수를 호출해야 React.Component 클래스의 constructor 메서드가 호출된다
-			c) constructor 메서드에서는 상탯값을 직접 할당할 수 있다
-			d) constructor 메서드 내부에서 호출되는 setState 메서드는 무시된다
-		(2) static getDerivedStateFromProps(props, state)
-			a) 속성 값을 이용해 새로운 상탯값을 만든다. 따라서 해당 메서드는 이전 속성값과 이후 속성값 모두 의존적인 상탯값이 필요할 때 사용한다. 
-			b) 정적 메서드이므로 함수 내부에서 this 객체에 접근할 수 없다. 오로지 속성값과 상탯값을 기반으로 새로운 상탯값을 만든다
-			c) 속성값 변경 시 상탯값을 초기화하는 코드는 지양해야 한다
-		(3) render()
-			a) 화면에 보여질 반환값의 내용을 결정하는 메서드이다. 따라서 컴포넌트 작성시 반드시 작성해야 한다
-			b) render()로 반환할 수 있는 종류
-				(a) 컴포넌트
-				(b) HTML에 정의된 태그
-				(c) 문자열과 숫자
-				(d) 배열. 단 리액트 요소는 key 속성값을 가지고 있어야 한다 
-				(e) null or boolean 값. 단 아무것도 랜더링되지 않는다
-			c) React.Fragment를 사용하면 내부의 리액트 요소에 key 속성값을 부여하지 않아도 된다.
-			d) ReactDOM.createPortal을 사용하면 컴포넌트의 현재 위치와는 상관없이 특정 돔 요소에 렌더링할 수 있다.
-			e) 렌더 함수 내부에 setState를 호출하면 안된다
-			f) 렌더 함수의 반환값은 속성값과 상탯값만으로 결정되어야 한다
-			g) 부수 효과를 발생시키면 안된다
-		(4) componentDidMount()
-			a) render() 메서드의 첫 번째 반환값이 실제 돔에 반영된 직후 호출된다
+1. 단계
+	1) 초기화 단계
+		(1) 의미 : 최초에 컴포넌트 객체가 생성될 때 한 번 수행된다
+		(2) 호출 순서
+			a) constructor(props)
+			b) static getDerivedStateFromProps(props, state)
+			c) render()
+			d) componentDidMount()
+	2) 업데이트 단계
+		(1) 의미 : 컴포넌트의 속성갑 또는 상탯값이 변경되면 업데이트 단계가 수행된다. 초기화 단계와 소멸 단계 사이에서 반복해서 수행된다.
+		(2) 호출 순서
+	3) 소멸 단계
+		(1) 호출 순서
+            a) static getDerivedStateFromProps()
+            b) shouldComponentUpdate()
+            c) render()
+            d) getSnapshotBeforeUpdate()
+            e) componentDidUpdate()
+	4) 예외 발생 시
+		(1) Static getDerivedStateFromError()
+		(2) componentDidCatch()
+
+2. constructor(props) 메서드
+	1) 구조 : constructor(props){ super(props) ...}
+	2) 특징
+		(1) props 매개변수는 컴포넌트의 기본 속성값이 적용된 상태로 호출된다
+		(2) constructor 메서드 내부에서 반드시 super 함수를 호출해야 한다. super 함수를 호출해야 React.Component 클래스의 constructor 메서드가 호출된다
+		(3) constructor 메서드에서는 상탯값을 직접 할당할 수 있다
+		(4) constructor 메서드 내부에서 호출되는 setState 메서드는 무시된다
+
+3. static getDerivedStateFromProps(props, state) 메서드
+	1) 구조 : static getDerivedStateFromProps(props, state){...}
+	2) 특징
+		(1) 속성 값을 이용해 새로운 상탯값을 만든다. 따라서 해당 메서드는 이전 속성값과 이후 속성값 모두 의존적인 상탯값이 필요할 때 사용한다. 
+		(2) 정적 메서드이므로 함수 내부에서 this 객체에 접근할 수 없다. 오로지 속성값과 상탯값을 기반으로 새로운 상탯값을 만든다
+        (3) 속성값 변경 시 상탯값을 초기화하는 코드는 지양해야 한다
+
+4. render() 메서드
+	1) 특징
+		(1) 화면에 보여질 반환값의 내용을 결정하는 메서드. 따라서 컴포넌트 작성시 반드시 작성해야 한다
+		(2) React.Fragment를 사용하면 내부의 리액트 요소에 key 속성값을 부여하지 않아도 된다.
+		(3) ReactDOM.createPortal을 사용하면 컴포넌트의 현재 위치와는 상관없이 특정 돔 요소에 렌더링할 수 있다.
+		(4) 렌더 함수 내부에 setState를 호출하면 안된다
+		(5) 렌더 함수의 반환값은 속성값과 상탯값만으로 결정되어야 한다
+		(6) 부수 효과를 발생시키면 안된다
+	2) 반환 할 수 있는 값
+		(1) 컴포넌트
+		(2) HTML에 정의된 태그
+		(3) 문자열과 숫자
+		(4) 배열. 단 리액트 요소는 key 속성값을 가지고 있어야 한다 
+		(5) null or boolean 값. 단 아무것도 랜더링되지 않는다
+
+5. componentDidMount() 메서드
+	1) 구조
+	2) 특징
+		(1) render() 메서드의 첫 번째 반환값이 실제 돔에 반영된 직후 호출된다
+		(2) 해당 메서드를 사용하면 setState 메서드가 마운트 이후에만 동작한다. 따라서 해당 메서드는 API호출을 통해 데이터를 가져올 경우에 적합하다.
+
+6. shouldComponentUpdate() 메서드
+	1) 구조 : shouldcomponentUpdate(nextProps, nestState)
+	2) 특징
+		(1) 렌더링 성능 최적화를 위해 존재한다
+		(2) 불 타입을 반환한다. true가 반환되면 render 메서드가 호출되며 false를 반환하면 업데이트 단계가 해당 메서드에서 멈춘다
+
+7. getSnapshotBeforUpdate() 메서드
+	1) 구조 : getSnapshotBeforeUpdate(prevProps, prevState) => snapshot
+	2) 특징
+		(1) 해당 메서드가 반환한 값은 componentDidUpdate 메서드의 세 번째 인자로 들어간다
 		
-2. 업데이트 단계
-	1) 의미 : 컴포넌트의 속성갑 또는 상탯값이 변경되면 업데이트 단계가 수행된다. 초기화 단계와 소멸 단계 사이에서 반복해서 수행된다.
-	2) 호출 순서
-		(1) static getDerivedStateFromProps()
-		(2) shouldComponentUpdate()
-		(3) render()
-		(4) getSnapshotBeforeUpdate()
-		(5) componentDidUpdate()
+8. componentDidUpdate() 메서드
+	1) 구조 : componentDidUpdate(preProps, prevState, snapshot)
+	2) 특징
+		(1) 초기화 단계에서는 호출되지 않는다
 
-3. 소멸 단계
-	1) 의미
-	2) 호출 : componentWillUnmount()
-
-4. 예외 발생 시 호출 메서드 
-	1) Static getDerivedStateFromError()
-	2) componentDidCatch()
+9. componentWillUnmount
+	1) 구조
+	2) 특징
+		(1) 소멸 단계에서 호출되는 유일한 생명 주기 메서드
+		(2) componentDidMount 메서드가 호출되면 해당 메서드도 호출되는 것이 보장된다
+		
+10. getDerivedStateFromError, componentDidCatch 메서드
+	1) 구조
+		(1) static getDerivedFromError(error)
+		(2) componentDidCatch(error, info)
 ```
+
+### 4) 콘텍스트로 API 데이터 전달
 
