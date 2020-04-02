@@ -834,11 +834,127 @@ do{
 
 ### 1) 예외 클래스
 
+```
+1. 예외, exception : 사용자의 잘못된 조작 또는 개발자의 잘못된 코딩을 ㅗ인해 발생하는 프로그램 오류
+
+2. 예외의 종류
+	1) 일반 예외, exception : 컴파일러 체크 예외, Runtime Exception의 하위 클래스가 아니다. 자바 소스를 컴파일하는 과정에서 해당 예외 처리 코드가 있는 지 검사한다. 예외 처리 코드가 없다면 컴파일 오류가 발생한다
+	2) 실행 예외, runtime exception : 컴파일러 넌 체크 예외, Runtime Exception의 하위 클래스. 실행 시 예측 할 수 없는 오류가 갑자기 발생하는 오류로서 컴파일하는 과정에서 예외 처리 코드가 있는지 검사하지 않는다
+
+3. 실행 예외 : 해당 예외 발생시 프로그램은 바로 종료된다
+	1) java.lang.NullPointerException : 객체 참조가 없는 상태, 즉 null 값을 갖는 참조 변수로 객체 접근 연산자인 도트(.)를 사용했을 때 발생한다
+	2) java.lang.ArrayIndexOutOfBoundsException : 배열에서 인덱스 범위를 초과할 경우 발생하는 예외
+	3) java.lang.NumberFormateException : 포장 클래스의 정적 메소드인 parseX() 메소드를 이용해 매개값인 문자열이 숫자로 변환 될 수 없을 때 발생하는 예외
+	4) java.lang.ClassCastException : 타입 변환이 발생할 수 없는 경우 발생하는 예외. 타입 변환이 되는지 확인하기 위해서는 instanceof 연산자를 사용하면 된다
+```
+
 ### 2) 예외 처리
+
+```
+1. try-catch-finally
+	1) 의미 : 생성자 내부와 메소드 내부에서 작성되어 일반 예외와 실행 예외가 발생할 경우 예외 처리를 할 수 있도록 한다
+	2) 구조 : try{try 내부 코드} catch(예외클래스 e){예외 처리 코드} finally{항상 실행되는 코드}
+	3) 해석 : try 내부 코드 실행 도중 예외가 발생하지 않으면 곧장 finally 구문으로 넘어간다. 하지만 예외가 발생하는 경우 catch 구문 실행 후 finally 구문으로 넘어간다. 
+	4) 특징
+		(1) try 구문과 catch 구문에서 return문을 사용하더라도 finally 블록은 항상 실행된다
+		(2) try 구문에서 예외 발생시 즉시 실행을 멈추고 catch 구문으로 이동하여 예외 처리 코드를 실행한다
+		(3) finally 구문은 생략 가능하다
+		
+2. throws
+	1) 의미 : 메소드 선언부 끝에 작성되어 메소드에서 처리하지 않은 예외를 호출한 곳으로 떠넘기는 역할을 한다
+	2) 선언 : 리턴타입 메소드이름(매개변수,...) throws Exception or 예외클래스1, 예외 클래스2,...{}
+	3) 특징
+		(1) throws 키워드가 붙어 있는 메소드는 반드시 try 블록 내에서 호출되어야 한다
+```
 
 ## 11. 기본 API 클래스
 
 ### 1) java.lang 패키지
 
+```
+1. java.lang 패키지에 속하는 주요 클래스와 용도
+	1) Object : 자바 클래스의 최상위 클래스로 사용
+	2) System : 표준 입출력 장치로 사용하거나 자바 가상 기계를 종료할 때 사용
+	3) Class : 클래스를 메모리로 로딩할 때 사용
+	4) String : 문자열을 저장하고 여러 가지 정보를 얻을 때 사용
+	5) Wrapper : 기본 타입의 데이터를 갖는 객체를 만들 때 사용
+	6) Math : 수학 함수를 이용할 때 사용
+	
+2. Java API document
+	1) 의미 : Java 표준 API 중 원하는 API 정보를 제공
+	2) 주소 : https://docs.oracle.com/en/java/javase/11/docs/api/index.html
+	
+3. Object 클래스
+	1) equals()
+		(1) 용도 : 비교 연산자 '=='와 동일한 용도. 두 객체가 동일한 객체인 경우 true를 리턴하며, 그렇지 않으면 false를 리턴한다
+		(2) 용법 : public boolean equals(Object obj){}
+	2) hashCode()
+		(1) 용도 : 객체를 식별하는 하나의 정수값
+	3) toString()
+		(1) 용도 : '클래스이름@16진수_해시코드'로 구성된 객체의 문자 정보 리턴.
+
+4. System 클래스
+	1) exit(int 매개값)
+		(1) 용도 : 강제적으로 현재 실행하고 있는 프로세스를 강제 종료시킨다
+	2) currentTimeMillis(), nanoTime()
+		(1) 용도 : 컴퓨터의 시게로부터 현재 시간을 읽어 밀리세컨드와 나노 세컨드 단위의 long값을 리턴한다
+
+5. Class 클래스
+	1) getClass(), forName()
+		(1) 의미 : class 객체를 얻는 방법
+		(2) 객체 없이 클래스 이름만 가지고 class 객체를 얻는 방법
+			a) 클래스로부터 class 객체를 얻는 방법
+				(a) Class clazz = 클래스이름.class
+				(b) Class clazz = Class.forName("패키지..클래스이름")
+			b) 객체로 부터 class 객체를 얻는 방법
+				(a) Class clazz = 참조변수.getClass()
+		(3) 객체가 이미 생성되어 있는 경우 class 객체를 얻는 방법
+			a) Class clazz = String.class;
+			b) Class clazz = class.forName("java.lang.String");
+			c) Class clazz = str.getClass();
+
+6. String 클래스
+	1) String 생성자
+	2) String 메소드
+		(1) .charAt(int number) :매개값으로 주어진 인덱스의 문자를 리턴한다
+        (2) .equals() : 두 string 객체의 문자열 비교
+        (3) .getBytes() : 네트워크로 문자열을 전송하거나 문자열을 암호화할 경우 등에 사용하기 위해 문자열을 바이트 배열로 변환
+        (4) .indxeOf() : 매개값으로 주어진 문자열이 시작되는 인덱스 리턴
+        (5) .length() : 문자열의 길이를 리턴
+        (6) .replace("첫번째 매개값", "두번째 매개값") : 첫 번째 매개값인 문자열을 찾아, 두 번째 매개값인 문자열로 대치한 새로운 문자열을 생성하고 리턴
+        (7) .substring(시작인덱스값, 종료인덱스값) : 주어진 인덱스에서 문자열 추출
+        (8) .toLowerCase(), toUpperCase() : 문자열을 모두 대소문자로 변경한 후 리턴
+        (9) .trim() : 문자열의 앞뒤 공백을 제거한 새로운 문자열을 생성하고 리턴
+        (10) .valueOf() : 기본 타입의 값을 문자열로 변환
+        
+7. Wrapper 클래스
+	1) wrapper 객체 : 기본 타입의 값을 갖는 객체이다. 포장하기 있는 기본 타입 값은 외부에서 변경할 수 없다
+	2) Boxing & Unboxing
+		(1) Boxing : 기본 타입의 값을 포장 객체로 만드는 과정
+		(2) Unboxing : 포장 객체에서 기본 타입의 값을 얻어내는 과정
+	3) 자동 Boxing & Unboxing
+		(1) 자동 Boxing : 포장 클래스 타입에 기본값이 대입될 경우 발생
+		(2) 자동 Unboxing : 기본 타입에 포장 객체가 대입되는 경우 연산에서 발생
+	4) .parse기본타입이름 : 문자열을 기본 타입 값으로 변환하는 정적 메소드
+	
+8. Math 클래스
+	1) abs : 절대값
+	2) ceil : 올림값
+	3) floor : 내림값
+	4) max : 최댓값
+	5) min : 최소값
+	6) random : 랜덤값
+	7) rint : 가까운 정수의 실수값
+	8) round : 반올림값
+```
+
 ### 2) java.util 패키지
+
+```
+1. Date 클래스
+	1) 의미 : 특정 시점의 날짜를 표현하는 클래스
+	
+2. Calendar 클래스
+	1) 의미 : 달력을 표현한 클래스. 추상 클래스이므로 new 연ㅅ나자를 사용해 인스턴스를 생성할 수 없다.
+```
 
