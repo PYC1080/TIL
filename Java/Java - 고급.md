@@ -172,22 +172,99 @@
 2. OutputStream
 	1) 기능 : 바이트 기반 출력 스트림의 최상위 추상 클래스. 모든 바이트 기반 출력 스트림은 해당 클래스를 상속 받아서 ㅁ나들어 진다
 	2) 메소드
-		(1) write(int b) : 1byte를 출력한다
-		(2) write(byte[] b) : 매개값으로 주어진 배열 b의 모든 바이트를 출력한다
+		(1) write(int b) : 매개 변수로 주어지는 int에서 끝 1byte만 출력 스트림으로 보낸다
+		(2) write(byte[] b) : 매개값으로 주어진 배열 b의 모든 바이트를 출력 스트림으로 보낸다
 		(3) wirte(byt[] b, int off, int len) : 맥개값으로 주어진 배열b[off]부터 leng개까지의 바이트를 출력한다
 		(4) flush() : 출력 버퍼에 잔류하는 모든 바이트를 출력한다
 		(5) close() : 출력 스트림을 닫는다
+		
+3. InputStream
+	1) 기능 : 바이트 기반 입력 스트림의 최상위 추상 클래스. 모든 바이트 기반 입력 스트림은 해당 클래스를 상속받아 만들어 진다.
+	2) 메소드
+		(1) read() : 입력 스트림으로부터 1byte를 읽고 int 타입으로 리턴한다
+		(2) read(byte[] b) : 입력 스트림으로부터 매개값으로 주어진 배열의 길이만큼 바이트를 읽고 해당 배열에 저장한다. 그리고 읽은 바이트 수를 리턴한다
+		(3) read(byte[] b, int off, int len) : 입력 스트림으로부터 len 개의 바이트만큼 읽고, 맥개값으로 주어진 바이트 배열 b[off]부터 len 개까지 저장합니다. 실제로 읽은 바이트 수가 len개보다 작을 경우에는 읽은 수만큼만 리턴한다
+		(4) close() : 입력 스트림을 닫는다
+		
+4. Writer
+	1) 기능 : 문자 기반 출력 스트림의 최상위 추상 클래스. 모든 문자 기반 출력 스트림 클래스는 해당 클래스를 상속받아서 만들어진다.
+	2) 메소드
+		(1) write(int c) : 매개 변수로 주어지는 int에서 끝 2byte(1개 문자)만 출력 스트림으로 보낸다
+ 		(2) write(char[] cbuf) : 매개값으로 주어진 char[] 배열의 모든 문자를 출력 스트림으로 보낸다
+		(3) write(char[] cbuf, int off, int len) : 메소드 c[oFF]부터 len개의 문자를 출력 스트림으로 보낸다
+		(4) write(String str) : 주어진 문자열 전체를 출력 스트림으로 보낸다
+		(5) write(String str, int off, int len) : 주어진 문자열 off 순번부터 len 개 까지의 문자를 출력 스트림으로 보낸다
+		(6) flush() : 버퍼에 잔류하는 모든 문자를 출력한다
+		(7) close() : 출력 스트림을 닫는다
+		
+5. Reader
+	1) 의미 : 문자 기반 입력 스트림의 최상위 추상 클래스이다. 모든 문자 기반 입력 스트림은 해당 클래스를 상속 받아 만들어진다
+	2) 메소드
+		(1) read() : 입력 스트림으로부터 1개의 문자를 읽고 int 타입으로 리턴한다
+		(2) read(Char[] cbuf) : 입력 스트림으로부터 매개값으로 주어진 문자 배열의 길이만큼 문자를 읽고 배열에 저장하며 읽은 문자 수를 리턴한다.
+		(3) read(char[] cbuf, int off, int len) : 입력 스트림으로부터 len 개의 문자만큼 일고 매개값으로 주어진 문자 배열에서 cbuf[off]부터 len개까지 저장한다
+		(4) close : 입력 스트림을 닫는다
 ```
 
 ### 2) 보조 스트림
 
 ```
+1. 보조 스트림 : 다른 스트림과 연결이 되어 여러 가지 편리한 기능을 제공해주는 스트림을 말한다
 
+2. 보조 스트림 연결 : 보조스트림 변수 = new 보조스트림(연결스트림)
+
+3. 분자 변환 보조 스트림
+	1) OutputStreamWriter
+		(1) 기능 : 바이트 기반 출력 스트림에 연결되어 문자 출력 스트림인 Writer로 변환하는 보조스트림
+		(2) 선언 : Writer 변수 = new OutputStreamWriter(바이트 기반 출력 스트림);
+    2) InputStreamReader
+    	(1) 기능 : 바이트 기반 입력 스트림에 연결되어 문자 입력 스트림인 Reader로 변환하는 보조스트림
+    	(2) 선언 : Reader 변수 = new InputStreamReader(바이트 기반 입력 스트림);
+        
+4. 성능 향상 보조 스트림
+	1) 의미 : 프로그램의 실행 성능은 입출력이 가장 늦은 장치를 따라간다. 따라서 프로그램이 입출력 소스와 직접 작업하지 않고 중간에 메모리 버퍼와 작업함으로서 실행 성능을 향상시킬 수 있다
+	2) BufferedOutputStream
+		(1) 기능 : 바이트 기반 출력 스트림에 연결되어 버퍼를 제공해주는 보조스트림
+		(2) 선언 : BufferedOutputStream 변수 = new BufferedOutputStream(바이트 기반 출력 스트림);
+	3) BufferedWriter
+		(1) 기능 : 문자 기반 출력 스트림에 연결되어 버퍼를 제공해주는 보조스트림
+		(2) 선언 : BufferedWriter 변수 = new BufferedWriter(문자 기반 출력 스트림);
+	4) BufferedInputStream
+		(1) 기능 : 바이트 기반 입력 스트림에 연결되어 버퍼를 제공해주는 보조스트림
+		(2) 선언 : BufferedInputStream 변수 = new BufferedInputStream(바이 기반 입력 스트림);
+	5) BufferedReader
+		(1) 기능 : 문자 기반 입력 스트림에 연결되어 버퍼를 제공해주는 보조 스트림
+		(2) 선언 : BufferedReader 변수 = new BufferedReader(문자 기반 입력 스트림);
+		
+5. 기본 타입 입출력 보조 스트림
+	1) 의미 : 기본 타입을 입출력할 수 있도록 돕는 보조스트림
+	2) DataInputStream : DataInputStream 변수 = new DataInputStream(바이트 기반 입력 스트림);
+	3) DataOutputStream : DataOutputStream 변수 = new DataOutputStream(바이트 기반 입력 스트림);
+ 
+6. 프린터 보조 스트림
+	1) 의미 : print(), println() 메소드를 가지고 있는 보조 스트림
+	2) PrinterStream : PrinterStream 변수 = new PrinterStream(바이트 기반 출력 스트림);
+	3) PrinterWriter : PrinterWriter 변수 = new PrinterWriter(문자 기반 출력 스트림);
+	
+7. 객체 입출력 보조 스트림
+	1) 의미
+	2) ObjectInputStream
+		(1) 의미 : 객체를 역직렬화(바이트 배열을 다시 객체로 복원한다)한다
+		(2) 선언 : ObjectInputStream 변수 = new ObjectInputStream(바이트 기반 입력스트림);
+	3) ObjectOutputStream
+		(1) 의미 : 객체를 직렬화(객체를 바이트 배열로 만든다)한다
+		(2) 선언 : ObjectOutputStream 변수 = new ObjectOutputStream(바이트 기반 입력스트림);
 ```
 
 ### 3) 입출력 관련 API
 
 ```
+1. System.in
 
+2. System.out
+
+3. Scanner
+
+4. File
 ```
 
