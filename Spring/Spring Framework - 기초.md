@@ -164,7 +164,112 @@
 	3) Method Injection : 의존성을 입력 받는 일반 메서드를 만들고 이를 통해 의존성을 주입한다
 	
 4. Setter Injection
-	1) <property> 태그 ref 속성 : Setter 메서드를 통해 의존관계가 있는 bean을 주입한다. ref 속성을 사용하면 bean의 id를 이용해 주입할 bean을 찾는다.
-	2) <property> 태그 value 속성 : Setter 메서드를 통해 bean의 레퍼런스가 아니라 단순 값을 주입한다. value 속성은 단순 값 또는 bean이 아닌 객체를 주입할 때 사용한다
+	1) <property> 태그 : Setter 메서드를 통해 의존관계가 있는 bean을 주입한다
+	2) 태그 속성
+		(1) ref : ref 속성을 사용하면 bean의 id를 이용해 주입할 bean을 찾는다.
+		(2) value : value 속성은 단순 값 또는 bean이 아닌 객체를 주입할 때 사용한다
+ 	
+5. Constructor Injection
+	1) <constructor-args> 태그 : Constructor 메서드를 통해 의존관계가 있는 bean을 주입한다
+	2) 태그 속성
+		(1) id
+		(2) ref
+		
+6. Colleciton Injection
+```
+
+### 3) DI 컨테이너
+
+```
+
+
+?. 최상위 인터페이스
+	1) BeanFactory
+		(1) ApplicationEventPublisher
+		(2) ListableBeanFactory
+		(3) MessageSource
+		(4) ResourceLoader
+	2) ApplicationContext
+		(1) StaticApplicationContext
+		(2) GenericXmlApplicationContext
+		(3) WebApplicationContext
+```
+
+
+
+
+
+### 4) jUnit을 사용한 DI 테스트 클래스
+
+```
+1. jUnit : Java에서 독립된 단위테스트를 지원해주는 프레임워크이다. jUnit은 보이지 않고 숨겨진 단위 테스트를 끌어내어 정형화시켜 단위테스트를 쉽게 해주는 테스트 지원 프레임워크이다.
+
+2. 단위 테스트 : 소스 코드의 특정 모듈이 의도된 대로 정확히 작동하는지 검증하는 절차. 모든 함수와 메소드에 대한 테스트 케이스를 작성하는 절차이다.
+
+3. jUnit의 특징
+	1) 단정 메서드(assert method)를 사용해 테스트 케이스의 수행 결과를 판별
+	2) 테스트를 지원하는 어노테이션을 제공한다
+	3) 각 @Test 메서드가 호출될 때마다 새로운 인스턴스를 생성하여 독립적인 테스트가 이루어지도록 한다
+
+4. 단정메서드
+	1) assertEquals(a,b); : 객체 A와 B 값이 일치함을 확인한다
+	2) assertArrayEquals(a,b); : 배열 A와 B값이 일치함을 확인한다
+	3) assertSame(a,b); :  객체 A와 B의 레퍼런스가 동일한가를 확인한다
+	4) assertTrue(a); : 조건 A가 참인가를 확인한다
+	5) assertNotNull(a); :  객체 A가 Null이 아님을 확인한다
+```
+
+### 5) Bean metatdata 구성 전략
+
+```
+1. XML 설정 단독 사용
+	1) 모든 Bean을 명시적으로 XML에 등록
+	2) 생성되는 모든 Bean을 XML에서 확인할 수 있다. 그러나 Bean의 갯수가 많아지면 XML 파일을 관리하기 번거로울 수 있다
+	3) 여러 개발자가 같은 설정 파일을 공유해서 개발하다 보면 설정파일을 동시에 수정하다가 충돌이 일어나는 경우가 적지 않다
+	4) DI에 필요한 적절한 setter 메서드 또는 constructor가 코드 내에 반드시 존재해야 한다
+	5) 개발 중에는 어노테이션 설정방법을 사용했지만 운영 중에는 관리의 편의성을 위해 XML 설정으로 변경하는 전략을 쓸 수도 있다
+	
+2. 어노테이션과 XML 설정 혼용해서 사용
+	1) Bean으로 사용될 클래스에 특별한 어노테이션을 부여해주면 이런 클래스를 자동으로 찾아서 Bean으로 등록한다
+	2) Bean Scanning을 통한 자동 인식 bean 등록 기능 : @Component 어노테이션이 선언된 클래스를 자동으로 찾아서 Bean으로 등록해주는 방식
+	3) 어노테이션을 부여하고 자동 스캔으로 bean을 등록하면 XML 문서 생성과 관리에 따른 수고를 덜어주고 개발 속도를 향상시킬 수 있다
+	4) 애플리케이션에 등록될 bean이 어떤 것들이 있고 bean들 간의 의존관계가 어떻게 되는지를 한눈에 파악할 수 없다는 단점이 있다
+	
+3. 어노테이션 설정 단독 사용
+	1) XML이 아닌 자바 코드를 이용해서 컨테이너를 설정할 수 있는 기능을 제공하는 프로젝트이다
+	2) 어노테이션을 이용해 스프링컨테이너에 새로운 빈 객체를 제공할 수 있다
+	3) Bean 을 등록하고 Bean들 간의 연결 설정을 자바 코드 내부에 하므로 XML을 전혀 사용하지 않는다
+	
+
+```
+
+### 6) Annotation
+
+```
+1. Annotation 의미 ;
+
+2. 종류
+	1) jUnit에서 테스트를 지원
+        (1) @After : @Test 메소드가 실행된 후 실행된다
+        (2) @BeforeClass : @Test 메소드 보다 먼저 한번만 수행되어야 할 경우에 사용하면 된다
+        (3) @AfterClass : @Test 메소드 보다 나중에 한번만 수행되여야 할 경우에 사용하면 된다
+    2) Spring-test에서 테스트 지원
+    	(1) @RunWith(SpringJUnit4ClassRunner.class) : jUnit 프레임워크 테스트 실행방법을 확장할 때 사용하는 어노테이션이다. SpringJUnit4ClassRunner 클래스를 지정해주면 jUnit이 테스트를 진행하는 중에 ApplicationContext를 만들고 관리하는 작업을 진행해준다. 이때 각각의 테스트 별로 객체가 생성되더라도 싱글톤의 ApplicationContext를 보장한다
+    	(2) @ContextConfiguration : 스프링 빈 설정 파일의 위치를 지정할 때 사용한다
+    	(3) @Autowired : 스프링 DI에서 사용되는 특별한 어노테이션이다. 해당 변수에 자동으로 빈을 매핑 해주므로 GenericXmlApplicationContext를 사용할 필요가 없다.
+    3) Bean 등록
+    	(1) @Component : 컴포넌트를 나타내는 일반적인 스테레오 타입으로 <bean> 태그와 동일한 역할을 한다
+        (2) @Repository : 퍼시스턴스 레이어, 영속성을 가지는 속성을 가진 클래스
+        (3) @Service : 서비스 레이어, 비즈니스 로직을 가진 클래스
+        (4) @Controller : 프레젠테이션 레이어, 웹 어플리케이션에서 웹 요청과 응답을 처리하는 클래스
+        (5) @Bean : 새로운 빈 객체를제공할 때 사용되며 메서드의 이름을 식별값으로 사용된다
+        (6) @Configuration : 해당 어노테이션을 설정하면 스프링 IoC 컨테이너가 해당 클래스를 bean 정의의 설정을 사용하는 것이 된다.
+    4) Bean 의존관계 주입
+    	(1) @Autowired : 정밀한 DI이 필요한 경우에 유용하다. 변수, setter메서드, 생성자, 일반 메서드에 적용이 가능하다. 의존하는 객체를 주입할 때 주로 Type을 이용하게 된다.
+    	(2) @Resource : 어플리케이션에서 필요로 하는 자원을 자동 연결할 때 사용된다. 변수, setter메서드에 적용이 가능하다. 의존하는 객체를 주입할 때 주로 Name을 이용하게 된다.
+    	(3) @Value : 단순한 값을 주입할 때 사용되는 어노테이션
+    	(4) @Qualifier : @Autowired는 타입을 찾아서 의존성을 주입한다. 동일한 타입의 Bean 객체가 여러 개 존재할 때 특정 Bean을 찾기 위해 사용하는 어노테이션
+    	(%)
+
 ```
 
