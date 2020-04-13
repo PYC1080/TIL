@@ -123,7 +123,7 @@ public class UsersSelect {
 
 ```
 
-### 2) Update 예시
+### 2) Insert예시
 
 ```
 package jdbc;
