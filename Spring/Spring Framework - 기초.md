@@ -290,3 +290,34 @@
 	2) <context:property-placehoder>태그에 의해 자동으로 등록되어 PorpertyPlaceHolderConfigure Bean이 값을 자동으로 치환해 준다
 ```
 
+
+
+
+
+
+
+
+
+
+
+```
+1. resultType => "User" : 컬럼명과 VO의 getter/setter의 이름이 같은 경우
+resultMap => 컬럼명과 VO의 getter/setter의 이름이 같지 않은 경우 직접 개발자가 수동으로 매핑을 해주는 것
+
+2. J2EE 기술중에서 Servlet과 JSP(Java Server Page), JSTL(Java Standard Tag Library)
+	1) Tomat(Web container) 가 필요하다 : tomcat 서버에서 동작
+	2) Servlet은 클래스, JSP는 스크립트에 해당한다
+	3) JSP와 비슷한 종류는 php,asp 등이 있다
+	4) HTML:그림을 그려준다,CSS: 그림을 예쁘게 해준다,Javascript: 다이나믹한 사용자와 인터랙션 하게 해준다 => 정적인 컨텐츠만 생산할 수 있다. 따라서 HTML에서 UerDAO(DB 연동) 객체 method를 호출할 수 없다. 그 결과, HTML이 Servlet/jsp를 통해 DAO 객체를 부른다
+	5) Sevlet과 JSP는 동적인(Dynamic) 컨텐츠를 생산할 수 있다
+	6) MVC 패턴(Model/View/Controller) : Separation of Concens(=Responsibility 책임 및 역할), 모든 종류의 코드를 JSP에 작성하면 코드가 버무려져 작성한 개발자를 제외하고는 유지보수가 힘들어진다. 따라서 코드를 MVC 패턴을 기반으로 Web Architecture를 구성한다
+	7) Web Architecture의 종류
+		(1) 구 모델 :  Model1 아키텍쳐 : Model(Java - Dao,Serivce, VO 모두 포함), View(Back단 : Jsp, HTML), Controller(Model과 Viewㄹ를 연결 : JSP)
+		(2) 신 모델 : Model2 아키텍처 : Model(Java - Dao,Serivce, VO 모두 포함), View(Back단 : Jsp, HTML), Controller(Model과 View를 연결 : Servlet)
+	8) Spring MVC는 Model2 아키텍처를 사용한다 : Front Controller 역할을 하는 DispatcherServlet 클래스를 제공한다
+		
+```
+
+new->dynamic web application -> model2Project- > next->web.xml generate 체크 -> finish
+
+URL mapping : 해당 매핑으로 호출하겠다
