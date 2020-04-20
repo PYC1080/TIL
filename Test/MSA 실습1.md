@@ -471,6 +471,7 @@ application {
     serviceDiscoveryType no
     authenticationType jwt
     databaseType mongodb
+    clientFramework react
     cacheProvider no
     enableHibernateCache false
     buildTool gradle
@@ -488,7 +489,8 @@ application {
     packageName ro.trc.office.organization
     serviceDiscoveryType no
     authenticationType jwt
-    prodDatabaseType mysql
+    devDatabaseType mariadb
+    prodDatabaseType mariadb
     cacheProvider hazelcast
     buildTool gradle
     serverPort 8081
