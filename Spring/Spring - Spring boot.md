@@ -238,3 +238,76 @@ My Spring Boot ${spring-boot.version} / ${application.version}
 	
 ```
 
+### 2) Maria DB
+
+```
+1. DB 설치시 준수 사항
+	1) root password : mysql 
+	2) Use UFT8 as default server's character set : check
+	3) Enable the Feeback plugin and submit anonymous usage information ; uncheck
+	
+2. DB 생성
+	1) 기존 DB 확인 : show databases;
+	2) mysql DB 사용 : use mysql;
+	3) 새로운 계정 생성 : create user 새로운계정@localhost identified by 'spring';
+	4) 새로운 계정에 권한 부여 : grant all on *.* to spring@localhost;
+	5) 부여한 권한 flush privileges;
+	6) 새로운 계정에 로그인하기 위해 기존 db 로그아웃 : exit
+	7) 새로운 계정 로그인 : mysql -u spring -p
+	8) 새로운 db 생성 : create database spring_db;
+	9) db가 생성되었는지 확인 : show databases;
+	10) 생성된 db 사용 : use spring_db;
+	11) db가 사용되는지 확인 : MariaDB [생성된DB이름]>
+	
+```
+
+### 3) ORM 과 JPA
+
+```
+1. ORM, Object-Relational Mapping
+	1) 기능 : 객체는 객체대로 설계하고 관계형 데이터베이스는 관계형 데이터베이대로 설계한다. ORM 프레임워크는 이 중간에서 서로를 매핑해준다
+	2) ORM rule
+		(1) Java class와 Table이 연관된다
+		(2) Runtime ojbect는 Row와 연관된다
+		(3) Ojbec의 Variable은 Column과 연관된다
+	
+	
+2. JPA, Java Persistence API
+	1) 기능 : 자바 진영의 ORM 기술 표준으로 인터페이스 모음이다
+	2) JPA 2.1 표준 명세를 구현한 구현체
+		(1) Hibernate : ORM framework, JPA 인터페이스를 구현한 대표적인 오픈소스
+		(2) EclipseLink :
+		(3) DataNucleus :
+		
+3. Spring data JPA : JPA를 쉽게 사용하기 위해 스프링에서 제공하는 프레임워크이다. Repository Bean을 자동 생성해주며 쿼리 메소드를 자동으로 구현해준다.
+
+4. Entity class 작성
+	1) Entity : 데이터베이스에서 표현하려고 하는 유무형의 객체로서 서로 구별되는 것을 뜻한다. 보통 DB상에서 table로 나타내어 진다.
+	2) Annotation
+    	(1) @Entity : Entity class 임을 지정해 DB 테이블과 mapping 해주는 객체를 나타내주는 어노테이션
+    	(2) @Id : 엔티티의 기본키를 나타내는 어노테이션이다. 해당 어노테이션이 하나는 반드시 포함되어야 한다.
+    	(3) @GeneratedValue : 주 키의 값을 자동으로 생성하기 위해 명시해주는 어노테이션이다. 자동 생성 전략은 AUTO, IDENTITY, SEQUENCE, TABLE이 있으며 기본 값은 AUTO 이다.
+    	(4) @Column : @Entity를 선언해 줬다면 자동으로 부여되므로 명시하지 않아도 된다.
+    	
+ 5. JPA를 사용한 데이터베이스 초기화
+ 	1) spring.jpa.hibernate.ddl-auto=**
+ 		(1) 기능
+ 		(2) ** 값
+            a) create : JPA가 DB와 상호작용할 때 기존에 있던 테이블(스키마)을 삭제하고 새로 만든다
+            b) create-drop : JPA 종료 시점에 기존에 있었던 테이블을 삭제한다
+            c) update : 기존 테이블은 유지하므로 기존 데이터를 유지한 채 새로운 것만 추가한다. 변경된 부분만 반영하므로 개발할 때 적합하다.
+            d) validate : 엔티티와 테이블이 정상 매핑되어 있는지 검증한다
+ 	2) spring.jpa.show-sql=**
+ 		(1) 의미 : JPA가 생성한 SQL문을 보여줄 지 에 대한 여부를 알려주는 프로퍼티
+ 		(2) ** 값
+ 			a) true
+ 			b) false
+ 
+ 6. Repository 인터페이스
+ 	1) 의미 : AccountRepository의 구현체를 작성하지 않아도 spring-data-jpa가 자동적으로 해당 문자열 username에 대한 인수를 받아 자동적으로 DB table과 매핑한다
+ 	2) Repository에 finder 메서드 선언 규칙
+ 	3) Repository interface 수정 : java.util.OPtional<T> 클래스
+ 		(1) 의미 : Null이 될 수도 있는 객체를 감싸고 있는일종의 래퍼 클래스. 명시적으로 해당 변수가 Null일 수도 있다는 가능성을 표현해 불필요한 NullPointException 방어 로직을 줄일 수 있게 된다.
+    	
+```
+
