@@ -1,4 +1,4 @@
-## Spring - Spring boot
+## Spring - Spring Boot
 
 ## 0. 설정
 
@@ -158,10 +158,83 @@ My Spring Boot ${spring-boot.version} / ${application.version}
 	15) JAR 안에 있는 application properties
 	16) @propertySource
 	17) 기본 프로퍼티(SpringApplication.setDefaultProperties)
+```
+
+### 3) Spring boot profile
+
+```
 
 2. Properties
 	1) 의미 : properties 파일의 값을 @Value 을 통해 읽을 수 있다
+
+3. @ConfigurationProperties
+	1) 기능 : 프로퍼티 파일의 값을 받는 클래스를 하나 생성하여 그 클래스를 @Autowired 같은 어노테이션을 통해 자동 주입한다
+	2) 특징
+		(1) 자동 주입하는 방법이 Type-safe 하여 유지 보수 측면에서 장점을 갖는다
+		(2) 프로퍼티 클래스를 작성하여 여러 프로퍼티를 묶어서 읽어올 수 있다
+		(3) 프로퍼티 클래스를 bean으로 등록해 다른 bean에 주입할 수 있다
+		(4) Application.properties에 똑같은 key 값을 가진 property가 많은 경우 프로퍼티 클래스를 작성 할 수 있다
+		
+4. @Profile
+```
+
+### 4) Logging
+
+```
+6 Logging Facade vs logger 구현체
+	1) Logging Facade 
+		(1) 종류 : Commons Logging, SLF4j(Simple Logging Facade for java)
+		(2) 기능 : Logger API 를 추상해 놓은 로깅 퍼사드 인터페이스들이다. 로깅 퍼사드를 통해 Logger를 사용했을 때 로깅 구현체들을 교체하기 쉽게 해준다
+	2) Logger 구현체
+		(1) 종류 : JUL(java.util.logging), Log4j2, Logback
+		(2) 기능 : 로깅 퍼사드 구현체들
+```
+
+### 5) Spring Boot Devtols
+
+```
+5. Spring boot devtools
+	1) 기능 : 클래스 패스에 있는 파일이 변경 될 때마다 자동으로 재시작 해준다.
+	2) 방법 : pom.xml에 dependency 추가
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-devtools</artifactId>
+    </dependency>
 ```
 
 
+
+
+
+##  4. Spring Boot  Data
+
+### 1) In-Memory DB
+
+```
+1. 지원하는 In-Memory DB 종류
+	1) H2 : 콘솔기능을 지원해주므로 추천한다
+	2) HSQL
+	3) Derby
+
+2. H2 콘솔 접근
+	1) POM.XML에 의존성 추가 :
+	<dependency>
+     <groupId>com.h2database</groupId>
+     <artifactId>h2</artifactId>
+     <scope>runtime</scope>
+	</dependency>
+    <dependency>
+     <groupId>org.springframework.boot</groupId>
+     <artifactId>spring-boot-starter-jdbc</artifactId>
+    </dependency>
+    2) properties 파일에 코드 추가 : spring.h2.console.enabled=true
+    3) 콘솔 접근 
+    	(1) 입력 :localhost:포트번호/h2-console/
+    	(2) JDBC URL : jdbc:h2:mem:testdb
+    	(3) User Name: sa
+    	(4) Password : 없음
+
+3.
+	
+```
 
