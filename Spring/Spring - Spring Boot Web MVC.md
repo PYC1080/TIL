@@ -1,62 +1,97 @@
 # Spring - Spring Boot Web MVC
 
-## 0. 설정
+## 0. Spring Boot Web MVC
 
 ```
-1. org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration에서 WebMvc와 관련된 자동 설정 클래스가 적용된다.
+1. Web on Servlet Stack : https://docs.spring.io/spring/docs/5.0.7.RELEASE/spring-framework-reference/web.html#spring-web
 
-2. Spring Mvc 확장 : @Configuration + WebMvcConfigurer 인터페이스 구현
+2. 자동 설정으로 여러가지 기본적인 기능을 제공한다 :org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration에서
+WebMvc와 관련된 자동 설정 클래스가 적용된다.
+
+3. 스프링 MVC 확장 : @Configuration + WebMvcConfigurer 인터페이스 구현
 ```
 
 ## 1. RestController
 
 ```
 1. @ReuestBody
-	1) 해당 어노테이션을 통해 HTTP 메시지와 객체 
+	1) 해당 어노테이션을 통해 HTTP 메시지와 객체를 매핑한다
+	2) JsonMessageConverter : HTTP 요청 본문을 Json 객체로 변경하거나 Json 객체를 HTTP 응답으로 변경할 때 사용한다
+	3) ContentNegotiatingViewResolver : Controller에서 Json 타입에 대한 정보를 명시하지 않아도 자동적으로 Json 형식으로 데이터를 반환하도록 스프링 부트에서 제공한다.
+	4) ViewResolver : Controller에서 반환한 값(ModelAndView or Model)을 통해 뷰를 만드는 역할
+	
+2. XML message Converter dependencies
+<dependency>
+ <groupId>com.fasterxml.jackson.dataformat</groupId>
+ <artifactId>jackson-dataformat-xml</artifactId>
+ <version>2.9.6</version>
+</dependency>
 ```
 
 ## 2. 정적 리소스
 
+```
+1. 정적 리소스를 지원한다
+
+2. 기본 리소스 위치
+classpath:/static
+classpath:/public
+classpath:/resources/
+classpath:/META
+-INF/resources
+
+3. 정적 리소스 매핑 설정 변경 : application properties 파일에 spring.mvc.static-path-pattern = 매핑 경로 추가
+
+4. 정적 리소스 매핑 커스터 마이징
+	1) Webconfig 파일에 WebMvcConfigurer을 impements 한다
+	2) addResourceHandlers 메서드로 커스터 마이징 : 리소스 위치와 매칭될 URL을 등록한다.
+```
+
 ## 3. webjar
 
+```
+1. 용도 : Frontend에서 사용되는 JavaScript library를 Maven에서 다운받을 수 있다
+
+2. 방법
+	1) jQuery Library : pom.xml에 dependencies 추가
+<dependency>
+ <groupId>org.webjars.bower</groupId>
+ <artifactId>jquery</artifactId>
+ <version>3.3.1</version>
+</dependency>
+	2) Library 버전을 생략하고 jQuery를 사용하는 경우
+<dependency>
+<groupId>org.webjars</groupId>
+<artifactId>webjars-locator-core</artifactId>
+<version>0.36</version>
+</dependency>
+```
+
 ## 4. index와 favicon
+
+```
+1. welcome page : index.html을 찾아 있으면 제공하고 없으면 에러페이지를 보여준다
+
+2. Favicon
+	1) favicon 만들기 : https://favicon.io/favicon-generator/
+	2) 다음 경로에 favicon.ico 파일명 추가 : /resources/static/favicon.ico 
+```
+
+
 
 ## 5. Thymeleaf
 
 ```
-0. 사전 설정
-	1) JSP를 권장하지 않는 이유
-        (1) JAR 패키징할 때 동작하지 않으므로 WAR로 패키징 해야한다
-        (2) Sevlet Engine인 Undertow는 JSP를 지원하지 않는다
-    2) Thymeleaf 사용 방법
-		(1)dependencies 추가
+1. Dependencies & URI tag
+	1) Dependencies
 <dependency>
  <groupId>org.springframework.boot</groupId>
  <artifactId>spring-boot-starter-thymeleaf</artifactId>
 </dependency>
-		(2) URI 태그 추가 
+	2) URI 태그 추가 
 <html xmlns:th="http://www.thymeleaf.org">
 
-1. Introducing Thymeleaf
-	1) Thymeleaf?
-        (1) Java Template engine : HTML, XML, JavaScript, CSS 및 일반 텍스트를 처리할 수 있는 웹 및 독립형 환경을 위한 최신 서버를 지원하는 웹 템플릿 엔진이다.
-        (2) highly-maintainable way of creating templates : Natural templates 개념을 바탕으로 템플릿을 디자인 프로토 타입으로 사용해 디자인 팀과 개발 팀의 격차를 해소한다
-        (3) Web Standards in HTML5 : HTML5을 기반으로 설계되어 HTML5 문법으로 서버쪽 로직을 수행하고 필요한 경우 완전 유효성 검사 템플릿을 만들수 있다.
-    2) Thymeleaf로 처리가능한 템플릿 종류
-    	(1) Markup template mode
-    		a) HTML : HTML4, HTML5, XHTML를 지원한다. 템플릿 코드와 구조는 최대한 지원하나 유효성 검사와 수행성 검사는 지원하지 않는다
-    		b) XML : 닫히지 않은 태그, 인용되지 않은 속성 등의 코드 형식이 양호하지 않은 경우 예외를 발생시킨다. 그러나 DTD와 XML 스키마에 대한 유효성 검사는 수행되지 않는다
-    	(2) Textual Template mode
-    		a) Text : Markup natural template을 위한 특별한 구문을 사용할 수 있다.
-    		b) JavaScript : Thymeleaf 응용 프로그램에서 자바스크립트 파일을 처리할 수 있다.
-    		c) CSS : Thymeleaf 응용 프로그램에서 CSS 파일을 처리할 수 있따
-    		d) Raw : 처리되지 않은 템플릿을 처리중인 템플릿에 삽입하는 데 사용된다.
-    3) The Standard Dialect : Thymeleaf's core library		
-    		
-	
-
-
-4. Standar Expression Syntax
+2. Standar Expression Syntax
 	1) ${}, Variable Expressions : 해당 Context에 포함된 변수들을 사용할 수 있다.
 	2) *{}, Selection Variable Expressions : 가까운 DOM에 th:object로 정의된 변수가 있다면 그 변수에 포함된 값을 나타낼 수 있다.
 	3) #{}, Message Expressions : 미리 정의된 message.properties 파일이 있을 때 해당 표현식을 사용해 나타낼 수 있따
@@ -96,6 +131,8 @@
 	3) HTML과 JSON 응답을 지원한다
 	
 2. @ControllerAdvice : 해당 어노테이션을 통해서 이 클래스의 객체가 컨트롤러에서 발생하는 excepetion을 전문적으로 처리하는 클래스라는 것을 명시할 수 있다.
+
+3. Http 에러 코드 값에 따른 에러 페이지 작성 디렉토리 : src/main/resources/static/error/code_number.html
 ```
 
 ## 8. CORS
