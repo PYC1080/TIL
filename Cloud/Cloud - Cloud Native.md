@@ -6,7 +6,7 @@
 
 > 지속적 통합, Continuous Integration
 
-### 2) CD, 
+### 2) CD
 
 > 지속적 배포, Continuous Deployment
 
@@ -116,9 +116,78 @@
 		(2) 인프라를 활요하거나 정보를 얻기 위해 대기 시간이 길어짐 : 개발자가 대기하는 기간이 길어질수록 낭비가 심해진다
 ```
 
+### 3) What is DevOps
 
+```
+1. DevOps 단계
+	1) 1단계, System Thinking : From Dev/Business to Ops/Customer
+	2) 2단계, Amplify Feedback Loops : Fail Fast, Fail Often, Fail Cheaply
+	3) 3단계, Culture of Continual Experimentation And Learning : Continuous Improvement
+
+2. DevOps 도구
+	1) Planning : 
+	2) Code : git / JIRA / Confluence / monday / REDMINE / 
+	3) Build : sbt / maven /gradle
+	4) Test : Sellenium / JUnit
+	5) Release : Jenkins / CODESHIP
+	6) Deploy : DC/OS / Docker / AWS
+	7) Operate : CHEF / ANSIBLE / Kubernetes
+	8) Monitor : Nagios / splunk / DATADOG
+	
+3. CALMS Framework
+	1) 문화
+	2) 자동화
+	3) 린
+	4) 측정
+	5) 공유
+	
+4. DevOps 팀 구성 : DevOps 는 애플리케이션과 서비스의 개발에서 배포 운영까지 빠르게 제공하기 위한 조직의 협업 문화이다. 따라서 서비스의 기획, 설계, 개발, 배포 및 운영까지 한 팀에서 수행하게 된다.
+
+5. Dev & Ops
+	1) Dev
+		(1) Build
+		(2) Unit Tet
+		(3) Development / Deployment
+	2) QA
+		(1) Deploy To Test Environments
+		(2) Functional And Performance Test
+	3) Ops
+		(1) Deploy To Staging
+		(2) Deploy To Production
+	4) after Dev
+		(1) Build
+		(2) Dev Test
+		(3) System
+		(4) UAT
+		(5) Sing-off
+		(6) Staging
+		(7) Prod
+
+6. Monitoring
+	1) Health Check API : 
+	2) Log Aggregation :
+	3) Distributed tracing :
+	4) Exception tracking :
+	5) Application metrics : 
+	6) Audit logging : 
+```
 
 ## 3. MSA
 
 > MicroService Architecture
+
+```
+1. Microsevice의 특징
+	1) Small, 작은 서비스 : 독립된 비즈니스가 아닌 독립된 서비스 단위
+	2) Bounded Context, 독립된 서비스 : 하나의 서비스에 담을 수 있는 기능들의 그룹이다. 구현, 배포, 실행, 장애에 대해 영향을 받지 않으며 독립적으로 실행되는 서비스 수준의 경계를 정한다.
+	3) 응집된 서비스 : 하나의 서비스는 기능적으로 응집되어 있다. 서비스의 역할이 한 가지 이을 위해서 묶여야 단순해지며, 목적이 명확해지고, 오류가 최소화된다.
+	4) 자율적 서비스 : 서비스의 기획, 개발, 테스트, 배포 및 서비스의 운영까지 담당 조직이 독립적으로 의사를 결정해야 한다.
+
+2. Microservice 기획
+	1) Microservice 식별 전략
+		(1) 도메인 이해 / 요구 분석 / 조직 분석  : 사용자, 업무 흐름, 핵심 업무, 업무 우선순위
+		(2) Microservice 원칙 수립 : microservice 경계, 분할 및 크기 등
+		(3) 상관 분석 : 사용자, 업무, 데이터 간 상관관계
+		(4) 서비스 식별 : 
+```
 
