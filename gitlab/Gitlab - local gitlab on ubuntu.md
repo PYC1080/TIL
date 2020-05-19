@@ -175,5 +175,53 @@ sudo gitlab-ctl status
 http://external_url
 ```
 
-### 5)
+### 5) 포트 바인딩 : vmware - host pc
 
+```
+1. vmware workstation : edit-Virtual network Editor
+
+2. change settings
+
+3. VMnet information : NAT -> NAT settings
+
+4. add
+	1) Host port : client가 host로 접속하기 위해 할당되는 포트
+	2) Type : TCP
+	3) virtual machine IP address : vmware 가상 호스트 IP
+	4) Virtual Machine port : external_url의 포트번호 입력
+	5) Description : 생략해도 무방
+
+5. OK
+
+6. Apply -> OK
+```
+
+### 6) 포트 바인딩 : Client pc - host pc
+
+```
+1. host pc 인바운드 규칙 추가
+	1) 제어판-시스템 및 보안-Windows Defender 방화벽-고급설정
+	2) 인바운드 규칙-새 규칙
+		(1) 규칙 종류 : 포트
+		(2) 프로토콜 및 포트
+			a) TCP(T)
+			b) 특정 포트 : external_url의 포트번호 입력
+		(3) 작업 : 연경 허용
+		(4) 프로필 : 도메인/개인/공용 모두 체크
+		(5) 이름 : 원하는 이름 입력
+
+2. 네트워크 설정
+	1) 제어판-네트워크 및 인터넷-네트워크 연결
+	2) VMware Network Adapter VMnet8-인터넷프 프로토콜 버전4(TCP/IPv4)
+	3) 일반 탭
+		(1) 다음 IP 주소 사용
+			a) 주소 : 가상 환경 IP
+			b) 서브넷 마스크 : 255.255.255.0
+			c) 기본 게이트 웨이
+		(2) 다음 DNS 서버주소사용
+
+```
+
+## 3. 결과
+
+<img width="1275" alt="gitlab 결과" src="https://user-images.githubusercontent.com/55272324/82345625-73323780-9a30-11ea-938c-b3346d0cbed9.png">
