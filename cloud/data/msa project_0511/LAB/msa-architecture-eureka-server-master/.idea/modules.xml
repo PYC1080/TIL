@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/msa-echosystem.msa-architecture-eureka-server-master.iml" filepath="$PROJECT_DIR$/.idea/modules/msa-echosystem.msa-architecture-eureka-server-master.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/msa-echosystem.msa-architecture-eureka-server-master.main.iml" filepath="$PROJECT_DIR$/.idea/modules/msa-echosystem.msa-architecture-eureka-server-master.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/msa-echosystem.msa-architecture-eureka-server-master.test.iml" filepath="$PROJECT_DIR$/.idea/modules/msa-echosystem.msa-architecture-eureka-server-master.test.iml" />
+    </modules>
+  </component>
+</project>

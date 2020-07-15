@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.freemarker:freemarker:2.3.27-incubating">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.freemarker/freemarker/2.3.27-incubating/fa71f754fd3c4123358c2b1e5eef630cd99d752f/freemarker-2.3.27-incubating.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.freemarker/freemarker/2.3.27-incubating/e484927554978a385ad8c89800e9a4fa7f5f3709/freemarker-2.3.27-incubating-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
