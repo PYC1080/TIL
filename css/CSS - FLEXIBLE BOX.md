@@ -225,3 +225,78 @@
 
 ### 2) Items
 
+#### (1) order
+
+* 기능 : flex item의 순서를 설정한다. item의 숫자를 지정하고 숫자가 클수록 순서가 밀린다 또한 음수가 허용된다.
+
+<img width="439" alt="order" src="https://user-images.githubusercontent.com/55272324/87798746-5a56ce80-c887-11ea-845c-3be5b115804d.PNG" style="zoom:150%;" >
+
+#### (2) flex
+
+* 기능 : flex-grow, flex-shrink, flex-basis의 단축 속성 
+* 기본 값
+
+```
+flex-grow를 제외한 개별 속성은 생략할 수 있다. 따라서 'flex:1인 경우 flex-grow:1'과 같다.
+
+1. flex-grow : 0
+
+2. flex-shrink : 1
+
+3. flex-basis : auto. 그러나 단축 속성이 flex에서 해당 값을 생략한 경우 0이 적용된다.
+```
+
+
+
+#### (3) flex-grow
+
+* 기능 : flex item의 증가 너비 비율을 설정한다. 숫자가 크면 더 많은 너비를 가진다. 가변 너비가 아니거나 값이 0인 경우 효과가 없다.
+
+<img width="448" alt="flex-grow" src="https://user-images.githubusercontent.com/55272324/87798812-6f336200-c887-11ea-8925-7a07c197af73.PNG" style="zoom:150%;" >
+
+#### (4) flex-shrink
+
+* 기능
+
+```
+1. lex item의 감소 너비 비율을 설정한다.  숫자가 크면 더 많은 너비가 감소한다. item이 가변 너비가 아니거나 값이 0 일 경우 효과가 없다.
+
+2. width, height, flex-basis 등으로 너비가 지정된 경우 해당 요소가 영향을 받는다. container의 너비가줄어 items의 너비에 영향을 미칠 경우, 영향이 미치기 시작한 시점부터 줄어든 거리만큼 감소 너비 비율에 맞게 item의 너비가 줄어든다.
+```
+
+<img width="461" alt="flex-shrink" src="https://user-images.githubusercontent.com/55272324/87798853-7b1f2400-c887-11ea-9064-0a48e2247da6.PNG" style="zoom:200%;" >
+
+#### (5) flex-basis
+
+* 기능 : flex item의 공간 배분 전의 기본 너비를 설정한다. 값이 auto인 경우 width, height 등의 속성으로 설정할 수 있다. 하지만 단위 값이 주어질 경우 설정할 수 없다.
+
+```
+1. 값이 auto인 경우(default) : 가변 item과 같은 너비
+
+2. 값이 단위인 경우 : px,em,cm 등 단위로 지정
+```
+
+<img width="223" alt="flex-basis2" src="https://user-images.githubusercontent.com/55272324/87798897-870ae600-c887-11ea-9055-706d80d2c893.PNG" style="zoom:200%;" >
+<img width="228" alt="flex-basis3" src="https://user-images.githubusercontent.com/55272324/87798901-883c1300-c887-11ea-849e-349cc62b7177.PNG" style="zoom:200%;" >
+<img width="212" alt="flex-basis1" src="https://user-images.githubusercontent.com/55272324/87798903-883c1300-c887-11ea-98fe-93aa9d4b2d64.PNG" style="zoom:200%;" >
+
+#### (6) align-self 
+
+* 기능 : 교차 축(cross axis)에서 item의 정렬 방법을 설정한다. 해당 속성은 align-items 속성보다 우선한다.
+
+<img width="450" alt="alignSelf" src="https://user-images.githubusercontent.com/55272324/87799159-dea95180-c887-11ea-8561-ed237e4d3d42.PNG" style="zoom:200%;" >
+
+```
+1. auto(default) : container의 align-items 속성을 상속받는다
+
+2. stretch : container의 교차 축을 채우기 위해 item을 늘린다
+
+3. flex-start : item을 각 줄의 시작 점(flex-start)으로 정렬한다
+
+4. flex-end : item을 각 줄의 끝 점(flex-end)으로 정렬한다
+
+5. center : item을 가운데 정렬한다
+
+6. baseline : item을 문자 기준ㅇ선에 정렬한다
+```
+
