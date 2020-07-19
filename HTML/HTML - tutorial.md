@@ -1,6 +1,30 @@
 # HTML - tutorial
 
+## 0. Introduction
+
+```
+1. HTML
+	1) HTML stands for Hyper Text Markup Language
+	2) HTML is the standard markup language for create web pages
+	3) HtML describes the structure
+	4) HTML consists of a series of elements
+	5) HTML elements tell the browser how to display the content
+
+2. HTML 구성
+```
+
+
+
 ## 1. Elements
+
+```
+1. HTML Elements 구성
+	1) 기본 : <Start tag>Element content</End tag>
+	2) Empty Element : <Start tag></End tag>
+	3) Empty Element & No End tag : <Start tag/>
+```
+
+
 
 ## 2. Attributes
 
