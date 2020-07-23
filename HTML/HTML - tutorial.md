@@ -33,7 +33,17 @@
 ## 2. Attributes
 
 ```
- 
+1. HTML Attributes
+	1) 모든 HTML 요소는 attributes를 가지고 있다.
+	2) Attributes는 HTML 요소에 대한 추가적인 정보를 제공한다
+	3) Attributes는 항상 Start tag로 구분한다
+	4) Attibutes는 일반적으로 name="value" 쌍으로 제공된다.
+	
+2. the lang Attribute(lang="xx-yy")
+	1) lang attribute는 항상 <html> 태그 안에 존재해야 한다.
+	2) xx : lang attribute를 통해 web page의 언어를 선언한다.
+	3) yy : 국가의 성격을 구분한다. 
+	
 ```
 
 
