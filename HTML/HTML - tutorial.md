@@ -147,24 +147,82 @@
 5. <cite> : 창작물의 제목을 정의한다.
 
 6. <bdo> : 양방향 재정의
-
 ```
 
+## 8. Comments
 
+```
+1. HTML Comments : web browser 상에는 표시되지 않지만 HTML 소스코드를 설명하는데 쓰이는 도움말
 
-## 8. comments
+2. 형태 : <!-- write your comments here -->
+```
 
 ## 9. Colors
 
+```
+1. HTML Colors : HTML colors는 color names, RGB, HEX, HSL 값으로 색을 입힐 수 있다.
+
+2. Color Names : https://www.w3schools.com/colors/colors_names.asp
+
+3. RGBA Color values
+	1) RGBA : Red, Green, Blue, Alpha
+	2) value
+		(1) 값 : rgba(Red,Green,Blue,Alpha)
+		(2) 허용치 : RGB 각각 0-255/ Alpha 0-1
+	3) Alpha : 투명도 
+	
+3. HEx color values
+	1) HEX : #RRGGBB
+	2) value
+		(1) 값 : #RRGGBB
+		(2) 허용치 : RGB 각각 00-ff
+```
+
 ## 10. CSS
 
+```
+1. CSS , Cascading Style sheet 
+
+2. CSS 사용법
+	1) Inline : style attribute을 사용해 CSS 적용
+	2) Internal : <style>을 사용해 CSS 적용
+	3) External : <link>를 사용해 외부 CSS file을 읽어오는 방법
+```
+
 ## 11. Links
+
+```
+1. HTML Links : 클릭으로 다른 문서/사이트로 이동할 수 이동할 수 있는 기능
+
+2. 형태 : <a href="url">link text</a>
+
+3. 절대경로 vs 상대경로
+	1) 절대경로 : full web address
+	2) 상대경로 : "https://www"를 제외한 경로
+```
 
 ## 12. Images
 
 ## 13. Tables
 
+```
+1. HTML tables : <table>
+
+2. 요소
+	1) <tr> : table row
+	2) <th> : table head
+	3) <td> : table data
+```
+
 ## 14. Lists
+
+```
+1. Unordered HTML list : <ul>
+
+2. Ordered HTML list 
+```
+
+
 
 ## 15. Block & inline
 
