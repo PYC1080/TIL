@@ -203,23 +203,131 @@
 
 ## 12. Images
 
+```
+1. HTML img tags
+	1) <img> : image 정의
+	2) <map> : image map 정의
+	3) <area> : image map에서 클릭할 수 있는 영역 설정
+	4) <picture> : 다중 img 소스를 갖는 컨테이너 정의
+	
+2. images
+	1) The src attribute
+		(1) syntax : src="imgPath"
+		(2) 기능 : Img의 경로 특정
+	2) The alt attribute
+		(1) syntax : alt=""
+		(2) 기능 : Img를 찾지 못할 경우 제공되는 대체 텍스트
+	3) style
+		(1) height : img 높이
+		(2) weight : img 너비
+		(3) float : img 배치(텍스트 좌, 우)
+	4) link image : <a> 안에 <img> 배치
+	
+3. image maps
+	1) image maps : img에서 클릭할 수 있는 영역
+	2) syntax :
+
+<img ...>
+	<map name="">
+		<area shape="" coords="" alt="" href="">
+	</map>
+</img>
+
+	3) <map>
+		(1) 기능 : img map 생성
+		(2) name attribute : name 특성은 반드시 <img>의 usemap 특성과 같은 값을 가져야 한다
+    
+    4. <area>
+    	(1) 기능 : img map에서 클릭할 수 있는 영역
+    	(2) shape attribute
+    		a) 특성 :  클릭할 수 있는 영역의 형태
+    		b) value
+    			(a) shape="rect" : 사각형
+    			(b) shape="circle" : 원형
+    			(c) shape="poly" : 임의구역
+    			(d) shape="default" : 전체
+    	(3) coords attribute 
+    		a) 특성 : 클릭할 수 있는 영억의 위치 설정
+    		b) value
+    			(a) shape="rect" 인 경우 : coords="x1,y1,x2,y2"
+    			(b) shape="circle" 인 경우 : coords="x,y,r"
+    			(c) shape="poly" 인 경우 : corrds="x1,y1,x2,y2,....xn,yn"
+
+4. Background images
+	1) background-image
+		(1) syntax : background-image: url('');
+		(2) 기능 : 배경이미지의 경로 설정
+	2) background-repeat
+		(1) syntax : background-reapeat: x;
+		(2) 기능 : 배경이미지가 요소보다 작을 경우 자동으로 반복되므로 해당 이미지 반복을 설정하는 기능
+        (3) value
+        	a) x=no-repeat : 반복 안함
+        	b) x=repeat or none : 반복
+	3) background-size
+		(1) syntax : background-attachment: x;
+		(2) 기능 : 
+		(3) value
+			a) x=cover : 배경이미지를 사용해 전체 요소를 뒤덮는 경우
+			b) x=fixed : 배경이미지가 고정된 값을 가지는 경우
+	4) background-attachment 
+
+5. The picture element
+	1) syntax
+	
+<picture>
+	<source media="(min-width:Xpx)" srcset="">
+	<img src=""> //img 태그는 가장 마지막에 사용해야 한다. 어떠한 <source> 도 없는 경우에 나타나는 img이다
+</picture>
+
+	2) <picture> : web의 사이즈 변화에 따라 이미지가 달라진다.
+```
+
+
+
 ## 13. Tables
 
 ```
-1. HTML tables : <table>
+1. HTML tables tags
+	1) <table>
+	2) <tr> : table row, 테이블 행
+	3) <th> : table head, 테이블 열
+	4) <td> : table data, 테이블 데이터
+	5) <caption> : 테이블 제목
 
-2. 요소
-	1) <tr> : table row
-	2) <th> : table head
-	3) <td> : table data
+2. style
+	1) rowspan="" : 테이블에서 몇 개의 행을 해당 데이터가 가질 것인가
+	2) colspan="" : 테이블에서 몇 개의 열을 해당 데이터가 가질 것인가
 ```
 
 ## 14. Lists
 
 ```
-1. Unordered HTML list : <ul>
+1. HTML lists tag
+    1) <ul> : Unordered Lists
+    2) <ol> : Ordered Lists
+    3) <li> : list items
+    4) <dl> : Definition a description lists, 용어 설명 목록
+    5) <dt> : Definition the description term, 용어 제목
+    6) <dd> : describe the term in a description list, 용어 설명
 
-2. Ordered HTML list 
+2. Orderd lists attribute
+	1) type : 목차 순서를 어떻게 표현 할 것인지 정하는 특성
+		(1) type="1" : 목차 순서를 숫자로 표현
+		(2) type="A" : 목차 순서를 영어 대문자로 표현
+		(3) type="a" : 목차 순서를 영어 소문자로 표현
+		(4) type="I" : 목차 순서를 로마어 대문자로 표현
+		(5) type="i" : 목차 순서를 로마어 소문자로 표현
+	2) start="숫자" : 해당 숫자부터 목차 순서를 표현
+
+3. Unorderd lists attribute
+	1) style="list-style-type:x" : 목차를 표현할 마커를 선택하는 특성
+		(1) x = disc : 마커가 속이 찬 검은색 원
+		(2) x = circle : 마커가 속이 빈 검은색 원
+		(3) x = square : 마커가 속이 찬 검은색 사각형
+		(4) x = none : 마커가 없음
+
+
+
 ```
 
 
