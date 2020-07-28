@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel>
+      <module name="msa-echosystem.msa-architecture-eureka-server-master.main" target="1.8" />
+      <module name="msa-echosystem.msa-architecture-eureka-server-master.test" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
