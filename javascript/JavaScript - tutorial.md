@@ -87,3 +87,64 @@
 5. Character set : Unicode
 ```
 
+## 6. Operators
+
+```
+1. Arithmetic operators
+ 	1) addition : +
+    2) subtraction : -
+    3) multiplication : *
+    4) exponentiation : **
+    5) division : /
+    6) division remainder : %
+    7) increment : ++
+    8) decrement : --
+    
+2. Assignment operators
+	1) x=y : x=y
+	2) x+=y : x=x+y
+	3) x-=y : x=x-y
+	4) x*=y : x=x*y
+	5) x/=y : x=x/y
+	6) x%=y : x=x%y
+	7) x**=y : x=x**y
+	
+3. Comparison operators 
+	1) equal to : ==
+	2) equal value and equal type : ===
+	3) not equal : !=
+	4) not equal and not equal type : !==
+	5) greater than : >
+	6) less than : <
+	7) greater than or equal to : >=
+	8) less than or equal to : <=
+	9) ternary operator(삼항 연산자) : condition ? true : false
+	
+4. Logical operators
+	1) logical and : &&
+	2) logical or : ||
+	3) logical not : !
+	
+5. Type operators 
+	1) retuns the type of a variable : typeof
+	2) return true if an object is an instance of an object type 
+```
+
+## 7. Data types
+
+```
+1. data type : numbers, strings, objects, arrays, boolean
+
+2. undefined
+	1) value : undefined
+	2) type : undefined
+	
+3. empty value
+	1) value : undefined
+	2) type : string
+	
+3. null
+	1) value : null
+	2) type : object 
+```
+
