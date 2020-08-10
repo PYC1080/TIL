@@ -126,15 +126,173 @@ a /	b / result
 
 ### 2) learned
 
+* 특정 날짜 값 도출
+
 ```
+1. 생성자
+
+new Date(year,month,day,hours,minutes,seconds,ms)
+new Date(`${year}-${month}-${day}-${hours}-${minutes}-${seconds}-${})
+
+2. 메서드
+
+getDay() : 요일을 현지 시각 또는 국제 표준시로 반환한다
+```
+
+### 3) Solution
+
+```javascript
+function solution(a,b){
+    var daily =["SUN","MON","TUE","WED","THU","FRI","SAT"]
+    var day = new Date(`2016-${a}-${b}`).getDay()
+    var answer = daily[day]
+    return answer
+
+}
+```
+
+## Level 1-7. 가운데 글자 가져오기
+
+### 1) 문제
+
+* 문제
+
+```
+단어 s의 가운데 글자를 반환하는 함수, solution을 만들어 보세요. 단어의 길이가 짝수라면 가운데 두글자를 반환하면 됩니다.
+```
+
+* 제한 사항
+
+```
+s는 길이가 1 이상, 100이하인 스트링입니다.
+```
+
+* 테스트케이스
+
+```
+s / return
+
+abcde / c
+qwer / we
+```
+
+### 2) learned
+
+* 문자열 자르기
+
+```
+substr vs substring
+
+substring(startindex, endindex) : startindex부터 endindex까지 일정한 문자열을 반환한다
+
+substr(startindex,length) : startindex부터 length 길이만큼 일정한 문자열을 반환한다.
+
+
+
+
+
+
+
+
 
 ```
 
 ### 3) Solution
 
+* if 조건문
+
+```javascript
+function solution(s){
+    var sArray = [...s];
+    let checked = sArray.length % 2;
+    let no = Math.floor((sArray.length)/2);
+    let answer;
+    if(checked == 0 ){
+        answer = sArray[no-1]+sArray[no];
+    }else {
+        answer = sArray[no];
+    }
+    return answer 
+}
 ```
 
+* 삼항 연산자
+
+```javascript
+function solution(s){
+    return s.length % 2 ==0 ? s.substr(Math.floor(s.length/2)-1,2) : s.substr(Math.floor(s.length/2)-1,1)
+}
+```
+
+## level 1-8.  같은 숫자는 싫어
+
+### 1) 문제
+
+* 문제
+
+```
+배열 arr가 주어집니다. 배열 arr의 각 원소는 숫자 0부터 9까지로 이루어져 있습니다. 이때, 배열 arr에서 연속적으로 나타나는 숫자는 하나만 남기고 전부 제거하려고 합니다. 단, 제거된 후 남은 수들을 반환할 때는 배열 arr의 원소들의 순서를 유지해야 합니다. 
+
+예를 들면,
+
+arr = [1, 1, 3, 3, 0, 1, 1] 이면 [1, 3, 0, 1] 을 return 합니다.
+arr = [4, 4, 4, 3, 3] 이면 [4, 3] 을 return 합니다
+
+배열 arr에서 연속적으로 나타나는 숫자는 제거하고 남은 수들을 return 하는 solution 함수를 완성해 주세요.
+```
+
+* 제한 사항
+
+```
+1. 배열 arr의 크기 : 1,000,000 이하의 자연수
+
+2. 배열 arr의 원소의 크기 : 0보다 크거나 같고 9보다 작거나 같은 정수
+```
+
+* 테스트케이스
+
+```
+arr / answer
+
+[1,1,3,3,0,1,1] / [1,3,0,1]
+
+[4,4,4,3,3] / [4,3]
+```
+
+### 2) learned
+
+* 특정 조건에 따른 값 추출
+
+```
+fliter(callback, element, index)
 ```
 
 
+
+### 3) Solution
+
+* for과 if 함수
+
+```javascript
+function solution(arr){
+    var answer=[];
+
+    for(let i=0;i<arr.length-1;i++){
+        if(arr[i]!==arr[(i+1)]){
+            answer.push(arr[i])
+        }
+    }
+    return answer;
+}
+
+```
+
+* filter 함수 사용
+
+```javascript
+
+function solution(arr){
+    return arr.filter((value,index)=> val!=arr[index+1]);
+}
+```
 
