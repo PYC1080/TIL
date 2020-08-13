@@ -692,7 +692,409 @@ seoul / return
 
 ### 3) Solution
 
+```javascript
+function solution(seoul){
+    let len = seoul.length;
+    let x=0;
+    let answer;
+    seoul.forEach((e)=> e==="Kim" ? answer="김서방은 "+x+"에 있다" : x++)
+    return answer
+}
 ```
 
+## level 1-16. 소수 찾기
+
+### 1) 문제
+
+* 문제
+
+```
+1부터 입력받은 숫자 n 사이에 있는 소수의 개수를 반환하는 함수, solution을 만들어 보세요.
+
+소수는 1과 자기 자신으로만 나누어지는 수를 의미합니다.
+(1은 소수가 아닙니다.)
+```
+
+* 제한 조건
+
+```
+n은 2이상 1000000이하의 자연수입니다.
+```
+
+* 테스트케이스
+
+```
+n / result
+
+1. 10 / 4
+
+2. 5 / 3
+
+입출력 예 #1
+1부터 10 사이의 소수는 [2,3,5,7] 4개가 존재하므로 4를 반환
+
+입출력 예 #2
+1부터 5 사이의 소수는 [2,3,5] 3개가 존재하므로 3를 반환
+```
+
+### 2) learned
+
+* 에라토스테네스의 체 : 소수를 찾는 알고리즘 
+
+```
+1. 2부터 소수를 구하고자 하는 구간의 모든 수를 나열한다.
+
+2. 2는 소수이므로 오른쪽에 2를 쓴다. 자기 자신을 제외한 2의 배수를 모두 지운다.
+
+3. 남아있는 수 가운데 3은 소수이므로 오른쪽에 3을 쓴다. 자기 자신을 제외한 3의 배수를 모두 지운다.
+
+4. 남아있는 수 가운데 5는 소수이므로 오른쪽에 5를 쓴다. 자기 자신을 제외한 5의 배수를 모두 지운다.
+
+5. 남아있는 수 가운데 7은 소수이므로 오른쪽에 7을 쓴다. 자기 자신을 제외한 7의 배수를 모두 지운다.
+
+위의 과정을 반복하면 구하는 구간의 모든 소수가 남는다.
+```
+
+### 3) Solution
+
+* 1차 안 : 테스트케이스 - 성공 / 정확성 - 9/12(10,11,12) / 효율성 - 0/4(1,2,3,4)
+
+```javascript
+function solution(n){
+    let answer=0;
+    if(n>=2 && n<=1000000){
+        for(let i=2;i<=n;i++){
+            let checked = 0;
+            for(let j=1;j<=i;j++){
+                if(i%j == 0){
+                    checked++
+                }
+            }
+            if(checked == 2){
+                answer++;
+            }
+        }
+    }
+    return answer
+}
+```
+
+* 2차 안
+
+```
+
+```
+
+## level 1-17. 수박수박수박수박수박수?
+
+### 1) 문제
+
+* 문제
+
+```
+길이가 n이고, 수박수박수박수....와 같은 패턴을 유지하는 문자열을 리턴하는 함수, solution을 완성하세요. 예를들어 n이 4이면 수박수박을 리턴하고 3이라면 수박수를 리턴하면 됩니다.
+```
+
+* 제한 사항
+
+```
+n은 길이 10,000이하인 자연수입니다.
+```
+
+* 테스트케이스
+
+```
+n / return
+
+1. 3 / "수박수"
+
+2. 4 / "수박수박"
+```
+
+### 2) learned
+
+* repeat method
+
+```
+1. 기능 : repeat()메서드는 문자열을 주어진 횟수만큼 반복해 붙인 새로운 문자열을 반환한다.
+
+2. 구문 : str.repeat(count);
+```
+
+* Math method
+
+```
+1. 반올림 : .round
+2. 정수부분만 반환 : .trunc
+```
+
+### 3) Solution
+
+* 1안 : 테스트케이스 성공 /  효율성 성공
+
+```javascript
+function solution(n){
+    let answer;
+    for(let i=0;i<Math.ceil(n/2);i++){
+            answer+="수박"
+    }
+    if(n%2!==0){
+        answer+="수"
+    }
+    return answer;
+}	
+```
+
+* 2안 - repeat method 사용 :  테스트케이스 성공 / 효율성 성공
+
+```javascript
+function solution(n){
+    return "수박".repeat(Math.trunc(n/2))+"수".repeat(Math.round(n/2-Math.trunc(n/2)));
+} 
+```
+
+## level 1-18. 문자열을 정수로 바꾸기
+
+### 1) 문제
+
+* 문제
+
+```
+문자열 s를 숫자로 변환한 결과를 반환하는 함수, solution을 완성하세요.
+```
+
+* 제한 사항
+
+```
+1. s의 길이는 1 이상 5이하입니다.
+
+2. s의 맨앞에는 부호(+, -)가 올 수 있습니다.
+
+3. s는 부호와 숫자로만 이루어져있습니다.
+
+4. s는 0으로 시작하지 않습니다.
+```
+
+* 테스트케이스
+
+```
+예를들어 str이 1234이면 1234를 반환하고, -1234이면 -1234를 반환하면 됩니다.
+str은 부호(+,-)와 숫자로만 구성되어 있고, 잘못된 값이 입력되는 경우는 없습니다.
+```
+
+### 2) learned
+
+### 3) Solution
+
+```javascript
+function solution(s){
+    return Number(s)
+}
+```
+
+## level 1-19. 시저 암호
+
+### 1) 문제 
+
+* 문제
+
+```
+어떤 문장의 각 알파벳을 일정한 거리만큼 밀어서 다른 알파벳으로 바꾸는 암호화 방식을 시저 암호라고 합니다. 예를 들어 AB는 1만큼 밀면 BC가 되고, 3만큼 밀면 DE가 됩니다. z는 1만큼 밀면 a가 됩니다. 문자열 s와 거리 n을 입력받아 s를 n만큼 민 암호문을 만드는 함수, solution을 완성해 보세요.
+```
+
+* 제한 사항
+
+```
+1. 공백은 아무리 밀어도 공백입니다.
+
+2. s는 알파벳 소문자, 대문자, 공백으로만 이루어져 있습니다.
+
+3. s의 길이는 8000이하입니다.
+
+4. n은 1 이상, 25이하인 자연수입니다.
+```
+
+* 테스트케이스
+
+```
+s / n / result
+
+1. "AB" / 1 / "BC"
+
+2. "Z" / 1 / "a"
+
+3. "a B z" / 4 / "e F d"
+```
+
+### 2) learned
+
+* 문자열 아스키코드표
+
+```
+NUL	00	null character
+SOH	01	start of header
+STX	02	start of text
+ETX	03	end of text
+EOT	04	end of transmission
+ENQ	05	enquiry
+ACK	06	acknowledge
+BEL	07	bell (ring)
+BS	08	backspace
+HT	09	horizontal tab
+LF	10	line feed
+VT	11	vertical tab
+FF	12	form feed
+CR	13	carriage return
+SO	14	shift out
+SI	15	shift in
+DLE	16	data link escape
+DC1	17	device control 1
+DC2	18	device control 2
+DC3	19	device control 3
+DC4	20	device control 4
+NAK	21	negative acknowledge
+SYN	22	synchronize
+ETB	23	end transmission block
+CAN	24	cancel
+EM	25	end of medium
+SUB	26	substitute
+ESC	27	escape
+FS	28	file separator
+GS	29	group separator
+RS	30	record separator
+US	31	unit separator
+ 	32	space
+!	33	exclamation mark
+"	34	quotation mark
+#	35	number sign
+$	36	dollar sign
+%	37	percent sign
+&	38	ampersand
+'	39	apostrophe
+(	40	left parenthesis
+)	41	right parenthesis
+*	42	asterisk
++	43	plus sign
+,	44	comma
+-	45	hyphen
+.	46	period
+/	47	slash
+0	48	digit 0
+1	49	digit 1
+2	50	digit 2
+3	51	digit 3
+4	52	digit 4
+5	53	digit 5
+6	54	digit 6
+7	55	digit 7
+8	56	digit 8
+9	57	digit 9
+:	58	colon
+;	59	semicolon
+<	60	less-than
+=	61	equals-to
+>	62	greater-than
+?	63	question mark
+@	64	at sign
+A	65	uppercase A
+B	66	uppercase B
+C	67	uppercase C
+D	68	uppercase D
+E	69	uppercase E
+F	70	uppercase F
+G	71	uppercase G
+H	72	uppercase H
+I	73	uppercase I
+J	74	uppercase J
+K	75	uppercase K
+L	76	uppercase L
+M	77	uppercase M
+N	78	uppercase N
+O	79	uppercase O
+P	80	uppercase P
+Q	81	uppercase Q
+R	82	uppercase R
+S	83	uppercase S
+T	84	uppercase T
+U	85	uppercase U
+V	86	uppercase V
+W	87	uppercase W
+X	88	uppercase X
+Y	89	uppercase Y
+Z	90	uppercase Z
+[	91	left square bracket
+\	92	backslash
+]	93	right square bracket
+^	94	caret
+_	95	underscore
+`	96	grave accent
+a	97	lowercase a
+b	98	lowercase b
+c	99	lowercase c
+d	100	lowercase d
+e	101	lowercase e
+f	102	lowercase f
+g	103	lowercase g
+h	104	lowercase h
+i	105	lowercase i
+j	106	lowercase j
+k	107	lowercase k
+l	108	lowercase l
+m	109	lowercase m
+n	110	lowercase n
+o	111	lowercase o
+p	112	lowercase p
+q	113	lowercase q
+r	114	lowercase r
+s	115	lowercase s
+t	116	lowercase t
+u	117	lowercase u
+v	118	lowercase v
+w	119	lowercase w
+x	120	lowercase x
+y	121	lowercase y
+z	122	lowercase z
+{	123	left curly brace
+|	124	vertical bar
+}	125	right curly brace
+~	126	tilde
+DEL	127	delete (rubout)
+```
+
+* 문자열과 아스키코드를 변환하는 메소드
+
+```
+1. Stirng.charCodeAt() : 문자열을 아스키코드 번호로 변환하는 메소드
+
+2. String.fromCharcode() : 아스키코드를 문자열로 변환하는 메소드
+```
+
+### 3) Solution
+
+```javascript
+function solution(s,n){
+    //아스키코드표
+    // 65-90 : A-z
+    // 97-122 : a-z
+    let answer='';
+    for(let i=0;i<s.length;i++){
+        if(s.charCodeAt(i)>=65 && s.charCodeAt(i) <=90){
+            if(s.charCodeAt(i)+n>90){
+                answer+=String.fromCharCode(s.charCodeAt(i)-26+n);
+            } else{
+                answer+=String.fromCharCode(s.charCodeAt(i)+n)
+            }
+        }else if(s.charCodeAt(i)>=97 && s.charCodeAt(i) <=122){
+            if(s.charCodeAt(i)+n>122){
+                answer+=String.fromCharCode(s.charCodeAt(i)-26+n);
+            } else{
+                answer+=String.fromCharCode(s.charCodeAt(i)+n)
+            }
+        }else{
+            answer+=s[i]
+        }
+    }
+    return answer;
+}
 ```
 
