@@ -1391,6 +1391,16 @@ arr / return
 
 ### 3) Solution
 
+```javascript
+function solution(arr){
+    let arr2 = arr.slice();
+    let sortArr = arr2.sort((a,b)=>{return a-b;})
+    const idx = arr.indexOf(sortArr[0])
+    if(idx > - 1) arr.splice(idx,1)
+    return arr.length==0 ? [-1]: arr
+}
+```
+
 ## level 1-27. 짝수와 홀수 
 
 ### 1) 문제
