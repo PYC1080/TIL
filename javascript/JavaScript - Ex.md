@@ -1805,57 +1805,89 @@ function hide_numbers(s) {
 }
 ```
 
-## level 1-33. 
+## level 1-34. 행렬의 덧셈
 
 ### 1) 문제
 
 * 문제
 
 ```
-
+행렬의 덧셈은 행과 열의 크기가 같은 두 행렬의 같은 행, 같은 열의 값을 서로 더한 결과가 됩니다. 2개의 행렬 arr1과 arr2를 입력받아, 행렬 덧셈의 결과를 반환하는 함수, solution을 완성해주세요.
 ```
 
 * 제한 사항
 
 ```
-
+행렬 arr1, arr2의 행과 열의 길이는 500을 넘지 않습니다.
 ```
 
 * 테스트케이스
 
 ```
+arr1 / arr2 / return
 
+1. [1,2],[2,3]] / [[3,4],[5,6]] / [[4,6],[7,9]]
+
+2. [[1],[2]] / [[3],[4]] / [[4],[6]]
 ```
 
 ### 2) learned
 
 ### 3) Solution
 
-## level 1-35. 
+```javascript
+function solution(arr1, arr2){
+    return arr1.map((arr,i)=>arr.map((v,j)=>v+arr2[i][j]))
+}
+```
+
+## level 1-35. x만큼 간격이 있는 n개의 숫자
 
 ### 1) 문제
 
 * 문제
 
 ```
-
+함수 solution은 정수 x와 자연수 n을 입력 받아, x부터 시작해 x씩 증가하는 숫자를 n개 지니는 리스트를 리턴해야 합니다. 다음 제한 조건을 보고, 조건을 만족하는 함수, solution을 완성해주세요.
 ```
 
 * 제한 사항
 
 ```
+1. x는 -10000000 이상, 10000000 이하인 정수입니다.
 
+2. n은 1000 이하인 자연수입니다.
 ```
 
 * 테스트케이스
 
-```
+```javascript
+x / n / answer
 
+1. 2 / 5 / [2,4,6,8,10]
+    
+2. 4 / 3 / [4,8,12]
+    
+3. -4 / 2 / [-4, -8]
 ```
 
 ### 2) learned
 
 ### 3) Solution
+
+```javascript
+function solution(x,n){
+    let answer =[];
+    if(x>=-10000000 && x<=10000000){
+        if(n<=1000){
+            for(let i=1;i<=n;i++){
+                answer.push(x*i)
+            }           
+        }
+    }
+    return answer;
+}
+```
 
 ## level 1-36. 
 
@@ -1864,24 +1896,46 @@ function hide_numbers(s) {
 * 문제
 
 ```
-
+이 문제에는 표준 입력으로 두 개의 정수 n과 m이 주어집니다.
+별(*) 문자를 이용해 가로의 길이가 n, 세로의 길이가 m인 직사각형 형태를 출력해보세요.
 ```
 
 * 제한 사항
 
 ```
-
+n과 m은 각각 1000 이하인 자연수입니다.
 ```
 
 * 테스트케이스
 
 ```
+input : 5 3
 
+output :  
+*****
+*****
+*****
 ```
 
 ### 2) learned
 
 ### 3) Solution
+
+```javascript
+process.stdin.setEncoding('utf8');
+process.stdin.on('data', data => {
+    let answer=""
+    const n = data.split(" ");
+    const a = Number(n[0]), b = Number(n[1]);
+    for(let i=0;i<b;i++){
+        for(let j=0;j<a;j++){
+            answer+="*"
+        }
+        answer+="\n"
+    }
+    console.log(answer);
+});
+```
 
 ## level 1-37. 
 
@@ -1960,3 +2014,213 @@ function hide_numbers(s) {
 ### 2) learned
 
 ### 3) Solution
+
+## level 2-1. 다리를 지나는 트럭
+
+### 1) 문제
+
+* 문제
+
+```
+
+```
+
+* 제한 사항
+
+```
+
+```
+
+* 테스트케이스
+
+```
+
+```
+
+### 2) learned
+
+### 3) solution
+
+```javascript
+
+```
+
+## level 2-. 
+
+### 1) 문제
+
+* 문제
+
+```
+
+```
+
+* 제한 사항
+
+```
+
+```
+
+* 테스트케이스
+
+```
+
+```
+
+### 2) learned
+
+### 3) solution
+
+```javascript
+
+```
+
+## level 2-. 
+
+### 1) 문제
+
+* 문제
+
+```
+
+```
+
+* 제한 사항
+
+```
+
+```
+
+* 테스트케이스
+
+```
+
+```
+
+### 2) learned
+
+### 3) solution
+
+```javascript
+
+```
+
+## level 2-. 
+
+### 1) 문제
+
+* 문제
+
+```
+
+```
+
+* 제한 사항
+
+```
+
+```
+
+* 테스트케이스
+
+```
+
+```
+
+### 2) learned
+
+### 3) solution
+
+```javascript
+
+```
+
+## level 2-. 
+
+### 1) 문제
+
+* 문제
+
+```
+
+```
+
+* 제한 사항
+
+```
+
+```
+
+* 테스트케이스
+
+```
+
+```
+
+### 2) learned
+
+### 3) solution
+
+```javascript
+
+```
+
+## level 2-. 
+
+### 1) 문제
+
+* 문제
+
+```
+
+```
+
+* 제한 사항
+
+```
+
+```
+
+* 테스트케이스
+
+```
+
+```
+
+### 2) learned
+
+### 3) solution
+
+```javascript
+
+```
+
+## level 2-. 
+
+### 1) 문제
+
+* 문제
+
+```
+
+```
+
+* 제한 사항
+
+```
+
+```
+
+* 테스트케이스
+
+```
+
+```
+
+### 2) learned
+
+### 3) solution
+
+```javascript
+
+```
