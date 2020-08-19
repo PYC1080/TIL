@@ -2061,7 +2061,27 @@ progresses / speeds / return
 ### 3) solution
 
 ```javascript
-
+function solution(progresses,speeds){
+    let n=1;
+    let pDays = [];
+    let answer=[]
+    for(let i=0;i<progresses.length;i++){
+        pDays.push(Math.ceil((100-progresses[i])/speeds[i]))
+    }
+    let checked = pDays.shift()
+    for(let i=0;i<progresses.length;i++){
+        let value = pDays.shift()
+        if(checked >=value){
+            n++
+        }else{
+            console.log(n)
+            answer.push(n)
+            checked=value
+            n=1
+        }
+    }
+    return answer;
+}
 ```
 
 ## level 2-2. 멀쩡한 사각형
@@ -2209,21 +2229,80 @@ BDA: B 스킬을 배우기 전에 C 스킬을 먼저 배워야 합니다. 불가
 * 제한 사항
 
 ```
+1. 현재 대기목록에는 1개 이상 100개 이하의 문서가 있습니다.
 
+2. 인쇄 작업의 중요도는 1~9로 표현하며 숫자가 클수록 중요하다는 뜻입니다
+
+3. location은 0 이상 (현재 대기목록에 있는 작업 수 - 1) 이하의 값을 가지며 대기목록의 가장 앞에 있으면 0, 두 번째에 있으면 1로 표현합니다.
 ```
 
 * 테스트케이스
 
 ```
+priorities / location / return
 
+1. [2, 1, 3, 2] / 2 / 1
+
+2. [1, 1, 9, 1, 1, 1] / 0 / 5
+
+예제 #1
+
+문제에 나온 예와 같습니다.
+
+예제 #2
+
+6개의 문서(A, B, C, D, E, F)가 인쇄 대기목록에 있고 중요도가 1 1 9 1 1 1 이므로 C D E F A B 순으로 인쇄합니다.
 ```
 
 ### 2) learned
 
+* 원본 배열을 수정하는 메서드
+
+```
+1. .push : 배열의 마지막에 새로운 요소를 추가한 후, 변경된 배열의 길이를 반환
+2. .pop : 배열의 마지막 요소를 제거한 후, 제거한 요소를 반환한다
+3. .unshift : 배열의 첫 번째 자리에 새로운 요소를 추가한 후, 변경된 배열의 길이를 반환한다
+4. .shift : 배열의 첫 번째 요소를 제거한 후, 제거한 요소를 반환한다.
+```
+
+* some 메서드
+
+```
+1. 구문 : arr.some(callback[, thisArg])
+
+currentValue : 처리할 현재 요소
+index : 처리할 현재 요소의 인덱스
+array : some을 호출한 배열
+thisArg : callback을 실행할 때 this로 사용하는 값.
+
+2. 반환 값 : some은 callback이 참(불린으로 변환했을 때 true가 되는 값)을 반환하는 요소를 찾을 때까지 배열에 있는 각 요소에 대해 한 번씩 callback 함수를 실행합니다. 해당하는 요소를 발견한 경우 some은 즉시 true를 반환합니다. 그렇지 않으면, 즉 모든 값에서 거짓을 반환하면 false를 반환합니다. 할당한 값이 있는 배열의 인덱스에서만 callback을 호출합니다. 삭제했거나 값을 할당한 적이 없는 인덱스에서는 호출하지 않습니다.
+```
+
 ### 3) solution
 
 ```javascript
+function solution(priorities, location) {
+    let targetIndex = location; 
+    let answer = 0;
 
+    while (priorities.length> 0) {
+        let first = priorities.shift();
+        if (priorities.some((value, index) => value > first)) {
+            priorities.push(first);
+        } else {
+            answer = answer + 1;
+            if (targetIndex === 0) {
+                break;
+            }
+        }
+        if (targetIndex === 0) {
+            targetIndex = priorities.length - 1; 
+        } else {
+            targetIndex = targetIndex - 1;
+        }
+    }
+    return answer;
+}
 ```
 
 ## level 2-5. 다리를 지나는 트럭
