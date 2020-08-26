@@ -2083,83 +2083,7 @@ function solution(progresses,speeds){
     return answer;
 }
 ```
-
-## level 2-2. 멀쩡한 사각형
-
-### 1) 문제
-
-* 문제
-
-```
-가로 길이가 Wcm, 세로 길이가 Hcm인 직사각형 종이가 있습니다. 종이에는 가로, 세로 방향과 평행하게 격자 형태로 선이 그어져 있으며, 모든 격자칸은 1cm x 1cm 크기입니다. 이 종이를 격자 선을 따라 1cm × 1cm의 정사각형으로 잘라 사용할 예정이었는데, 누군가가 이 종이를 대각선 꼭지점 2개를 잇는 방향으로 잘라 놓았습니다. 그러므로 현재 직사각형 종이는 크기가 같은 직각삼각형 2개로 나누어진 상태입니다. 새로운 종이를 구할 수 없는 상태이기 때문에, 이 종이에서 원래 종이의 가로, 세로 방향과 평행하게 1cm × 1cm로 잘라 사용할 수 있는 만큼만 사용하기로 하였습니다.
-가로의 길이 W와 세로의 길이 H가 주어질 때, 사용할 수 있는 정사각형의 개수를 구하는 solution 함수를 완성해 주세요.
-```
-
-* 제한 사항
-
-```
-W, H : 1억 이하의 자연수
-```
-
-* 테스트케이스
-
-```
-w / h / result
-
-8 / 12 / 80
-
-가로가 8, 세로가 12인 직사각형을 대각선 방향으로 자르면 총 16개 정사각형을 사용할 수 없게 됩니다. 원래 직사각형에서는 96개의 정사각형을 만들 수 있었으므로, 96 - 16 = 80 을 반환합니다
-```
-
-### 2) learned
-
-* 선이 지나는 사각형을 구하는 알고리즘
-
-```
-1. 선이 지나가면서 겹치는 사각형의 갯수는 블록 단위(w와 h의 최대 공약수에 비례)로 규칙적이다.
-
-2. 블록 단위는 (w/gcd) * (h/gcd)이다
-
-3. 블록 안에서 선이 지나는 사각형의 갯수는 (블록의 가로 크기 + 블록의 세로 크기 -1)이다
-
-5. 총 블록 단위 갯수 * 블록 안에서 선이 지나는 사각형의 갯수 = w+h - gcd
-```
-
-### 3) solution
-
-* 1안 : 테스트케이스 성공 / 효율성 성공
-
-```javascript
-function solution(w,h){
-    let answer;
-    let max=Math.max(w,h),min=Math.min(w,h),change,gcd;
-    if(w<=100000000 && h<1000000000)
-    while(true){
-        if(max%min==0){
-            gcd=min;
-            break;
-        }
-        change = (max%min);
-        max = min;
-        min = change;
-    }
-    return answer = w*h - ((w/gcd + h/gcd - 1) * (w/gcd))
-}
-```
-
-* 2안 : 테스트케이스 성공 / 효율성 성공
-
-```javascript
-function solution(w,h){
-    const gcd = (a, b) => {
-        return b === 0 ? a : gcd(b, a % b);
-    };
-
-    return w * h - (w + h - gcd(w, h));
-}
-```
-
-## level 2-3. 스킬트리
+## level 2-2. 스킬트리
 
 ### 1) 문제
 
@@ -2210,7 +2134,7 @@ BDA: B 스킬을 배우기 전에 C 스킬을 먼저 배워야 합니다. 불가
 
 ```
 
-## level 2-4. 프린터
+## level 2-3. 프린터
 
 ### 1) 문제
 
@@ -2305,7 +2229,7 @@ function solution(priorities, location) {
 }
 ```
 
-## level 2-5. 다리를 지나는 트럭
+## level 2-4. 다리를 지나는 트럭
 
 ### 1) 문제
 
@@ -2335,6 +2259,80 @@ function solution(priorities, location) {
 
 ```
 
+## level 2-5. 멀쩡한 사각형
+
+### 1) 문제
+
+* 문제
+
+```
+가로 길이가 Wcm, 세로 길이가 Hcm인 직사각형 종이가 있습니다. 종이에는 가로, 세로 방향과 평행하게 격자 형태로 선이 그어져 있으며, 모든 격자칸은 1cm x 1cm 크기입니다. 이 종이를 격자 선을 따라 1cm × 1cm의 정사각형으로 잘라 사용할 예정이었는데, 누군가가 이 종이를 대각선 꼭지점 2개를 잇는 방향으로 잘라 놓았습니다. 그러므로 현재 직사각형 종이는 크기가 같은 직각삼각형 2개로 나누어진 상태입니다. 새로운 종이를 구할 수 없는 상태이기 때문에, 이 종이에서 원래 종이의 가로, 세로 방향과 평행하게 1cm × 1cm로 잘라 사용할 수 있는 만큼만 사용하기로 하였습니다.
+가로의 길이 W와 세로의 길이 H가 주어질 때, 사용할 수 있는 정사각형의 개수를 구하는 solution 함수를 완성해 주세요.
+```
+
+* 제한 사항
+
+```
+W, H : 1억 이하의 자연수
+```
+
+* 테스트케이스
+
+```
+w / h / result
+
+8 / 12 / 80
+
+가로가 8, 세로가 12인 직사각형을 대각선 방향으로 자르면 총 16개 정사각형을 사용할 수 없게 됩니다. 원래 직사각형에서는 96개의 정사각형을 만들 수 있었으므로, 96 - 16 = 80 을 반환합니다
+```
+
+### 2) learned
+
+* 선이 지나는 사각형을 구하는 알고리즘
+
+```
+1. 선이 지나가면서 겹치는 사각형의 갯수는 블록 단위(w와 h의 최대 공약수에 비례)로 규칙적이다.
+
+2. 블록 단위는 (w/gcd) * (h/gcd)이다
+
+3. 블록 안에서 선이 지나는 사각형의 갯수는 (블록의 가로 크기 + 블록의 세로 크기 -1)이다
+
+5. 총 블록 단위 갯수 * 블록 안에서 선이 지나는 사각형의 갯수 = w+h - gcd
+```
+
+### 3) solution
+
+* 1안 : 테스트케이스 성공 / 효율성 성공
+
+```javascript
+function solution(w,h){
+    let answer;
+    let max=Math.max(w,h),min=Math.min(w,h),change,gcd;
+    if(w<=100000000 && h<1000000000)
+    while(true){
+        if(max%min==0){
+            gcd=min;
+            break;
+        }
+        change = (max%min);
+        max = min;
+        min = change;
+    }
+    return answer = w*h - ((w/gcd + h/gcd - 1) * (w/gcd))
+}
+```
+
+* 2안 : 테스트케이스 성공 / 효율성 성공
+
+```javascript
+function solution(w,h){
+    const gcd = (a, b) => {
+        return b === 0 ? a : gcd(b, a % b);
+    };
+
+    return w * h - (w + h - gcd(w, h));
+}
+```
 ## level 2-6. 124 나라의 숫자
 
 ### 1) 문제
@@ -2543,8 +2541,158 @@ number / k / return
 ```javascript
 
 ```
+## level 2-10.  가장 큰수
 
-## level 2-10. 괄호 변환 
+### 1) 문제
+
+* 문제
+
+```
+0 또는 양의 정수가 주어졌을 때, 정수를 이어 붙여 만들 수 있는 가장 큰 수를 알아내 주세요.
+
+예를 들어, 주어진 정수가 [6, 10, 2]라면 [6102, 6210, 1062, 1026, 2610, 2106]를 만들 수 있고, 이중 가장 큰 수는 6210입니다.
+
+0 또는 양의 정수가 담긴 배열 numbers가 매개변수로 주어질 때, 순서를 재배치하여 만들 수 있는 가장 큰 수를 문자열로 바꾸어 return 하도록 solution 함수를 작성해주세요.
+```
+
+* 제한 사항
+
+```
+1. numbers의 길이는 1 이상 100,000 이하입니다.
+
+2. numbers의 원소는 0 이상 1,000 이하입니다.
+
+3. 정답이 너무 클 수 있으니 문자열로 바꾸어 return 합니다.
+```
+
+* 테스트케이스
+
+```
+numbers	return
+[6, 10, 2]	6210
+[3, 30, 34, 5, 9]	9534330
+```
+
+### 2) learned
+
+* for of 와 for in의 차이
+
+```
+1. for of : 배열 순한
+2. for in : 객체 순환
+```
+
+### 3) solution
+
+* 1차
+
+```javascript
+function solution(numbers){
+    let len =[];
+    let nArray = [];
+    for (let i=0;i<numbers.length;i++){
+        len.push(numbers[i].toString().length)
+        nArray.push(numbers[i]/Math.pow(10,Number(numbers[i].toString().length)-1))
+    }
+    return nArray
+}
+
+```
+* 2차
+
+```javascript
+function solution(numbers){
+    let array = numbers.sort(function(a,b){
+        return b/Math.pow(10,Number(b.toString().length-1)) - a/Math.pow(10,Number(a.toString().length-1))
+    })
+    return String(array.join(""))
+}
+```
+
+* 3차
+
+```javascript
+function solution(numbers){
+    numbers.sort(function(a,b){
+        let aLen = Number(a.toString().length)
+        let bLen = Number(b.toString().length)
+        if(aLen==bLen){
+            return b-a;
+        }else{
+            if(Number(String(a)+String(b))
+                >Number(String(b)+String(a))
+            ){
+                return b-a;
+            }else{
+                return a-b;
+            }
+        }
+    })
+    console.log(numbers)
+    return numbers.join("")
+}
+```
+
+* 4차
+
+```javascript
+function solution(numbers){
+    numbers.sort(function(a,b){
+            if(Number(String(a)+String(b))
+                >Number(String(b)+String(a))
+            ){
+                console.log("numbers : "+numbers)
+                return a-b;
+            }else{
+                console.log("numbers : "+numbers)
+                return b-a;
+
+            }
+        }
+    )
+    // console.log(numbers)
+    return numbers.join("")
+}
+```
+
+* 5차
+
+```javascript
+function solution(numbers){
+    let answer =''
+    let checked=true;
+    for(let i of numbers){
+        if(i>0){
+            checked = false
+            break;
+        }
+    }
+    if(checked==false){
+        numbers.sort(function(a,b){
+            let c = a.toString()
+            let d = b.toString()
+            let e = parseInt(c+d)
+            let f = parseInt(d+c)
+            if(e>f){
+                return -1
+            }else if(e<f){
+                return 1
+            }else{
+                return 0
+            }
+        })
+        answer = numbers.join('')
+    }else{
+        answer ="0"
+    }
+
+    return answer
+}
+```
+
+
+
+## level 2-11. 괄호 변환 
 
 ### 1) 문제
 
