@@ -914,6 +914,8 @@ s / return
 
 ### 2) learned
 
+* 지수형태
+
 ### 3) Solution
 
 * 테스트케이스 : 성공 / 효율성 : 62.5/100
@@ -930,6 +932,26 @@ function solution(s){
 
 }
 ```
+
+* 2차안 : 테스트 케이스 성공 , 효율성 93.8(11번)
+
+```javascript
+function solution(s){
+    let answer
+    if(s.length==4||s.length==6){
+        if(Number(s)!=undefined){
+            answer = true
+        }else{
+            answer = false
+        }
+    }else{
+        answer = false
+    }
+    return answer 
+}
+```
+
+
 
 ## 15. 서울에서 김서방 찾기
 
@@ -1025,6 +1047,8 @@ n / result
 5. 남아있는 수 가운데 7은 소수이므로 오른쪽에 7을 쓴다. 자기 자신을 제외한 7의 배수를 모두 지운다.
 
 위의 과정을 반복하면 구하는 구간의 모든 소수가 남는다.
+
+ 예를 들어 8이 소수인지 확인해보자. 8은 약수로 1, 2, 4, 8을 갖고 있다. 8이 소수인지 알기위해서는 1과 8을 제외한 약수가 있는지 찾아봐야하는데 2를 약수로 찾게되면 8을 2로 나눈 몫인 4는 탐색하지 않아도 이미 8이 소수가 아닌 것을 확인할 수 있게된다. 그렇다면 어디까지 확인을 해보는 것이 최소한으로 약수가 있는지 없는지 판단할 수 있는 경계가 될까. 경계는 판단하려고 하는 숫자의 양의 제곱근이다. 가령 9가 소수인지 확인해보려면 9의 양의 제곱근인 3까지 판단하면 되고 16이라면 4까지 판단하면 되는 것이다. 판단범위가 확 줄게 되면서 시간복잡도 면에서 확실히 많은 이득이 있었다.
 ```
 
 ### 3) Solution
@@ -1053,8 +1077,31 @@ function solution(n){
 
 * 2차 안
 
-```
+```javascript
+function PrimeNumber(n) {
+    let arr = [];
+    for (let i = 2; i <= n; i++) {
+        arr[i] = i;
+    }
+    for (let i = 2; i <= n; i++) {
+        if (arr[i === 0]) continue;
+        for (let j = i + i; j <= n; j += i) {
+            arr[j] = 0;
+        }
+    }
+    let answer = [];
+    for (let i = 0; i <= n; i++) {
+        if (arr[i] !== 0 && arr[i] !== undefined) {
+            answer.push(i);
+        }
+    }
+    return answer;
+}
 
+function solution(n) {
+    let count = PrimeNumber(n).length;
+    return count;
+}
 ```
 
 ## 17. 수박수박수박수박수박수?
@@ -1781,6 +1828,71 @@ numbers / hand / result
 
 ### 3) Solution
 
+```javascript
+function solution(numbers, hand){
+    let answer = ''
+    let rArray = [['2','3'],['5','6'],['8','9'],['0','#']]
+    let lArray = [['1','2'],['4','5'],['7','8'],['*','0']]
+    let rNow = '#'
+    let lNow = '*'
+
+    for(let i=0;i<numbers.length;i++){
+
+        if(numbers[i]==1||numbers[i]==4||numbers[i]==7){
+            answer+='L'
+            lNow = numbers[i]
+        }else if(numbers[i]==3||numbers[i]==6||numbers[i]==9){
+            answer+='R'
+            rNow = numbers[i]
+        }else{
+            let rLen,lLen;
+            let ra,rb,la,lb;
+            let ranow,rbnow,lanow,lbnow;
+            for(let k in rArray){
+                for(let c=0; c<2; c++){
+                    if(rArray[k][c]==numbers[i]){
+                        ra=k
+                        rb=c
+                    }
+                    if(rArray[k][c]==rNow){
+                        ranow=k
+                        rbnow=c
+                    }
+                    if(lArray[k][c]==numbers[i]){
+                        la=k
+                        lb=c
+                    }
+                    if(lArray[k][c]==lNow){
+                        lanow=k
+                        lbnow=c
+                    }
+                }
+            }
+            rLen = Math.abs(ranow-ra)+Math.abs(rbnow-rb)
+            lLen = Math.abs(lanow-la)+Math.abs(lbnow-lb)
+            if(rLen>lLen){
+                lNow = numbers[i];
+                answer += 'L'
+            }else if(rLen <lLen){
+                rNow = numbers[i];
+                answer += 'R'
+            }else{
+                if(hand=="right"){
+                    rNow = numbers[i];
+                    answer +='R'
+                }else{
+                    lNow = numbers[i];
+                    answer +='L'
+                }
+            }
+        }
+    }
+    return answer 
+}
+```
+
+
+
 ## 29. 최대공약수와 최소공배수
 
 ### 1) 문제
@@ -2216,24 +2328,61 @@ process.stdin.on('data', data => {
 * 문제
 
 ```
+S사에서는 각 부서에 필요한 물품을 지원해 주기 위해 부서별로 물품을 구매하는데 필요한 금액을 조사했습니다. 그러나, 전체 예산이 정해져 있기 때문에 모든 부서의 물품을 구매해 줄 수는 없습니다. 그래서 최대한 많은 부서의 물품을 구매해 줄 수 있도록 하려고 합니다.
 
+물품을 구매해 줄 때는 각 부서가 신청한 금액만큼을 모두 지원해 줘야 합니다. 예를 들어 1,000원을 신청한 부서에는 정확히 1,000원을 지원해야 하며, 1,000원보다 적은 금액을 지원해 줄 수는 없습니다.
+
+부서별로 신청한 금액이 들어있는 배열 d와 예산 budget이 매개변수로 주어질 때, 최대 몇 개의 부서에 물품을 지원할 수 있는지 return 하도록 solution 함수를 완성해주세요.
 ```
 
 * 제한 사항
 
 ```
+1. d는 부서별로 신청한 금액이 들어있는 배열이며, 길이(전체 부서의 개수)는 1 이상 100 이하입니다.
 
+2. d의 각 원소는 부서별로 신청한 금액을 나타내며, 부서별 신청 금액은 1 이상 100,000 이하의 자연수입니다.
+
+3. budget은 예산을 나타내며, 1 이상 10,000,000 이하의 자연수입니다.
 ```
 
 * 테스트케이스
 
 ```
+d	budget	result
+[1,3,2,5,4]	9	3
+[2,2,3,3]	10	4
 
+입출력 예 #1
+각 부서에서 [1원, 3원, 2원, 5원, 4원]만큼의 금액을 신청했습니다. 만약에, 1원, 2원, 4원을 신청한 부서의 물품을 구매해주면 예산 9원에서 7원이 소비되어 2원이 남습니다. 항상 정확히 신청한 금액만큼 지원해 줘야 하므로 남은 2원으로 나머지 부서를 지원해 주지 않습니다. 위 방법 외에 3개 부서를 지원해 줄 방법들은 다음과 같습니다.
+
+1원, 2원, 3원을 신청한 부서의 물품을 구매해주려면 6원이 필요합니다.
+1원, 2원, 5원을 신청한 부서의 물품을 구매해주려면 8원이 필요합니다.
+1원, 3원, 4원을 신청한 부서의 물품을 구매해주려면 8원이 필요합니다.
+1원, 3원, 5원을 신청한 부서의 물품을 구매해주려면 9원이 필요합니다.
+3개 부서보다 더 많은 부서의 물품을 구매해 줄 수는 없으므로 최대 3개 부서의 물품을 구매해 줄 수 있습니다.
+
+입출력 예 #2
+모든 부서의 물품을 구매해주면 10원이 됩니다. 따라서 최대 4개 부서의 물품을 구매해 줄 수 있습니다.
 ```
 
 ### 2) learned
 
 ### 3) Solution
+
+```javascript
+function solution(d,budget){
+    let sum=0;
+    let i=0;
+    d.sort((a,b)=>{return a-b;})
+    while(sum<=budget){
+        sum+=d[i]
+        i++
+    }
+    return (i-1)
+}
+```
+
+
 
 ## 38. [2018 KAKAO BLIND RECRUITMENT] [1차] 비밀지도
 
