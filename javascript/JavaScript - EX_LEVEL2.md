@@ -533,21 +533,116 @@ function solution(w,h){
 * 제한 사항
 
 ```
+1. s의 길이는 1 이상 1,000 이하입니다.
 
+2. s는 알파벳 소문자로만 이루어져 있습니다.
+입출력 예
 ```
 
 * 테스트케이스
 
 ```
+s	result
+"aabbaccc"	7
+"ababcdcdababcdcd"	9
+"abcabcdede"	8
+"abcabcabcabcdededededede"	14
+"xababcdcdababcdcd"	17
 
+입출력 예에 대한 설명
+입출력 예 #1
+
+문자열을 1개 단위로 잘라 압축했을 때 가장 짧습니다.
+
+입출력 예 #2
+
+문자열을 8개 단위로 잘라 압축했을 때 가장 짧습니다.
+
+입출력 예 #3
+
+문자열을 3개 단위로 잘라 압축했을 때 가장 짧습니다.
+
+입출력 예 #4
+
+문자열을 2개 단위로 자르면 abcabcabcabc6de 가 됩니다.
+문자열을 3개 단위로 자르면 4abcdededededede 가 됩니다.
+문자열을 4개 단위로 자르면 abcabcabcabc3dede 가 됩니다.
+문자열을 6개 단위로 자를 경우 2abcabc2dedede가 되며, 이때의 길이가 14로 가장 짧습니다.
+
+입출력 예 #5
+
+문자열은 제일 앞부터 정해진 길이만큼 잘라야 합니다.
+따라서 주어진 문자열을 x / ababcdcd / ababcdcd 로 자르는 것은 불가능 합니다.
+이 경우 어떻게 문자열을 잘라도 압축되지 않으므로 가장 짧은 길이는 17이 됩니다.
 ```
 
 ### 2) learned
 
 ### 3) solution
 
-```javascript
+* 1안 : 테스트케이스 성공, 정확성 62/100(2,6,11,12,14,15,17,26,27,28)
 
+```javascript
+function solution(s) {
+    let array = s.split("")
+    let answer;
+    let length=[]
+    if (array.length>1){
+        
+    for (let i = 1; i <= Math.ceil(array.length/2); i++) {
+        let checked = []
+        let a = 0
+        let splitWord=''
+        for (let j = 0; j < array.length; j++) {
+            splitWord+= array[j]
+            a++
+            if(a==i){
+                checked.push(splitWord)
+                splitWord=''
+                a=0;
+            }
+            if(array.length%i!=0 && j==(array.length-1)){
+                checked.push(splitWord)
+            }
+        }
+        let checkWord=checked[0]
+        let no = 1;
+        let final=''
+        for(let k=1;k<checked.length;k++){
+            // console.log(checked[k]+"/"+checked[k].length+"/"+i)
+            if(checked[k].length==i){
+                if(checked[k]===checkWord){
+                    no++
+                }else{
+                    if(no!=1){
+                        final+=(String(no)+checkWord)
+                    }else{
+                        final += checkWord
+                    }
+                    no=1
+                    checkWord=checked[k]
+                }
+                if(k==(checked.length-1)){
+                    if(no!=1){
+                        final+=(String(no)+checkWord)
+                    }else{
+                        final += checkWord
+                    }
+                }
+            }else{
+                final+=checkWord
+                final+=checked[k]
+            }
+        }
+        length.push(final.length)
+    }
+    length.sort((a,b)=>{return a-b})
+    answer = length[0]
+    }else{
+        answer = s.length; 
+    }
+    return answer
+}
 ```
 
 ## 8. 소수 찾기
@@ -785,7 +880,29 @@ number / k / return
 ### 3) solution
 
 ```javascript
+function solution(number,k){
+    let no=0
+    let a=0
+    let answer = ''
+    let b=k+1;
+    let array = number.split("")
+    let m;
+    while(no!=k){
+        let checked = number.substr(a,b).split("")
+        checked.sort((c,d)=>{return d-c})
+        let j = checked[0]
+        m = array.indexOf(j)
+        answer += j
+        no += (m-a);
+        a = m+1
+        b = (k-m+1)
+    }
+    answer += number.substr(m)
+    
 
+    console.log(checked + " / " + j)
+    return Number(answer);
+}
 ```
 
 ## 10. 조이스틱 
