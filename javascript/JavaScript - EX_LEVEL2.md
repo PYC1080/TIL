@@ -841,7 +841,7 @@ function solution(numbers){
 }
 ```
 
-## 9. 큰 수 만들기 
+## 10. 큰 수 만들기 
 
 ### 1) 문제
 
@@ -905,37 +905,158 @@ function solution(number,k){
 }
 ```
 
-## 10. 조이스틱 
+## 11. 조이스틱 
 
 ### 1) 문제
 
 * 문제
 
 ```
+조이스틱으로 알파벳 이름을 완성하세요. 맨 처음엔 A로만 이루어져 있습니다.
+ex) 완성해야 하는 이름이 세 글자면 AAA, 네 글자면 AAAA
 
+조이스틱을 각 방향으로 움직이면 아래와 같습니다.
+
+▲ - 다음 알파벳
+▼ - 이전 알파벳 (A에서 아래쪽으로 이동하면 Z로)
+◀ - 커서를 왼쪽으로 이동 (첫 번째 위치에서 왼쪽으로 이동하면 마지막 문자에 커서)
+▶ - 커서를 오른쪽으로 이동
+
+예를 들어 아래의 방법으로 JAZ를 만들 수 있습니다.
+- 첫 번째 위치에서 조이스틱을 위로 9번 조작하여 J를 완성합니다.
+- 조이스틱을 왼쪽으로 1번 조작하여 커서를 마지막 문자 위치로 이동시킵니다.
+- 마지막 위치에서 조이스틱을 아래로 1번 조작하여 Z를 완성합니다.
+따라서 11번 이동시켜 "JAZ"를 만들 수 있고, 이때가 최소 이동입니다.
+
+만들고자 하는 이름 name이 매개변수로 주어질 때, 이름에 대해 조이스틱 조작 횟수의 최솟값을 return 하도록 solution 함수를 만드세요.
 ```
 
 * 제한 사항
 
 ```
+1. name은 알파벳 대문자로만 이루어져 있습니다.
 
+2. name의 길이는 1 이상 20 이하입니다.
 ```
 
 * 테스트케이스
 
 ```
-
+name	return
+JEROEN	56
+JAN	23
 ```
 
 ### 2) learned
 
 ### 3) solution
 
-```javascript
+* 1안 : 테스트케이스 성공,  정확성 90.0/100(11)
 
+```javascript
+function solution(name){
+    let array = name.split("")
+    let checking =true
+    let answer=0;
+    let alpha = ["A","B","C","D","E","F","G","H","I","J","K",
+                "L","M","N","O","P","Q","R","S","T","U","V",
+                "W","X","Y","Z"]
+    if(name.length==1){
+        let wordI = alpha.indexOf(array[0])
+        if(wordI>0&&wordI<=13){
+            answer+=wordI 
+        }else if(wordI>=14){
+            answer+=(26-wordI)
+        }
+    }else{
+        for(let i=0;i<name.length;i++){
+            if(array[i]!='A'){
+                checking = false
+                break;
+            }
+        }
+        if(checking == false){
+            let r=1,l=-1,no=0;
+            //왼쪽이 좋을지 오른쪽이 좋을지 방향 판단 
+            while(checking==false){
+                let leftWord = name.substr(l,1);
+                let rightWord = name.substr(r,1);
+                console.log(leftWord +" / "+rightWord)
+                if(leftWord =="A"&& rightWord =="A" ){
+                    r+=1;
+                    l+=-1;
+                }
+                if(leftWord =="A" && rightWord !="A"){
+                    checking = "right"
+                }else if(leftWord !="A" && rightWord =="A"){
+                    checking = "left"
+                }else{
+                    checking ="other"
+                }
+            }
+            ///오른쪽으로 횟수를 재는 경우가 가장 작은 경우 
+            if(checking == "right"||checking=="other"){
+                //제거할 A의 갯수 파악
+                for(let j=-1;j>-(array.length-1);j--){
+                    let isA = name.substr(j,1)
+                    if(isA =="A"){
+                        no++;
+                    }else{
+                        break;
+                    }
+                }
+                console.log("no : "+no)
+                //이름의 길이 파악
+                for(let j=0; j<(array.length-no);j++){
+                    let word = name.substr(j,1)
+                    let wordI = alpha.indexOf(word)
+                    if(wordI==0){
+                        // answer+=1
+                    }else if(wordI>0&&wordI<=13){
+                        answer+=wordI 
+                    }else{
+                        answer+=(26-wordI)
+                    }
+                    console.log("word : "+word+" wordI : "+wordI+" answer : "+answer)
+                }
+                answer += (array.length-no-1)
+                                console.log("array length : "+array.length+" no : "+no+" answer : "+answer)
+            }
+            //왼쪽으로 횟수를 재는 경우가 가장 적은 겨우
+            if(checking == "left"){
+                for(let j=1;j<(array.length-1);j++){
+                    let isA = name.substr(j,1)
+                    if(isA =="A"){
+                        no++;
+                    }else{
+                        break;
+                    }
+                }
+                for(let j=0; j>-(array.length-no);j--){
+                    let word = name.substr(j,1)
+                    let wordI = alpha.indexOf(word)
+                    if(wordI==0){
+                        // answer+=1
+                    }else if(wordI>0&&wordI<=13){
+                        answer+=wordI 
+                    }else{
+                        answer+=(26-wordI)
+                    }
+                }
+                answer += (array.length-no-1)
+
+            }
+            //양쪽 횟수가 동일한 경우
+            // if(checking == "other"){
+
+            // }
+        }
+    }
+    return answer
+}
 ```
 
-## 11. 괄호 변환 
+## 12. 괄호 변환 
 
 ### 1) 문제
 
