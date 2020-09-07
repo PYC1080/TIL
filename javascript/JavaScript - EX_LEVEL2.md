@@ -1391,24 +1391,37 @@ function solution(clothes){
 
 ## 16. 카펫
 
+> 완전탐색
+
 ### 1) 문제
 
 * 문제
 
 ```
+Leo는 카펫을 사러 갔다가 아래 그림과 같이 중앙에는 노란색으로 칠해져 있고 테두리 1줄은 갈색으로 칠해져 있는 격자 모양 카펫을 봤습니다.
 
+Leo는 집으로 돌아와서 아까 본 카펫의 노란색과 갈색으로 색칠된 격자의 개수는 기억했지만, 전체 카펫의 크기는 기억하지 못했습니다.
+
+Leo가 본 카펫에서 갈색 격자의 수 brown, 노란색 격자의 수 yellow가 매개변수로 주어질 때 카펫의 가로, 세로 크기를 순서대로 배열에 담아 return 하도록 solution 함수를 작성해주세요.
 ```
 
 * 제한 사항
 
 ```
+1. 갈색 격자의 수 brown은 8 이상 5,000 이하인 자연수입니다.
 
+2. 노란색 격자의 수 yellow는 1 이상 2,000,000 이하인 자연수입니다.
+
+3. 카펫의 가로 길이는 세로 길이와 같거나, 세로 길이보다 깁니다.
 ```
 
 * 테스트케이스
 
 ```
-
+brown	yellow	return
+10	2	[4, 3]
+8	1	[3, 3]
+24	24	[8, 6]
 ```
 
 ### 2) learned
@@ -1416,37 +1429,101 @@ function solution(clothes){
 ### 3) solution
 
 ```javascript
+/*1안 로직
+1. brown과 yellow의 갯수를 더해 가능한 가로*세로 조합을 구한다
+2. 바깥 테두리를 brown으로 채울 수 있는지 확인한다
+3. 바깥 테두리를 brown으로 채울 수 없다면 가로*세로 조합에서 제거한다
+4. 단, 가로,세로의 크기는 3 이상이다
+*/
 
+function solution(brown, yellow){
+    const totalBlock = brown+yellow;
+    let answer
+    for(let w=3;w<=(totalBlock/3);w++){
+        let h = totalBlock/w
+        if(w*h==totalBlock && w>=h){
+            if((2*w+h*2-4)<=brown){
+                answer=[w,h]
+            }
+        }
+    }
+    // console.log(answer)
+    return answer
+}
 ```
 
 ## 17. 타겟 넘버
 
+> DFS/BFS, 깊이/너비 우선 탐색
+
 ### 1) 문제
 
 * 문제
 
 ```
+n개의 음이 아닌 정수가 있습니다. 이 수를 적절히 더하거나 빼서 타겟 넘버를 만들려고 합니다. 예를 들어 [1, 1, 1, 1, 1]로 숫자 3을 만들려면 다음 다섯 방법을 쓸 수 있습니다.
 
+-1+1+1+1+1 = 3
++1-1+1+1+1 = 3
++1+1-1+1+1 = 3
++1+1+1-1+1 = 3
++1+1+1+1-1 = 3
+
+사용할 수 있는 숫자가 담긴 배열 numbers, 타겟 넘버 target이 매개변수로 주어질 때 숫자를 적절히 더하고 빼서 타겟 넘버를 만드는 방법의 수를 return 하도록 solution 함수를 작성해주세요.
 ```
 
 * 제한 사항
 
 ```
+1. 주어지는 숫자의 개수는 2개 이상 20개 이하입니다.
 
+2. 각 숫자는 1 이상 50 이하인 자연수입니다.
+
+3. 타겟 넘버는 1 이상 1000 이하인 자연수입니다.
 ```
 
 * 테스트케이스
 
 ```
-
+numbers	target	return
+[1, 1, 1, 1, 1]	3	5
 ```
 
 ### 2) learned
 
+* 배열 병합
+
+```
+배열A와 배열B를 병합하는 방법 : 배열A.concat(배열B)
+```
+
 ### 3) solution
 
 ```javascript
-
+/*1안 로직
+DFS
+1. 총 노드의 개수는 numbers의 배열의 길이 n과 같다
+2. 각 노드에서 선택할 수 있는 가짓수는 +와 - 2가지이다.
+3. 따라서 numbers 배열로 가능한 방법은 2의 n승이다.
+4. +++++... 에서 시작해 -----.. 까지 값을 구한다
+5. 최종 Depth에서 한단계식 위로 올라가 다른 방향으로 돌아갈 수 있는지 검사
+*/
+function solution(numbers,target){
+    let len = numbers.length;
+    let beforeArray = [0]
+    for(let i=0;i<len;i++){
+        let afterArray = []
+        beforeArray.forEach(e=>{
+            afterArray.push(e + numbers[i])
+            afterArray.push(e - numbers[i])
+        })
+        beforeArray = []
+        beforeArray = beforeArray.concat(afterArray)
+    }
+    console.log(beforeArray)
+    let answer = beforeArray.filter(e=>e==target).length
+    return answer
+} 
 ```
 
 ## 18. 가장 큰 정사각형 찾기
@@ -1659,7 +1736,7 @@ function solution(clothes){
 
 ```
 
-## 25. 최댓값과 최솟값 
+## 25. 최댓값과 최솟값
 
 ### 1) 문제
 
