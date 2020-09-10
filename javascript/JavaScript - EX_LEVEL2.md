@@ -2296,27 +2296,97 @@ expression	result
 * 문제
 
 ```
-
+2차원 행렬 arr1과 arr2를 입력받아, arr1에 arr2를 곱한 결과를 반환하는 함수, solution을 완성해주세요.
 ```
 
 * 제한 사항
 
 ```
+1. 행렬 arr1, arr2의 행과 열의 길이는 2 이상 100 이하입니다.
 
+2. 행렬 arr1, arr2의 원소는 -10 이상 20 이하인 자연수입니다.
+
+3. 곱할 수 있는 배열만 주어집니다.
 ```
 
 * 테스트케이스
 
 ```
-
+arr1	arr2	return
+[[1, 4], [3, 2], [4, 1]]	[[3, 3], [3, 3]]	[[15, 15], [15, 15], [15, 15]]
+[[2, 3, 2], [4, 2, 4], [3, 1, 4]]	[[5, 4, 3], [2, 4, 1], [3, 1, 1]]	[[22, 22, 11], [36, 28, 18], [29, 20, 14]]
 ```
 
 ### 2) learned
 
 ### 3) solution
 
-```javascript
+* 1안
 
+```javascript
+function solution(arr1, arr2) {
+    let answer = [];
+    let i = 0;
+    let k = 0;
+    //행
+    for (let r = 0; r < arr1.length; r++) {
+        let array = []
+        //렬
+        for (let c = 0; c < arr1[0].length; c++) {
+            let value = 0
+            let j = 0;
+            //각 행*렬의 값
+            while (true) {
+                value += (arr1[k][j] * arr2[j][i])
+                j++
+                if (j == arr2.length) {
+                    break;
+                }
+            }
+            array.push(value)
+            i++
+        }
+        k++
+        i = 0
+        answer.push(array)
+    }
+    return answer
+}
+/*
+채점 결과
+정확성: 0.0
+합계: 0 / 100.0
+*/
+```
+
+* 2안
+
+```javascript
+function solution(arr1, arr2) {
+    var answer = [];
+    var row1 = arr1.length;
+    var col1 = arr1[0].length;
+    var col2 = arr2[0].length;
+    for (var s = 0; s < row1; s++) {
+        answer.push([]);
+        for (var x = 0; x < col2; x++) {
+            answer[s].push(0);
+        }
+    }
+    for (var i = 0; i < row1; i++) {
+        for (var j = 0; j < col2; j++) {
+            for (var k = 0; k < col1; k++) {
+                answer[i][j] = answer[i][j] + arr1[i][k] * arr2[k][j];
+            }
+        }
+    }
+    return answer;
+}
+/*
+채점 결과
+정확성: 100.0
+합계: 100.0 / 100.0
+*/
 ```
 
 ## 30. JadenCase 문자열 만들기 
@@ -2326,19 +2396,25 @@ expression	result
 * 문제
 
 ```
-
+JadenCase란 모든 단어의 첫 문자가 대문자이고, 그 외의 알파벳은 소문자인 문자열입니다. 문자열 s가 주어졌을 때, s를 JadenCase로 바꾼 문자열을 리턴하는 함수, solution을 완성해주세요.
 ```
 
 * 제한 사항
 
 ```
+1. s는 길이 1 이상인 문자열입니다.
 
+2. s는 알파벳과 공백문자(" ")로 이루어져 있습니다.
+
+3. 첫 문자가 영문이 아닐때에는 이어지는 영문은 소문자로 씁니다. ( 첫번째 입출력 예 참고 )
 ```
 
 * 테스트케이스
 
 ```
-
+s	return
+3people unFollowed me	3people Unfollowed Me
+for the last week	For The Last Week
 ```
 
 ### 2) learned
@@ -2346,7 +2422,46 @@ expression	result
 ### 3) solution
 
 ```javascript
-
+/*
+1. 공백+영문자의 경우 대문자로 변경
+2. 그외 영문자의 경우 소문자로 변경
+*/
+function solution(s){
+    let answer =''
+    let isFirst = true
+    for(let i=0;i<s.length;i++){
+        let checkWord = s.substr(i,1)
+        // console.log(checkWord)
+        if(checkWord != " "){
+            // console.log("is not blank")
+            if(isNaN(checkWord)==false){
+                answer+=checkWord
+                // console.log("is number")
+            }else{
+                // console.log("is not number")
+                if(isFirst==true){
+                    // console.log("is first word")
+                    answer+=checkWord.toUpperCase()
+                }else{
+                    // console.log("is not first word")
+                    answer+=checkWord.toLowerCase()
+                }
+            }
+            isFirst = false
+        }else{
+            // console.log("is blank")
+            answer+=checkWord
+            isFirst = true
+        }
+        // console.log(answer)
+        // console.log("====next====")
+    }
+    return answer
+}
+/*
+정확성: 100.0
+합계: 100.0 / 100.0
+*/
 ```
 
 ## 31. N개의 최소공배수
@@ -2356,19 +2471,23 @@ expression	result
 * 문제
 
 ```
-
+두 수의 최소공배수(Least Common Multiple)란 입력된 두 수의 배수 중 공통이 되는 가장 작은 숫자를 의미합니다. 예를 들어 2와 7의 최소공배수는 14가 됩니다. 정의를 확장해서, n개의 수의 최소공배수는 n 개의 수들의 배수 중 공통이 되는 가장 작은 숫자가 됩니다. n개의 숫자를 담은 배열 arr이 입력되었을 때 이 수들의 최소공배수를 반환하는 함수, solution을 완성해 주세요.
 ```
 
 * 제한 사항
 
 ```
+1. arr은 길이 1이상, 15이하인 배열입니다.
 
+2. arr의 원소는 100 이하인 자연수입니다.
 ```
 
 * 테스트케이스
 
 ```
-
+arr	result
+[2,6,8,14]	168
+[1,2,3]	6
 ```
 
 ### 2) learned
@@ -2376,7 +2495,31 @@ expression	result
 ### 3) solution
 
 ```javascript
-
+function solution(arr){
+    let answer =0;
+    arr.sort((a,b)=>{return b-a})
+    let n = arr[0]
+    while(true){
+        let check = false
+        for(let i=0;i<arr.length;i++){
+            if(n%arr[i]!=0){
+                check = true
+                break
+            }
+        }
+        if(check==true){
+            n++
+        }else{
+            answer = n
+            break;
+        }
+    }
+    return answer
+}
+/*
+정확성: 100.0
+합계: 100.0 / 100.0
+*/
 ```
 
 ## 32. 짝지어 제거하기
@@ -2386,19 +2529,34 @@ expression	result
 * 문제
 
 ```
+짝지어 제거하기는, 알파벳 소문자로 이루어진 문자열을 가지고 시작합니다. 먼저 문자열에서 같은 알파벳이 2개 붙어 있는 짝을 찾습니다. 그다음, 그 둘을 제거한 뒤, 앞뒤로 문자열을 이어 붙입니다. 이 과정을 반복해서 문자열을 모두 제거한다면 짝지어 제거하기가 종료됩니다. 문자열 S가 주어졌을 때, 짝지어 제거하기를 성공적으로 수행할 수 있는지 반환하는 함수를 완성해 주세요. 성공적으로 수행할 수 있으면 1을, 아닐 경우 0을 리턴해주면 됩니다.
 
+예를 들어, 문자열 S = baabaa 라면
+
+b aa baa → bb aa → aa →
+
+의 순서로 문자열을 모두 제거할 수 있으므로 1을 반환합니다.
 ```
 
 * 제한 사항
 
 ```
+1. 문자열의 길이 : 1,000,000이하의 자연수
 
+2. 문자열은 모두 소문자로 이루어져 있습니다.
 ```
 
 * 테스트케이스
 
 ```
-
+s	result
+baabaa	1
+cdcd	0
+입출력 예 설명
+입출력 예 #1
+위의 예시와 같습니다.
+입출력 예 #2
+문자열이 남아있지만 짝지어 제거할 수 있는 문자열이 더 이상 존재하지 않기 때문에 0을 반환합니다.
 ```
 
 ### 2) learned
@@ -2406,7 +2564,75 @@ expression	result
 ### 3) solution
 
 ```javascript
+function solution(s){
+    let answer=0;
+    let isChecking =s.substr(0,1)
+    let now
+    if(s.length>1){
+        for(let n=1;n<=s.length-1;n++){
+            // 비교할 두 문자열을 고르는 과정
+            if(isChecking.length>=1){
+                now = isChecking.substr(isChecking.length-1,1)
+                isChecking = isChecking.substr(0,isChecking.length-1)
+            }else{
+                now =''
+            }
+            let next =s.substr(n,1)
+            // 두 문자열을 비교
+            if(now==next){
+                if(n==s.length-1&&isChecking.length ==0){
+                    answer=1 
+                }
+            }else{
+                isChecking = isChecking+now+next
+            }
+            // 조기 종결 조건 남은 문자열의 갯수 < 지우지 못한 문자열의 갯수
+            if(isChecking.length>(s.length-1-n)){
+                break;
+            }
+        }
+    }
+    return answer 
+}
+/*
+정확성: 60.2
+효율성: 5.0(1,3,4,5,6,7,8)
+합계: 65.2 / 100.0
+*/
+```
 
+* 2안
+
+```javascript
+function solution(s){
+    let answer = 0;
+    let sArray = s.split("")
+    let nowArray = []
+    nowArray.push(sArray.shift())
+    
+    if(s.length>0){
+        while(sArray.length>0){
+            let nowWord = nowArray.pop()
+            let nextWord = sArray.shift()
+            if(nowWord!=nextWord){
+                if(nowWord != undefined){
+                    nowArray.push(nowWord)
+                }
+                nowArray.push(nextWord)
+            }
+        }
+        
+        if(nowArray.length==0){
+            answer = 1
+        }
+    }
+    return answer
+}
+/*
+정확성: 60.2
+효율성: 0.0(1,2,3,4,5,6,7,8)
+합계: 60.2 / 100.0
+*/
 ```
 
 ## 33. 소수 만들기
@@ -2416,22 +2642,51 @@ expression	result
 * 문제
 
 ```
-
+주어진 숫자 중 3개의 수를 더했을 때 소수가 되는 경우의 개수를 구하려고 합니다. 숫자들이 들어있는 배열 nums가 매개변수로 주어질 때, nums에 있는 숫자들 중 서로 다른 3개를 골라 더했을 때 소수가 되는 경우의 개수를 return 하도록 solution 함수를 완성해주세요.
 ```
 
 * 제한 사항
 
 ```
+1. nums에 들어있는 숫자의 개수는 3개 이상 50개 이하입니다.
 
+2. nums의 각 원소는 1 이상 1,000 이하의 자연수이며, 중복된 숫자가 들어있지 않습니다.
 ```
 
 * 테스트케이스
 
 ```
+nums	result
+[1,2,3,4]	1
+[1,2,7,6,4]	4
+입출력 예 설명
+입출력 예 #1
+[1,2,4]를 이용해서 7을 만들 수 있습니다.
 
+입출력 예 #2
+[1,2,4]를 이용해서 7을 만들 수 있습니다.
+[1,4,6]을 이용해서 11을 만들 수 있습니다.
+[2,4,7]을 이용해서 13을 만들 수 있습니다.
+[4,6,7]을 이용해서 17을 만들 수 있습니다.
 ```
 
 ### 2) learned
+
+* 소수를 구하는 효율적인 알고리즘
+
+```
+1. 소수, Prime Number : 소수는 자신보다 작은 두개의 자연수를 곱하여 만들 수 없는 1보다 큰 자연수이다.
+
+2. 소수 판별 알고리즘
+
+	1) 2부터 판별하는 수 전까지 나눠보고 나머지가 0이 안나온다면 소수로 정의한다. 해당 수까지 모두 확인해야하므로 시간복잡도는 O(N)이 되고, 가장 원초적인 방법이다.
+	
+	2) 해당숫자의 절반까지만 확인하는 방법이다. 이 원리는 절반 이상의 숫자들은 확인이 필요 없는 숫자들이기 때문이다. 예를들어 80이란 숫자에서 자기자신을 제외하고 절반을 초과하는 숫자에서 나눴을때 나머지가 0이되는 숫자는 나올수가 없다. 해당 풀이를 사용하면 최대 N/2번 조회를 한다. 시간복잡도에서 상수는 제외하므로 해당 풀이의 시간복잡도도 O(N)이 된다.
+	
+	3) 해당 숫자의 √N 까지 확인하는 방법이다. 이 원리는 약수의 중심을 구하는 방법이다. 시간복잡도는 O(√N)이 된다.
+```
+
+
 
 ### 3) solution
 
