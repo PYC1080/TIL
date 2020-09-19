@@ -3742,7 +3742,32 @@ OT		34
 ### 3) solution
 
 ```javascript
+function solution(msg){
+    let answer = []
+    let lib = ["A","B","C","D","E","F","G","H","I","J","K","L",
+    "M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
+    let no =0
+    let i =1;
+    while(true){
+        let w = msg.substr(no,i)
+        let c = msg.substr(no+i,1)
+        let wc = w+c;
+        if(lib.indexOf(wc)<0){
+            lib.push(wc)
+            answer.push(lib.indexOf(w)+1)
+            no+=i
+            i=1;
+        }else{
+            i++
+        }
+        if(no>msg.length-1){
+            answer.push(lib.indexOf(w)+1)
+            break;
+        }
+    }
 
+    return answer
+}
 ```
 
 ## 44. [3차] 파일명 정렬
@@ -3752,19 +3777,57 @@ OT		34
 * 문제
 
 ```
+세 차례의 코딩 테스트와 두 차례의 면접이라는 기나긴 블라인드 공채를 무사히 통과해 카카오에 입사한 무지는 파일 저장소 서버 관리를 맡게 되었다.
 
+저장소 서버에는 프로그램의 과거 버전을 모두 담고 있어, 이름 순으로 정렬된 파일 목록은 보기가 불편했다. 파일을 이름 순으로 정렬하면 나중에 만들어진 ver-10.zip이 ver-9.zip보다 먼저 표시되기 때문이다.
+
+버전 번호 외에도 숫자가 포함된 파일 목록은 여러 면에서 관리하기 불편했다. 예컨대 파일 목록이 [img12.png, img10.png, img2.png, img1.png]일 경우, 일반적인 정렬은 [img1.png, img10.png, img12.png, img2.png] 순이 되지만, 숫자 순으로 정렬된 [img1.png, img2.png, img10.png, img12.png"] 순이 훨씬 자연스럽다.
+
+무지는 단순한 문자 코드 순이 아닌, 파일명에 포함된 숫자를 반영한 정렬 기능을 저장소 관리 프로그램에 구현하기로 했다.
+
+소스 파일 저장소에 저장된 파일명은 100 글자 이내로, 영문 대소문자, 숫자, 공백(" ), 마침표(.), 빼기 부호(-")만으로 이루어져 있다. 파일명은 영문자로 시작하며, 숫자를 하나 이상 포함하고 있다.
+
+파일명은 크게 HEAD, NUMBER, TAIL의 세 부분으로 구성된다.
+
+HEAD는 숫자가 아닌 문자로 이루어져 있으며, 최소한 한 글자 이상이다.
+NUMBER는 한 글자에서 최대 다섯 글자 사이의 연속된 숫자로 이루어져 있으며, 앞쪽에 0이 올 수 있다. 0부터 99999 사이의 숫자로, 00000이나 0101 등도 가능하다.
+TAIL은 그 나머지 부분으로, 여기에는 숫자가 다시 나타날 수도 있으며, 아무 글자도 없을 수 있다.
+파일명	HEAD	NUMBER	TAIL
+foo9.txt	foo	9	.txt
+foo010bar020.zip	foo	010	bar020.zip
+F-15	F-	15	(빈 문자열)
+파일명을 세 부분으로 나눈 후, 다음 기준에 따라 파일명을 정렬한다.
+
+파일명은 우선 HEAD 부분을 기준으로 사전 순으로 정렬한다. 이때, 문자열 비교 시 대소문자 구분을 하지 않는다. MUZI와 muzi, MuZi는 정렬 시에 같은 순서로 취급된다.
+파일명의 HEAD 부분이 대소문자 차이 외에는 같을 경우, NUMBER의 숫자 순으로 정렬한다. 9 < 10 < 0011 < 012 < 13 < 014 순으로 정렬된다. 숫자 앞의 0은 무시되며, 012와 12는 정렬 시에 같은 같은 값으로 처리된다.
+두 파일의 HEAD 부분과, NUMBER의 숫자도 같을 경우, 원래 입력에 주어진 순서를 유지한다. MUZI01.zip과 muzi1.png가 입력으로 들어오면, 정렬 후에도 입력 시 주어진 두 파일의 순서가 바뀌어서는 안 된다.
+무지를 도와 파일명 정렬 프로그램을 구현하라.
 ```
 
 * 제한 사항
 
 ```
+입력 형식
+입력으로 배열 files가 주어진다.
 
+files는 1000 개 이하의 파일명을 포함하는 문자열 배열이다.
+각 파일명은 100 글자 이하 길이로, 영문 대소문자, 숫자, 공백(" ), 마침표(.), 빼기 부호(-")만으로 이루어져 있다. 파일명은 영문자로 시작하며, 숫자를 하나 이상 포함하고 있다.
+중복된 파일명은 없으나, 대소문자나 숫자 앞부분의 0 차이가 있는 경우는 함께 주어질 수 있다. (muzi1.txt, MUZI1.txt, muzi001.txt, muzi1.TXT는 함께 입력으로 주어질 수 있다.)
+출력 형식
+위 기준에 따라 정렬된 배열을 출력한다.
 ```
 
 * 테스트케이스
 
 ```
+입출력 예제
+입력: [img12.png, img10.png, img02.png, img1.png, IMG01.GIF, img2.JPG]
+출력: [img1.png, IMG01.GIF, img02.png, img2.JPG, img10.png, img12.png]
 
+입력: [F-5 Freedom Fighter, B-50 Superfortress, A-10 Thunderbolt II, F-14 Tomcat]
+출력: [A-10 Thunderbolt II, B-50 Superfortress, F-5 Freedom Fighter, F-14 Tomcat]
+
+해설 보러가기
 ```
 
 ### 2) learned
@@ -3772,7 +3835,99 @@ OT		34
 ### 3) solution
 
 ```javascript
-
+function solution(files) {
+    let answer = []
+    let filesSort = []
+    //HEAD / NUMBER/ TAIL 로 구분
+    for (let i = 0; i < files.length; i++) {
+        let check = files[i]
+        let isNumber = false
+        let head = ''
+        let number = ''
+        let tail = ''
+        let numbercheck = false
+        for (let j = 0; j < check.length; j++) {
+            let w = check.substr(j, 1)
+            if (isNumber == false && isNaN(w) == true) {
+                head += w
+            }
+            if (isNumber == false && isNaN(w) == false) {
+                isNumber = true
+            }
+            if (isNumber == true && isNaN(w) == false) {
+                if(w>0){
+                    numbercheck =true
+                }
+                if(numbercheck==true&&w!= " "){
+                    number += w
+                }
+            }
+            if (isNumber == true && isNaN(w) == true) {
+                tail = check.substr(j)
+                break;
+            }
+        }
+        filesSort.push([i, head, number, tail, check])
+    }
+    filesSort.sort((a, b) => {
+        //HEAD 부분 정렬
+        let c = a[1].toLowerCase()
+        let d = b[1].toLowerCase()
+        if (c > d) {
+            return 0
+        }
+        if (c < d) {
+            return -1
+        }
+        if (c == d) {
+            //NUMBER 부분 정렬
+            let e = Number(a[2]), f = Number(b[2]);
+            if (e>f) {
+                return 0
+            }
+            if (e<f) {
+                return -1
+            }
+            //TAIL 부분 정렬
+            if (e == f) {
+                let o = a[0]
+                let p = b[0]
+                return o >= p ? 0 : -1
+            }
+        }
+    })
+    console.log(filesSort)
+    filesSort.forEach(e => {
+        answer.push(e[4])
+    })
+    return answer
+}
+/*
+정확성  테스트
+테스트 1 〉	통과 (5.60ms, 30.4MB)
+테스트 2 〉	통과 (5.51ms, 30MB)
+테스트 3 〉	통과 (117.61ms, 33.7MB)
+테스트 4 〉	실패 (14.20ms, 33.8MB)
+테스트 5 〉	실패 (14.39ms, 33.9MB)
+테스트 6 〉	실패 (14.72ms, 33.7MB)
+테스트 7 〉	실패 (176.23ms, 33.6MB)
+테스트 8 〉	실패 (14.09ms, 33.5MB)
+테스트 9 〉	실패 (46.67ms, 33.3MB)
+테스트 10 〉	실패 (14.41ms, 33.7MB)
+테스트 11 〉	실패 (14.68ms, 33.4MB)
+테스트 12 〉	실패 (14.39ms, 33.7MB)
+테스트 13 〉	통과 (11.72ms, 33.1MB)
+테스트 14 〉	통과 (151.52ms, 33.2MB)
+테스트 15 〉	통과 (15.86ms, 33.3MB)
+테스트 16 〉	통과 (15.08ms, 33.6MB)
+테스트 17 〉	통과 (11.36ms, 33.3MB)
+테스트 18 〉	통과 (13.39ms, 33.6MB)
+테스트 19 〉	실패 (13.99ms, 33.5MB)
+테스트 20 〉	실패 (12.66ms, 33.4MB)
+채점 결과
+정확성: 45.0
+합계: 45.0 / 100.0
+*/
 ```
 
 ## 45. [3차] n진수 게임 
@@ -3782,19 +3937,43 @@ OT		34
 * 문제
 
 ```
+튜브가 활동하는 코딩 동아리에서는 전통적으로 해오는 게임이 있다. 이 게임은 여러 사람이 둥글게 앉아서 숫자를 하나씩 차례대로 말하는 게임인데, 규칙은 다음과 같다.
 
+숫자를 0부터 시작해서 차례대로 말한다. 첫 번째 사람은 0, 두 번째 사람은 1, … 열 번째 사람은 9를 말한다.
+10 이상의 숫자부터는 한 자리씩 끊어서 말한다. 즉 열한 번째 사람은 10의 첫 자리인 1, 열두 번째 사람은 둘째 자리인 0을 말한다.
+이렇게 게임을 진행할 경우,
+0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 0, 1, 1, 1, 2, 1, 3, 1, 4, …
+순으로 숫자를 말하면 된다.
+
+한편 코딩 동아리 일원들은 컴퓨터를 다루는 사람답게 이진수로 이 게임을 진행하기도 하는데, 이 경우에는
+0, 1, 1, 0, 1, 1, 1, 0, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1, …
+순으로 숫자를 말하면 된다.
+
+이진수로 진행하는 게임에 익숙해져 질려가던 사람들은 좀 더 난이도를 높이기 위해 이진법에서 십육진법까지 모든 진법으로 게임을 진행해보기로 했다. 숫자 게임이 익숙하지 않은 튜브는 게임에 져서 벌칙을 받는 굴욕을 피하기 위해, 자신이 말해야 하는 숫자를 스마트폰에 미리 출력해주는 프로그램을 만들려고 한다. 튜브의 프로그램을 구현하라.
 ```
 
 * 제한 사항
 
 ```
+입력 형식
+진법 n, 미리 구할 숫자의 갯수 t, 게임에 참가하는 인원 m, 튜브의 순서 p 가 주어진다.
 
+2 ≦ n ≦ 16
+0 ＜ t ≦ 1000
+2 ≦ m ≦ 100
+1 ≦ p ≦ m
+출력 형식
+튜브가 말해야 하는 숫자 t개를 공백 없이 차례대로 나타낸 문자열. 단, 10~15는 각각 대문자 A~F로 출력한다.
 ```
 
 * 테스트케이스
 
 ```
-
+입출력 예제
+n	t	m	p	result
+2	4	2	1	0111
+16	16	2	1	02468ACE11111111
+16	16	2	2	13579BDF01234567
 ```
 
 ### 2) learned
@@ -3802,6 +3981,23 @@ OT		34
 ### 3) solution
 
 ```javascript
+function solution(n,t,m,p){
+    let routine = ["0"]
+    let over = ["A","B","C","D","E","F"]
+    let x = 0
+    if(t>1){
+        for(let i=1;i<t;i++){
+            let no = i
+            // 진수변환
+            while(true){
+                let a = Math.pow(n,x)
+                if(i==a){
+                    no -= n
+                }
+            }
+        }
+    }
 
+}
 ```
 
