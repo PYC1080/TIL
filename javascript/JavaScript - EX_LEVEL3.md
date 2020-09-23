@@ -165,7 +165,42 @@ n	result
 ### 3) solution
 
 ```javascript
+// function solution(n){
+//     let answer = 1
+//     let nfac = fac(n)%1000000007;
+//     if(n>1){
+//         for(let i=1;i<Math.floor(n/2);i++){
+//             answer += nfac/(fac(i)%1000000007*fac(n-i)%1000000007)
+//         }
+//     }
+//     return answer
+// }
 
+// function fac(n){
+//     if(n==1){
+//         return 1;
+//     }else{
+//         return (n%1000000007)*fac(n-1);
+//     }
+// }
+
+//피보나치로 푸는 경우
+
+function solution(n){
+    let answer = 1
+    let a = 1
+    if(n>1){
+        for(let i=2;i<=n;i++){
+            let change = a+answer
+            a = answer;
+            answer = change
+        }
+    }
+    return answer
+}
+
+
+module.exports = solution
 ```
 
 ## 4. 네트워크
