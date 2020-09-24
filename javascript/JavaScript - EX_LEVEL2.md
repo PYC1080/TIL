@@ -904,6 +904,68 @@ function solution(number,k){
 }
 ```
 
+* 2안
+
+```javascript
+function solution(number,k){
+    let answer = [];
+    let final = ''
+    let no = 0;
+    let start =0;
+    let end = k+1
+    while(true){
+        if(k==no){
+            let last = number.substr(start)
+            final += answer.join("")
+            final += last
+            break
+        }
+        let word = number.substr(start,end).split("")
+        let max = Math.max.apply(null,word)
+        let index = word.indexOf(String(max))
+        let min  = Math.min.apply(null,word)
+        if(max==min){
+            ///9991인 경우 실패
+            let last = number.substr(start+k-no).split("")
+            let finalmin = Math.min.apply(null,last)
+            if(max==finalmin){
+                final += answer.join("")
+                final += last
+                break;
+            }
+        }else{
+            answer.push(number[start+index])
+            no+=index
+            start = start+index+1
+            end = k-no+1
+        }
+    }
+    return final
+
+}
+/*
+채점을 시작합니다.
+정확성  테스트
+테스트 1 〉	통과 (0.12ms, 30.3MB)
+테스트 2 〉	통과 (0.09ms, 29.9MB)
+테스트 3 〉	통과 (0.17ms, 30MB)
+테스트 4 〉	통과 (0.19ms, 30MB)
+테스트 5 〉	통과 (0.45ms, 30.1MB)
+테스트 6 〉	통과 (72.77ms, 32.5MB)
+테스트 7 〉	통과 (169.50ms, 36.4MB)
+테스트 8 〉	통과 (1924.58ms, 64.6MB)
+테스트 9 〉	통과 (0.37ms, 31.8MB)
+테스트 10 〉	실패 (런타임 에러)
+테스트 11 〉	통과 (0.11ms, 30MB)
+테스트 12 〉	통과 (0.12ms, 30MB)
+채점 결과
+정확성: 91.7
+합계: 91.7 / 100.0
+*/
+```
+
+
+
 ## 11. 조이스틱 
 
 ### 1) 문제
