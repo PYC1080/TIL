@@ -29,7 +29,7 @@
 ### 3) solution
 
 ```javascript
-
+ 
 ```
 
 ## 2. 직사각형의 넓이
