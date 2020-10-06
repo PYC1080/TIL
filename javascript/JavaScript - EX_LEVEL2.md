@@ -1833,7 +1833,65 @@ board	answer
 ### 3) solution
 
 ```javascript
-
+function solution(board){
+    let answer = 0
+    for(let r=0;r<board.length;r++){
+        for(let c=0;c<board[r].length;c++){
+            let no = 0;
+            if(board[r][c]==1){
+                for(let n=r;n<board.length;n++){
+                    if(board[n][c]==1){
+                        no++
+                    }
+                    if(board[n][c]==0){
+                        break;
+                    }
+                }
+                let check = no
+                for(let cc=c;cc<c+no;cc++){
+                    for(let rc=r;rc<r+no;rc++){
+                        if(board[rc][cc]==0){
+                            let number = rc-r
+                            if(number<check){
+                                check = number
+                            }
+                        }
+                    }
+                }
+                if(Math.pow(check,2)>answer){
+                    answer = Math.pow(check,2)
+                }
+            }
+        }
+    }
+    return answer
+}
+/*
+정확성  테스트 
+테스트 1 〉	통과 (0.10ms, 30.2MB)
+테스트 2 〉	통과 (0.18ms, 30MB)
+테스트 3 〉	통과 (0.27ms, 30.1MB)
+테스트 4 〉	실패 (0.59ms, 30MB)
+테스트 5 〉	통과 (0.59ms, 30MB)
+테스트 6 〉	실패 (0.13ms, 30MB)
+테스트 7 〉	통과 (0.13ms, 30.2MB)
+테스트 8 〉	통과 (0.13ms, 30.1MB)
+테스트 9 〉	통과 (0.20ms, 30MB)
+테스트 10 〉	통과 (0.49ms, 29.9MB)
+테스트 11 〉	실패 (0.17ms, 30.1MB)
+테스트 12 〉	실패 (0.24ms, 30.2MB)
+테스트 13 〉	실패 (0.16ms, 30.3MB)
+테스트 14 〉	통과 (0.20ms, 30.1MB)
+테스트 15 〉	통과 (0.27ms, 30.2MB)
+테스트 16 〉	실패 (0.47ms, 29.9MB)
+테스트 17 〉	실패 (0.51ms, 30.1MB)
+테스트 18 〉	통과 (20.02ms, 33.3MB)
+테스트 19 〉	통과 (18.98ms, 33.2MB)
+효율성  테스트
+테스트 1 〉	실패 (시간 초과)
+테스트 2 〉	실패 (시간 초과)
+테스트 3 〉	실패 (시간 초과)
+*/
 ```
 
 ## 19. 올바른 괄호
