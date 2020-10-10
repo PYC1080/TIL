@@ -4313,3 +4313,93 @@ function solution(n,t,m,p){
 }
 ```
 
+## 46. 삼각 달팽이 
+
+### 1) 문제
+
+* 문제
+
+```
+정수 n이 매개변수로 주어집니다. 다음 그림과 같이 밑변의 길이와 높이가 n인 삼각형에서 맨 위 꼭짓점부터 반시계 방향으로 달팽이 채우기를 진행한 후, 첫 행부터 마지막 행까지 모두 순서대로 합친 새로운 배열을 return 하도록 solution 함수를 완성해주세요.
+```
+
+* 제한 사항
+
+```
+n은 1 이상 1,000 이하입니다.
+```
+
+* 테스트케이스
+
+```
+n	result
+4	[1,2,9,3,10,8,4,5,6,7]
+5	[1,2,12,3,13,11,4,14,15,10,5,6,7,8,9]
+6	[1,2,15,3,16,14,4,17,21,13,5,18,19,20,12,6,7,8,9,10,11]
+```
+
+### 2) learned
+
+### 3) solution
+
+```javascript
+function solution(n){
+    let array = []
+    let direction = ['down','right','up']
+    for(let i=1;i<=n;i++){
+        let a = []
+        for(let j=0;j<i;j++){
+            a.push(0)
+        }
+        array.push(a)
+    }
+    // console.log(array)
+    let dir = 0;
+    let max = n
+    let now = 0
+    let a=-1, b=0
+    for(let number=1;number<=(n*(n+1)/2);number++){
+        let isDir = direction[dir%3]
+        
+        if(isDir=='down'){
+            a+=1
+        }
+        if(isDir=='right'){
+            b+=1
+        }
+        if(isDir=='up'){
+            a-=1
+            b-=1
+        }
+        now++
+        array[a][b] = number
+        if(now==max){
+            now=0
+            max-=1
+            dir++
+        }
+    }
+        let answer =[]
+    for(let i=1;i<=n;i++){
+        for(let j=0;j<i;j++){
+            answer.push(array[i-1][j])
+        }
+    }
+    return answer
+}
+/*
+정확성  테스트
+테스트 1 〉	통과 (0.12ms, 30.1MB)
+테스트 2 〉	통과 (0.12ms, 30.1MB)
+테스트 3 〉	통과 (0.11ms, 30.1MB)
+테스트 4 〉	통과 (1.43ms, 32.5MB)
+테스트 5 〉	통과 (1.42ms, 33.2MB)
+테스트 6 〉	통과 (1.20ms, 32.6MB)
+테스트 7 〉	통과 (32.82ms, 81MB)
+테스트 8 〉	통과 (32.36ms, 80MB)
+테스트 9 〉	통과 (33.50ms, 80.6MB)
+채점 결과
+정확성: 100.0
+합계: 100.0 / 100.0
+*/
+```
