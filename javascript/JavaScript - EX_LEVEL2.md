@@ -4402,6 +4402,123 @@ function solution(n){
 정확성: 100.0
 합계: 100.0 / 100.0
 */
+```
 
+## 47. 쿼드압축 후 개수 세기
+
+### 1) 문제
+
+* 문제
 
 ```
+0과 1로 이루어진 2n x 2n 크기의 2차원 정수 배열 arr이 있습니다. 당신은 이 arr을 쿼드 트리와 같은 방식으로 압축하고자 합니다. 구체적인 방식은 다음과 같습니다.
+
+1. 당신이 압축하고자 하는 특정 영역을 S라고 정의합니다.
+2. 만약 S 내부에 있는 모든 수가 같은 값이라면, S를 해당 수 하나로 압축시킵니다.
+3. 그렇지 않다면, S를 정확히 4개의 균일한 정사각형 영역(입출력 예를 참고해주시기 바랍니다.)으로 쪼갠 뒤, 각 정사각형 영역에 대해 같은 방식의 압축을 시도합니다.
+
+arr이 매개변수로 주어집니다. 위와 같은 방식으로 arr을 압축했을 때, 배열에 최종적으로 남는 0의 개수와 1의 개수를 배열에 담아서 return 하도록 solution 함수를 완성해주세요.
+```
+
+* 제한사항
+
+```
+1. arr의 행의 개수는 1 이상 1024 이하이며, 2의 거듭 제곱수 형태를 하고 있습니다. 즉, arr의 행의 개수는 1, 2, 4, 8, ..., 1024 중 하나입니다.
+ 1) arr의 각 행의 길이는 arr의 행의 개수와 같습니다. 즉, arr은 정사각형 배열입니다.
+ 2) arr의 각 행에 있는 모든 값은 0 또는 1 입니다.
+```
+
+* 테스트케이스
+
+```
+arr	result
+[[1,1,0,0],[1,0,0,0],[1,0,0,1],[1,1,1,1]]	[4,9]
+[[1,1,1,1,1,1,1,1],[0,1,1,1,1,1,1,1],[0,0,0,0,1,1,1,1],[0,1,0,0,1,1,1,1],[0,0,0,0,0,0,1,1],[0,0,0,0,0,0,0,1],[0,0,0,0,1,0,0,1],[0,0,0,0,1,1,1,1]]	[10,15]
+```
+
+
+
+### 2) learned
+
+### 3) solution
+
+```javascript
+function solution(arr){
+    let answer =[0,0]
+    let nowLeng = arr.length
+    let startPoint =[[0,0,false,arr[0][0],1]]
+    let max = Math.pow(nowLeng,2)
+    while(true){
+        let sum = 0
+        //각각의 startPoint에서 거리만큼 떨어진 만큼 쿼드 압축이 가능한지 판단한다
+        startPoint.forEach(e=>{
+            if(e[2]==false){
+                let rowP = e[0]
+                let colP = e[1]
+                let check = true
+                for(let i=0;i<nowLeng;i++){
+                    for(let j=0;j<nowLeng;j++){
+                        if(arr[rowP+i][colP+j]!=e[3]){
+                            check = false
+                            break;
+                        }
+                    }
+                    if(check==false){
+                        break;
+                    }
+                }
+                if(check==true){
+                    e[4]=Math.pow(nowLeng,2)
+                    e[2]=true
+                }
+            }
+            sum+=e[4]
+        })
+        // 압축이 끝난 후 모든 압축이 완료되었는지 확인 한다 
+        if(sum==max||nowLeng==1){
+            startPoint.forEach(e=>{
+                if(e[3]==1){
+                    answer[1]++
+                }
+                if(e[3]==0){
+                    answer[0]++
+                }
+            })
+            break;
+        }
+        // 다음 나눌 포인트 추가
+        nowLeng/=2
+        startPoint.forEach(e=>{
+            if(e[2]==false){
+                startPoint.push([e[0]+nowLeng,e[1],false,arr[e[0]+nowLeng][e[1]],1])
+                startPoint.push([e[0],e[1]+nowLeng,false,arr[e[0]][e[1]+nowLeng],1])
+                startPoint.push([e[0]+nowLeng,e[1]+nowLeng,false,arr[e[0]+nowLeng][e[1]+nowLeng],1])
+            }
+        })
+    }
+    return answer
+}
+/*
+정확성  테스트
+테스트 1 〉	통과 (0.93ms, 30.2MB)
+테스트 2 〉	통과 (0.86ms, 29.8MB)
+테스트 3 〉	통과 (0.36ms, 30.2MB)
+테스트 4 〉	통과 (0.37ms, 30MB)
+테스트 5 〉	통과 (118.07ms, 78.6MB)
+테스트 6 〉	통과 (40.31ms, 52MB)
+테스트 7 〉	통과 (14.80ms, 43.2MB)
+테스트 8 〉	통과 (9.42ms, 41.9MB)
+테스트 9 〉	통과 (8.31ms, 41.5MB)
+테스트 10 〉	통과 (5.59ms, 74.9MB)
+테스트 11 〉	통과 (0.37ms, 30MB)
+테스트 12 〉	통과 (0.42ms, 30MB)
+테스트 13 〉	통과 (12.68ms, 41.9MB)
+테스트 14 〉	통과 (19.76ms, 75.2MB)
+테스트 15 〉	통과 (29.82ms, 74.8MB)
+테스트 16 〉	통과 (21.68ms, 43.7MB)
+채점 결과
+정확성: 100.0
+합계: 100.0 / 100.0
+*/
+```
+
