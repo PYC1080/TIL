@@ -4,7 +4,7 @@
 >
 > [실습 참고 사이트](https://medium.com/@simionrazvan/microservices-using-jhipster-kubernetes-istio-bf75e992612a)
 
-## 0. 사전 설정
+## 0. 사전 설정 
 
 ### 1) 설치
 
