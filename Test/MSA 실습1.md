@@ -1,6 +1,6 @@
 # MSA 실습1
 
-> JHIpster, K8s, Istio
+> JHIpster, K8s, Istio 
 >
 > [실습 참고 사이트](https://medium.com/@simionrazvan/microservices-using-jhipster-kubernetes-istio-bf75e992612a)
 
