@@ -1,6 +1,6 @@
 # JavaScript - 정규표현식
 
-## 1. Intro
+## 1. Intro 
 
 ```
 정규 표현식은 문자열에 나타난 특정 문자 조합과 대응시키기 위해 사용되는 패턴이다. 자바스크립트에서는 정규표현식도 객체로 분류된다. 해당 패턴들은 RegExp의 exec메소드와 test메소드 그리고 String의 match메소드, replace 메소드, search 메소드, split 메소드와 함께 쓰인다.
