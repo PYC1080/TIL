@@ -106,6 +106,8 @@
 
 ## 4. Implicit, Explicit, Nominal, Structuring and Duck Typing
 
+> [33 concepts of JS - 암묵적 타입 변환](https://velog.io/@jakeseo_me/%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8-%EA%B0%9C%EB%B0%9C%EC%9E%90%EB%9D%BC%EB%A9%B4-%EC%95%8C%EC%95%84%EC%95%BC-%ED%95%A0-33%EA%B0%80%EC%A7%80-%EA%B0%9C%EB%85%90-4-%EC%95%94%EB%AC%B5%EC%A0%81-%ED%83%80%EC%9E%85-%EB%B3%80%ED%99%98-%EB%B2%88%EC%97%AD)
+
 ### 1) 암묵적 타입 변환 , implicit coercion
 
 ```
@@ -153,11 +155,49 @@
 
 ## 5. == vs. === vs. typeof
 
+> [33 concepts of JS - ==vs ===](https://velog.io/@jakeseo_me/%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8-%EA%B0%9C%EB%B0%9C%EC%9E%90%EB%9D%BC%EB%A9%B4-%EC%95%8C%EC%95%84%EC%95%BC-%ED%95%A0-33%EA%B0%80%EC%A7%80-%EA%B0%9C%EB%85%90-5-vs-3%EB%B6%84%EB%A7%8C%EC%97%90-%EB%B0%B0%EC%9A%B0%EA%B8%B0-%EB%B2%88%EC%97%AD)
 
+```
+1. == : 느슨한 동등 비교, 강제 형변환을 수행 한 후 값 비교를 한다.
+
+2. === : 엄격한 동등 비교, 강제 형변환을 수행하지만 값 비교와 함께 타입도 비교한다.
+```
 
 ## 6. Function Scope, Block Scope and Lexical Scope
 
+> [33 concepts of JS - Scope](https://velog.io/@jakeseo_me/%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8-%EA%B0%9C%EB%B0%9C%EC%9E%90%EB%9D%BC%EB%A9%B4-%EC%95%8C%EC%95%84%EC%95%BC-%ED%95%A0-33%EA%B0%80%EC%A7%80-%EA%B0%9C%EB%85%90-6-%ED%95%A8%EC%88%98%EC%99%80-%EB%B8%94%EB%A1%9D-%EC%8A%A4%EC%BD%94%ED%94%84-%EB%B2%88%EC%97%AD-dijuhrub1x)
 
+### 1) 스코프, Scope
+
+> 어떤 변수에 접근할 수 있는지를 정의하는 구역
+
+```
+1. 전역 스코프, Global Scope : 모든 함수에 속하지 않고 {} 안에 들어있지도 않다면 우리는 그 변수를 전역 변수라 한다. 전역 변수를 선언하면 자바스크립트 코드 어디에서든 불러 쓸 수 있다.하지만 해당 변수 두개 이상의 변수들이 같은 이름을 가지게 되면 네이밍 충돌이 발생할 확률이 있기 때문에 전역 변수에서는 변수 선언을 하지 않는 것이 권장된다.
+
+2. 지역 스코프, Local Scope : 코드 내 특정 구역에서만 사용할 수 있는 변수를 지역변수라고 한다.
+	1) 함수 스코프, function scope : 함수 내에서 변수를 선언했을 때, 함수 안에서만 해당 변수에 접근할 수 있는 스코프
+	2) 블록 스코프, block scope : 변수를 {}안에 const나 let 키워드를 선언햇을 때, {} 안에서만 해당 변수에 접근할 수 있다
+	
+3. 내부 스코프, Nested Scope : 함수가 다른 함수 안에서 만들어졌고 안쪽 함수는 바깥 함수의 변수에 접근이 가능하다. 이러한 것을 어휘적 스코프(lexical scoping)라 한다. 하지만 바깥 함수에게는 안쪽 함수의 변수에 접근할 권한이 주어지지 않는다.
+```
+
+### 2) 함수 호이스팅, hoisting
+
+```
+1. function 키워드와 함께 선언된 함수들은 항상 현재 스코프의 가장 위로 호이스팅 된다.
+
+2. 함수 표현식으로 작성된 변수들은 현재 스코프의 가장 위로 호이스팅 되지 않는다.
+```
+
+### 3) 클로져, Closure
+
+```
+1. 클로져 : 안쪽 함수가 바깥 함수의 변수에 접근할 수 있다는 점을 이용해 바깥 함수의 변수들을 사용할 수 있다.
+
+2. 클로져를 사용하는 이유
+	1) 사이드 이펙트(side effects, 어떤 함수 내에서 자신의 스코프가 아닌 변수들을 제어하는 것)를 제어하기 위해서 클로져를 사용한다
+	2) private 변수를 만들기 위해서 클로저를 사용한다
+```
 
 ## 7. Expression vs Statement
 
